@@ -1,0 +1,33 @@
+Known Bugs:
+
+- Space bar currently advances the level (used for developers to test levels).
+
+- "Freeze Time" ability is not consistent. The first time the ability is used, the game is frozen the longest. Each subsequent freeze is shorter in duration, but they are all supposed
+to be of the same length.
+
+- Levels show 2-11, then boss, etc... as opposed to 1-10, then boss, then 11-20, then boss again.
+
+- There is no proper end game, as the last boss lasts indefinitely.
+
+- Pressing enter when the user does not have an ability that uses enter throws an error.
+
+- Freezing the screen when EnemyBurst is on the screen freezes just the burst, not the flashing warnings.
+
+- Enemies do not get cleared until after a level is beat. While the level is still going on, enemies that appear gone actually exist, they are just off the screen.
+
+
+Other Improvements:
+
+- Multiple places where Images are stored in the classpath... there only needs to be one directory of Images.
+
+- Code is often reused in places, which indicates that functions should be used instead.
+
+- There are plenty of variables that are never used, yet are initialized.
+
+- The logic for the level spawning is a bit "hackish" and can definitely be refined.
+
+- Graphics2D work is minimal and can be improved.
+
+- There is only one game mode, but the game supports up to four!
+
+- "Pickups" have not yet been implemented, which are small Images that appear randomly that give the user a temporary health increase, temporary speed boost, etc...
