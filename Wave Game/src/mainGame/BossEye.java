@@ -12,7 +12,7 @@ import java.util.Random;
 
 /**
  * The last boss in the game, shown in a 3x3 grid of 9 instances of BossEye
- * 
+ *
  * @author Brandon Loehle 5/30/16
  *
  */
