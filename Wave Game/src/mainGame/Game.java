@@ -2,8 +2,12 @@ package mainGame;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+
+import javax.swing.JFrame;
 
 /**
  * Main game class. This class is the driver class and it follows the Holder
@@ -15,7 +19,10 @@ import java.awt.image.BufferStrategy;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-
+	//using the imported tool api, Java automatically gets screen width and height to dynamically adjust
+	//Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	//double width = screenSize.getWidth();
+	//double height = screenSize.getHeight();
 	public static final int WIDTH = 1920, HEIGHT = 1080;
 	private Thread thread;
 	private boolean running = false;
@@ -203,7 +210,6 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public static void main(String[] args) {
-
 		new Game();
 	}
 
