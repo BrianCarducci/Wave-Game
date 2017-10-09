@@ -144,7 +144,7 @@ public class Menu {
 			g.drawString("Help", 900, 70);
 
 			g.setFont(font2);
-			g.drawString("Waves: Simply use WASD to avoid enemies. Once you avoid" + " \n"
+			g.drawString("Controls: Use WASD or Arrow Keys To Move." + " \n"
 					+ "them long enough, a new batch will spawn in! Defeat each boss to win!", 40, 200);
 
 			g.setFont(font2);

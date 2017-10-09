@@ -2,6 +2,7 @@ package mainGame;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
@@ -20,13 +21,10 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	//using the imported tool api, Java automatically gets screen width and height to dynamically adjust
-	//Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	//double width = screenSize.getWidth();
-	//double height = screenSize.getHeight();
-	public static final int WIDTH = 1920, HEIGHT = 1080;
+	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static final int WIDTH = (int)screenSize.getWidth(), HEIGHT = (int) screenSize.getHeight();
 	private Thread thread;
 	private boolean running = false;
-
 	private Handler handler;
 	private HUD hud;
 	private Spawn1to10 spawner;
@@ -211,6 +209,7 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		new Game();
+		System.out.println("Screensize:" + screenSize);
 	}
 
 }
