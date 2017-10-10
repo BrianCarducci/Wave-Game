@@ -20,6 +20,8 @@ public class HUD {
 
 	private int score = 00000000000;
 	private int level = 0;
+	private String boss = "";
+	private boolean isBoss = false;
 
 	private boolean regen = false;
 	private int timer = 60;
@@ -64,7 +66,16 @@ public class HUD {
 		g.setFont(font);
 
 		g.drawString("Score: " + score, 15, 115);
+		
+		if (isBoss == false) {
+			
 		g.drawString("Level: " + level, 15, 150);
+			
+		} else {
+			
+			g.drawString("Level: " + boss, 15, 150);
+		}
+		
 		g.drawString("Extra Lives: " + extraLives, 15, 185);
 
 		if (ability.equals("freezeTime")) {
@@ -106,6 +117,14 @@ public class HUD {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	
+	public void setBossLevel(String boss){
+		this.boss = boss;
+	}
+	
+	public void setBoss(boolean isBoss){
+		this.isBoss = isBoss;
 	}
 
 	public void setHealth(int health) {

@@ -370,12 +370,15 @@ public class Spawn1to10 {
 			if (tempCounter < 1) {
 				handler.addObject(new EnemyBoss(ID.EnemyBoss, handler));
 				tempCounter++;
+				hud.setBossLevel("Boss One");
+				hud.setBoss(true);
 			} else if (tempCounter >= 1) {
 				for (int i = 0; i < handler.object.size(); i++) {
 					GameObject tempObject = handler.object.get(i);
 					if (tempObject.getId() == ID.EnemyBoss) {
 						if (tempObject.getHealth() <= 0) {
 							handler.removeObject(tempObject);
+							hud.setBoss(false);
 							LEVEL_SET++;
 							game.gameState = STATE.Upgrade;
 						}
