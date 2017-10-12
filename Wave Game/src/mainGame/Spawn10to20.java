@@ -360,6 +360,8 @@ public class Spawn10to20 {
 				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
 				handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
 				tempCounter++;
+				hud.setBossLevel("Boss Two");
+				hud.setBoss(true);
 			}
 
 			if (levelTimer == 0) {
