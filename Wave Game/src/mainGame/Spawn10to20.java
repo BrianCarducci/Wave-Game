@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * This class closely resembles Spawn1to10. Please refer to that class for
  * documentation
- * 
+ *
  * @author Brandon Loehle 5/30/16
  *
  */
@@ -347,21 +347,28 @@ public class Spawn10to20 {
 		}
 
 		else if (levelNumber == 101) {
+			levelTimer--;
 			if (tempCounter < 1) {
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 1));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 2));
-				handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 3));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
+				levelTimer = 2000;
+				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT - 150, ID.BossEye, handler, 1));
+				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT - 150, ID.BossEye, handler, 2));
+				handler.addObject(new BossEye(50, Game.HEIGHT - 150, ID.BossEye, handler, 3));
+				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
 				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
-				handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 6));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 7));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 8));
-				handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 9));
+				handler.addObject(new BossEye(50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 6));
+				handler.addObject(new BossEye(Game.WIDTH - 150, 50, ID.BossEye, handler, 7));
+				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
+				handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
 				tempCounter++;
-				hud.setBossLevel("Boss Two");
-				hud.setBoss(true);
 			}
 
+			if (levelTimer == 0) {
+				GameObject tempObject = handler.object.get(1);
+				if (tempObject.getId() == ID.BossEye) {
+					handler.removeObject(tempObject);
+					levelTimer +=200;
+				}
+			}
 		}
 		// WINNER
 		// else if(levelNumber){
