@@ -1,5 +1,7 @@
 package mainGame;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -25,6 +27,8 @@ public class MouseListener extends MouseAdapter {
 	private Upgrades upgrades;
 	private Player player;
 	private String upgradeText;
+	private double width;
+	private double height;
 
 	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to10 spawner, Spawn10to20 spawner2,
 			UpgradeScreen upgradeScreen, Player player, Upgrades upgrades) {
@@ -36,12 +40,16 @@ public class MouseListener extends MouseAdapter {
 		this.upgradeScreen = upgradeScreen;
 		this.player = player;
 		this.upgrades = upgrades;
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		width = (double) screenSize.getWidth();
+		height = (double) screenSize.getHeight();
 	}
 
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
 
+		//mouselistener that checks if the game state is gameover and resets variables on restart
 		if (game.gameState == STATE.GameOver) {
 			handler.object.clear();
 			upgrades.resetUpgrades();
@@ -52,6 +60,7 @@ public class MouseListener extends MouseAdapter {
 			spawner.addLevels();
 			spawner2.restart();
 			spawner2.addLevels();
+			player = new Player(width / 2 - 32, height/ 2 - 32, ID.Player, handler, this.hud, game);
 			Spawn1to10.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
 		}

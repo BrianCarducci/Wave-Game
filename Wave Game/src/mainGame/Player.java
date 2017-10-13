@@ -120,5 +120,7 @@ public class Player extends GameObject {
 		this.playerWidth = size;
 		this.playerHeight = size;
 	}
+	
+
 
 }
