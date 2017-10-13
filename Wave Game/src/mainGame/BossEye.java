@@ -24,13 +24,18 @@ public class BossEye extends GameObject {
 	private float alpha = 0;
 	private double life = 0.005;
 	private int tempCounter = 0;
-	private int timer;
+	private int tempCounter2 = 2;
+	private int timerA;
+	private int timerB;
 	private int spawnOrder = 1;// make them begin moving from left to right, top to bottom
 	private int placement;// where they are in the 3x3 grid of eyes
 	private double speed;
 	private double[] speedTypes = { -5, -6, -7, -8, -9 };
 	private GameObject player;
 	private Handler handler;
+	private int max = 5;
+	private int min = -5;
+	private Color color = Color.red;
 
 	public BossEye(double x, double y, ID id, Handler handler, int placement) {
 		super(x, y, id);
@@ -40,7 +45,8 @@ public class BossEye extends GameObject {
 		this.speed = speedTypes[r.nextInt(4)];
 		this.handler = handler;
 		this.placement = placement;
-		this.timer = 200;
+		this.timerA = 200;
+		this.timerB = 0;
 	}
 
 	public void tick() {
@@ -82,11 +88,26 @@ public class BossEye extends GameObject {
 	}
 
 	public void spawn() {
-		timer--;
-		if (timer == 0) {
+		timerA--;
+		timerB++;
+		if (timerA == 0) {
 			this.spawnOrder++;
-			timer = 200;
+			timerA = 100;
 		}
+
+		if (timerB == 1000) {
+			this.speed-=2;
+		}
+		if (timerB == 2025) {
+			GameObject tempObject = this;
+			if (this.placement == tempCounter2) {
+				sparks(tempObject);
+			}
+
+			tempCounter2 ++;
+			timerB -= 200;
+		}
+
 	}
 
 	public void attackPlayer() {
@@ -133,6 +154,35 @@ public class BossEye extends GameObject {
 		}
 		return image;
 
+	}
+
+	public void sparks(GameObject tempObject) {// when the big circle breaks into a bunch of smaller ones
+		for (int ii = 0; ii < 3; ii++) {
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), -5,
+					this.color, ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), -4,
+					this.color, ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), -3,
+					this.color, ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), -2,
+					this.color, ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), -1,
+					this.color, ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt(4) + 1), 0, this.color,
+					ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, -(r.nextInt(4) + 1), 0, this.color,
+					ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), 1,
+					this.color, ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), 2,
+					this.color, ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), 3,
+					this.color, ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), 4,
+					this.color, ID.FireworkSpark, handler));
+			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), 5,
+					this.color, ID.FireworkSpark, handler));
+		}
 	}
 
 }

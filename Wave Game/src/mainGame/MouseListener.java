@@ -63,6 +63,7 @@ public class MouseListener extends MouseAdapter {
 			player = new Player(width / 2 - 32, height/ 2 - 32, ID.Player, handler, this.hud, game);
 			Spawn1to10.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
+			hud.setBoss(false);
 		}
 
 		else if (game.gameState == STATE.Game) {

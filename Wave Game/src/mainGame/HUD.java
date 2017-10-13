@@ -119,8 +119,16 @@ public class HUD {
 		this.level = level;
 	}
 	
+	public String getBossLevel(){
+		return boss;
+	}
+	
 	public void setBossLevel(String boss){
 		this.boss = boss;
+	}
+	
+	public boolean getBoss(){
+		return isBoss;
 	}
 	
 	public void setBoss(boolean isBoss){
