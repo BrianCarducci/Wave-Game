@@ -1,9 +1,7 @@
 package mainGame;
-
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 
 /**
@@ -27,7 +25,6 @@ public class Window extends Canvas{
 		frame.setMinimumSize(new Dimension(width, height));
 		//packs the frame based on the users monitor
 		frame.pack();
-		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
 		frame.setLocationRelativeTo(null);

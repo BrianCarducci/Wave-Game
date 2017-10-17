@@ -2,7 +2,6 @@ package mainGame;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import mainGame.Game.STATE;
 
 /**
@@ -19,17 +18,18 @@ public class KeyInput extends KeyAdapter {
 	private int speed;
 	private Game game;
 	private HUD hud;
-	private Player player;
+	private Player player,player2;
 	private Spawn1to10 spawner;
 	private Upgrades upgrades;
 	private String ability;
 
 	// uses current handler created in Game as parameter
-	public KeyInput(Handler handler, Game game, HUD hud, Player player, Spawn1to10 spawner, Upgrades upgrades) {
+	public KeyInput(Handler handler, Game game, HUD hud, Player player, Player player2, Spawn1to10 spawner, Upgrades upgrades) {
 		this.handler = handler;
 		this.speed = Player.playerSpeed;
 		this.game = game;
 		this.player = player;
+		this.player2 = player2;
 		this.hud = hud;
 		this.spawner = spawner;
 		this.upgrades = upgrades;
@@ -48,40 +48,80 @@ public class KeyInput extends KeyAdapter {
 		// finds what key strokes associate with Player
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
-
-			// using only if's allows multiple keys to be triggered at once
-			if (tempObject.getId() == ID.Player) {// find the player object, as he is the only one the user can control
-				// key events for player 1
-				if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
-					tempObject.setVelY(-(this.speed));
-					keyDown[0] = true;
-				}
-				if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
-					tempObject.setVelX(-(this.speed));
-					keyDown[1] = true;
-				}
-				if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
-					tempObject.setVelY(this.speed);
-					keyDown[2] = true;
-				}
-				if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
-					tempObject.setVelX(this.speed);
-					keyDown[3] = true;
-				}
-				if (key == KeyEvent.VK_SPACE) {
-					upgrades.levelSkipAbility();
-				}
-				if (key == KeyEvent.VK_ENTER) {
-					ability = upgrades.getAbility();
-					if (ability.equals("clearScreen")) {
-						upgrades.clearScreenAbility();
-					} else if (ability.equals("levelSkip")) {
+			if (game.gameState != STATE.Coop) {
+				// using only if's allows multiple keys to be triggered at once
+				if (tempObject.getId() == ID.Player) {// find the player object, as he is the only one the user can control
+					// key events for player 1
+					if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) {
+						tempObject.setVelY(-(this.speed));
+						keyDown[0] = true;
+					}
+					if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
+						tempObject.setVelX(-(this.speed));
+						keyDown[1] = true;
+					}
+					if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
+						tempObject.setVelY(this.speed);
+						keyDown[2] = true;
+					}
+					if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
+						tempObject.setVelX(this.speed);
+						keyDown[3] = true;
+					}
+					if (key == KeyEvent.VK_SPACE) {
 						upgrades.levelSkipAbility();
-					} else if (ability.equals("freezeTime")) {
-						upgrades.freezeTimeAbility();
+					}
+					if (key == KeyEvent.VK_ENTER) {
+						ability = upgrades.getAbility();
+						if (ability.equals("clearScreen")) {
+							upgrades.clearScreenAbility();
+						} else if (ability.equals("levelSkip")) {
+							upgrades.levelSkipAbility();
+						} else if (ability.equals("freezeTime")) {
+							upgrades.freezeTimeAbility();
+						}
 					}
 				}
-
+			}
+			//if coop then assign the keys to different values
+			else {
+				if (tempObject.getId() == ID.Player) {// find the player object, as he is the only one the user can control
+					// key events for player 1
+					if (key == KeyEvent.VK_W) {
+						tempObject.setVelY(-(this.speed));
+						keyDown[0] = true;
+					}
+					if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) {
+						tempObject.setVelX(-(this.speed));
+						keyDown[1] = true;
+					}
+					if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) {
+						tempObject.setVelY(this.speed);
+						keyDown[2] = true;
+					}
+					if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) {
+						tempObject.setVelX(this.speed);
+						keyDown[3] = true;
+					}
+					if (key == KeyEvent.VK_SPACE) {
+						upgrades.levelSkipAbility();
+					}
+					if (key == KeyEvent.VK_ENTER) {
+						ability = upgrades.getAbility();
+						if (ability.equals("clearScreen")) {
+							upgrades.clearScreenAbility();
+						} else if (ability.equals("levelSkip")) {
+							upgrades.levelSkipAbility();
+						} else if (ability.equals("freezeTime")) {
+							upgrades.freezeTimeAbility();
+						}
+					}	
+				}
+				else if(tempObject.getId() == ID.player2 ){
+					if (key == KeyEvent.VK_UP) {
+						
+					}
+				}
 			}
 
 		}

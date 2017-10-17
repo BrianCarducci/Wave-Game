@@ -34,7 +34,7 @@ public class Game extends Canvas implements Runnable {
 	private UpgradeScreen upgradeScreen;
 	private MouseListener mouseListener;
 	private Upgrades upgrades;
-	private Player player;
+	private Player player,player2;
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
 
@@ -42,26 +42,27 @@ public class Game extends Canvas implements Runnable {
 	 * Used to switch between each of the screens shown to the user
 	 */
 	public enum STATE {
-		Menu, Help, Game, GameOver, Upgrade,
+		Menu, Help, Game, GameOver, Upgrade, Coop
 	};
 
 	/**
 	 * Initialize the core mechanics of the game
 	 */
 	public Game() {
-		handler = new Handler();
-		hud = new HUD();
-		spawner = new Spawn1to10(this.handler, this.hud, this);
-		spawner2 = new Spawn10to20(this.handler, this.hud, this.spawner, this);
-		menu = new Menu(this, this.handler, this.hud, this.spawner);
+		handler 	  = new Handler();
+		hud 		  = new HUD();
+		spawner 	  = new Spawn1to10(this.handler, this.hud, this);
+		spawner2 	  = new Spawn10to20(this.handler, this.hud, this.spawner, this);
+		menu 		  = new Menu(this, this.handler, this.hud, this.spawner);
 		upgradeScreen = new UpgradeScreen(this, this.handler, this.hud);
-		player = new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, this.hud, this);
-		upgrades = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner,
+		player 		  = new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, this.hud, this);
+		player2 	  = new Player(WIDTH / 2 - 100, HEIGHT / 2 - 32, ID.Player, handler, this.hud, this);
+		upgrades 	  = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner,
 				this.spawner2);
 		gameOver = new GameOver(this, this.handler, this.hud);
 		mouseListener = new MouseListener(this, this.handler, this.hud, this.spawner, this.spawner2, this.upgradeScreen,
-				this.player, this.upgrades);
-		this.addKeyListener(new KeyInput(this.handler, this, this.hud, this.player, this.spawner, this.upgrades));
+				this.player,this.player2, this.upgrades);
+		this.addKeyListener(new KeyInput(this.handler, this, this.hud, this.player,this.player2, this.spawner, this.upgrades));
 		this.addMouseListener(mouseListener);
 		new Window((int) WIDTH, (int) HEIGHT, "Wave Game", this);
 	}
@@ -135,6 +136,16 @@ public class Game extends Canvas implements Runnable {
 			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
 				spawner2.tick();
 			}
+			
+		//changes game state to different game mode for coop
+		else if(gameState == STATE.Coop){
+			hud.tick();
+			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10, update them
+				spawner.tick();
+			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
+				spawner2.tick();
+			}
+		}
 		} else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is on menu, update the menu items
 			menu.tick();
 		} else if (gameState == STATE.Upgrade) {// user is on upgrade screen, update the upgrade screen
@@ -212,3 +223,4 @@ public class Game extends Canvas implements Runnable {
 	}
 
 }
+

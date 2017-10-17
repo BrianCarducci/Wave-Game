@@ -25,21 +25,38 @@ public class MouseListener extends MouseAdapter {
 	private Spawn10to20 spawner2;
 	private UpgradeScreen upgradeScreen;
 	private Upgrades upgrades;
-	private Player player;
+	private Player player, player2;
 	private String upgradeText;
 	private double width;
 	private double height;
 
+	//this constructor not really necessary but I am leaving it just in case
 	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to10 spawner, Spawn10to20 spawner2,
 			UpgradeScreen upgradeScreen, Player player, Upgrades upgrades) {
-		this.game = game;
-		this.handler = handler;
-		this.hud = hud;
-		this.spawner = spawner;
-		this.spawner2 = spawner2;
-		this.upgradeScreen = upgradeScreen;
-		this.player = player;
-		this.upgrades = upgrades;
+		this.game 			= game;
+		this.handler 		= handler;
+		this.hud 			= hud;
+		this.spawner 		= spawner;
+		this.spawner2 		= spawner2;
+		this.upgradeScreen 	= upgradeScreen;
+		this.player 		= player;
+		this.upgrades 		= upgrades;
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		width = (double) screenSize.getWidth();
+		height = (double) screenSize.getHeight();
+	}
+	//added second constructor in case of multiplayer
+	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to10 spawner, Spawn10to20 spawner2,
+			UpgradeScreen upgradeScreen, Player player, Player player2, Upgrades upgrades) {
+		this.game 			= game;
+		this.handler 		= handler;
+		this.hud 			= hud;
+		this.spawner 		= spawner;
+		this.spawner2 		= spawner2;
+		this.upgradeScreen 	= upgradeScreen;
+		this.player 		= player;
+		this.player2 		= player2;
+		this.upgrades 		= upgrades;
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		width = (double) screenSize.getWidth();
 		height = (double) screenSize.getHeight();
@@ -107,6 +124,13 @@ public class MouseListener extends MouseAdapter {
 				handler.addObject(player);
 				// handler.addPickup(new PickupHealth(100, 100, ID.PickupHealth,
 				// "images/PickupHealth.png", handler));
+			}
+			//multiplayer coop button
+			else if(mouseOver(mx,my,990,635,400,400)) {
+				handler.object.clear();
+				game.gameState = STATE.Coop;
+				handler.addObject(player);
+				handler.addObject(player2);
 			}
 
 			// Help Button
