@@ -1,5 +1,10 @@
 package mainGame;
 
+import java.io.*;
+import java.net.URL;
+
+import javax.sound.sampled.*;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
@@ -37,6 +42,8 @@ public class Game extends Canvas implements Runnable {
 	private Player player;
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
+	
+	Sound sound = new Sound();
 
 	/**
 	 * Used to switch between each of the screens shown to the user
@@ -74,6 +81,7 @@ public class Game extends Canvas implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 		running = true;
+		
 	}
 
 	public synchronized void stop() {
@@ -208,7 +216,22 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		new Game();
+		
+		//Screen size debug printout
 		System.out.println("Screensize: " + screenSize);
+		
+		//Plays background noise; 1st parameter = sound file 2nd = amount you want to play
+		try {
+			//large number chosen so it will never stop playing in background
+			System.out.println("Background music started");
+			Sound.playSound("Sound/neonDrive.wav", 1000000);
+			
+			
+			//Use catch block or sound file will not play
+		} catch (InterruptedException | UnsupportedAudioFileException
+				| LineUnavailableException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -91,7 +91,7 @@ public class Menu {
 
 			g.setFont(font);
 			g.setColor(Color.white);
-			g.drawString("Loehle's Sandbox", 75, 100);
+			g.drawString("Wave Game", 75, 100);
 
 			g.setColor(Color.white);
 			g.drawRect(990, 135, 400, 400);
@@ -149,8 +149,8 @@ public class Menu {
 
 			g.setFont(font2);
 			g.setColor(Color.white);
-			g.drawRect(850, 300, 200, 64);
-			g.drawString("Back", 920, 340);
+			g.drawRect((game.HEIGHT / 2) + 400, (game.WIDTH / 2) - 400, 200, 64);
+			g.drawString("Back", (game.HEIGHT / 2) + 400, (game.WIDTH / 2) - 400);
 		}
 
 	}
