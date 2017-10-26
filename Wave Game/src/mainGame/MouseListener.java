@@ -21,6 +21,7 @@ public class MouseListener extends MouseAdapter {
 	private Game game;
 	private Handler handler;
 	private HUD hud;
+	private CoopHud hud2;
 	private Spawn1to10 spawner;
 	private Spawn10to20 spawner2;
 	private UpgradeScreen upgradeScreen;
@@ -46,11 +47,12 @@ public class MouseListener extends MouseAdapter {
 		height = (double) screenSize.getHeight();
 	}
 	//added second constructor in case of multiplayer
-	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to10 spawner, Spawn10to20 spawner2,
+	public MouseListener(Game game, Handler handler, HUD hud, CoopHud hud2, Spawn1to10 spawner, Spawn10to20 spawner2,
 			UpgradeScreen upgradeScreen, Player player, Player player2, Upgrades upgrades) {
 		this.game 			= game;
 		this.handler 		= handler;
 		this.hud 			= hud;
+		this.hud2			= hud2;
 		this.spawner 		= spawner;
 		this.spawner2 		= spawner2;
 		this.upgradeScreen 	= upgradeScreen;
@@ -73,11 +75,14 @@ public class MouseListener extends MouseAdapter {
 			hud.health = 100;
 			hud.setScore(0);
 			hud.setLevel(1);
+			hud2.health = 100;
+			hud2.setScore(0);
 			spawner.restart();
 			spawner.addLevels();
 			spawner2.restart();
 			spawner2.addLevels();
-			player = new Player(width / 2 - 32, height/ 2 - 32, ID.Player, handler, this.hud, game);
+			player 		= new Player(width / 2 - 32,  height / 2 - 32, ID.Player, handler, this.hud, this.hud2, game);
+			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.player2, handler, this.hud, this.hud2, game);
 			Spawn1to10.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
 			hud.setBoss(false);

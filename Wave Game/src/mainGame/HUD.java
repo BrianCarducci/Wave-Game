@@ -15,14 +15,11 @@ public class HUD {
 
 	public double health = 100;
 	private double healthMax = 100;
-
 	private double greenValue = 255;
-
 	private int score = 00000000000;
 	private int level = 0;
 	private String boss = "";
 	private boolean isBoss = false;
-
 	private boolean regen = false;
 	private int timer = 60;
 	private int healthBarWidth = 400;
@@ -30,20 +27,14 @@ public class HUD {
 	private boolean doubleHealth = false;
 	private String ability = "";
 	private int abilityUses;
-
 	private Color scoreColor = Color.white;
-
 	private int extraLives = 0;
-
+	
 	public void tick() {
 		health = Game.clamp(health, 0, health);
-
 		greenValue = Game.clamp(greenValue, 0, 255);
-
 		greenValue = health * healthBarModifier;
-
 		score++;
-
 		if (regen) {// regenerates health if that ability has been unlocked
 			timer--;
 			if (timer == 0 && health < 100) {
@@ -62,22 +53,14 @@ public class HUD {
 		g.fillRect((int) 15, (int) 15, (int) health * 4, 64);
 		g.setColor(scoreColor);
 		g.drawRect(15, 15, healthBarWidth, 64);
-
 		g.setFont(font);
-
 		g.drawString("Score: " + score, 15, 115);
-		
 		if (isBoss == false) {
-			
 		g.drawString("Level: " + level, 15, 150);
-			
 		} else {
-			
 			g.drawString("Level: " + boss, 15, 150);
 		}
-		
 		g.drawString("Extra Lives: " + extraLives, 15, 185);
-
 		if (ability.equals("freezeTime")) {
 			g.drawString("Time Freezes: " + abilityUses, Game.WIDTH - 300, 64);
 		} else if (ability.equals("clearScreen")) {

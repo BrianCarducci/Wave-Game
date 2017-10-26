@@ -31,7 +31,7 @@ public class BossEye extends GameObject {
 	private int placement;// where they are in the 3x3 grid of eyes
 	private double speed;
 	private double[] speedTypes = { -5, -6, -7, -8, -9 };
-	private GameObject player;
+	private GameObject player,player2;
 	private Handler handler;
 	private int max = 5;
 	private int min = -5;
@@ -47,6 +47,8 @@ public class BossEye extends GameObject {
 		this.placement = placement;
 		this.timerA = 200;
 		this.timerB = 0;
+		player = null;
+		player2 = null;
 	}
 
 	public void tick() {
@@ -58,6 +60,8 @@ public class BossEye extends GameObject {
 				for (int i = 0; i < handler.object.size(); i++) {
 					if (handler.object.get(i).getId() == ID.Player)
 						this.player = handler.object.get(i);
+					if (handler.object.get(i).getId() == ID.player2)
+						this.player2 = handler.object.get(i);
 				}
 			}
 		} else if (tempCounter == 1) {
@@ -111,7 +115,6 @@ public class BossEye extends GameObject {
 	}
 
 	public void attackPlayer() {
-		if (player != null) {
 			double diffY = (this.y - player.getY());
 			double diffX = (this.x - player.getX());
 			double distance = Math.sqrt(((this.x - this.player.getX()) * (this.x - this.player.getX()))
@@ -120,7 +123,26 @@ public class BossEye extends GameObject {
 			this.velY = (this.speed / distance) * diffY;
 			this.x += this.velX;
 			this.y += this.velY;
+		
+		if (player2 != null) {
+			double diffY2 = (this.y - player2.getY());
+			double diffX2 = (this.x - player2.getX());
+			double distance2 = Math.sqrt(((this.x - this.player2.getX()) * (this.x - this.player2.getX()))
+					+ ((this.y - this.player2.getY()) * (this.y - this.player2.getY())));
+			//change the enemy that is attacked in coop if one is closer than the other
+			if(distance < distance2) {
+				this.velX = (this.speed / distance) * diffX;
+				this.velY = (this.speed / distance) * diffY;
+				this.x += this.velX;
+				this.y += this.velY;
+			} else {
+				this.velX = (this.speed / distance2) * diffX2;
+				this.velY = (this.speed / distance2) * diffY2;
+				this.x += this.velX;
+				this.y += this.velY;
+			}
 		}
+		
 	}
 
 	public void render(Graphics g) {
