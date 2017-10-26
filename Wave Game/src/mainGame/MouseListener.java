@@ -67,6 +67,22 @@ public class MouseListener extends MouseAdapter {
 			game.gameState = STATE.Menu;
 			hud.setBoss(false);
 		}
+		
+		if (game.gameState == STATE.Victory) {
+			handler.object.clear();
+			upgrades.resetUpgrades();
+			hud.health = 100;
+			hud.setScore(0);
+			hud.setLevel(1);
+			spawner.restart();
+			spawner.addLevels();
+			spawner2.restart();
+			spawner2.addLevels();
+			player = new Player(width / 2 - 32, height/ 2 - 32, ID.Player, handler, this.hud, game);
+			Spawn1to10.LEVEL_SET = 1;
+			game.gameState = STATE.Menu;
+			hud.setBoss(false);
+		}
 
 		else if (game.gameState == STATE.Game) {
 

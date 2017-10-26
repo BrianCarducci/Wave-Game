@@ -17,6 +17,7 @@ public class HUD {
 	private double healthMax = 100;
 
 	private double greenValue = 255;
+	private double redValue = 0;
 
 	private int score = 00000000;
 	private int level = 0;
@@ -42,6 +43,8 @@ public class HUD {
 
 		greenValue = health * healthBarModifier;
 		
+		redValue = 255 - greenValue;
+		
 		score++;
 		
 		increaseLife();
@@ -60,7 +63,7 @@ public class HUD {
 
 		g.setColor(Color.GRAY);
 		g.fillRect(15, 15, healthBarWidth, 64);
-		g.setColor(new Color(75, (int) greenValue, 0));
+		g.setColor(new Color((int) redValue, (int) greenValue, 0));
 		g.fillRect((int) 15, (int) 15, (int) health * 4, 64);
 		g.setColor(scoreColor);
 		g.drawRect(15, 15, healthBarWidth, 64);

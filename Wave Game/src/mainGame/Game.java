@@ -36,6 +36,7 @@ public class Game extends Canvas implements Runnable {
 	private Spawn10to20 spawner2;
 	private Menu menu;
 	private GameOver gameOver;
+	private Victory victory;
 	private UpgradeScreen upgradeScreen;
 	private MouseListener mouseListener;
 	private Upgrades upgrades;
@@ -49,7 +50,7 @@ public class Game extends Canvas implements Runnable {
 	 * Used to switch between each of the screens shown to the user
 	 */
 	public enum STATE {
-		Menu, Help, Game, GameOver, Upgrade,
+		Menu, Help, Game, GameOver, Upgrade, Victory
 	};
 
 	/**
@@ -66,6 +67,7 @@ public class Game extends Canvas implements Runnable {
 		upgrades = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner,
 				this.spawner2);
 		gameOver = new GameOver(this, this.handler, this.hud);
+		victory = new Victory(this, this.handler, this.hud);
 		mouseListener = new MouseListener(this, this.handler, this.hud, this.spawner, this.spawner2, this.upgradeScreen,
 				this.player, this.upgrades);
 		this.addKeyListener(new KeyInput(this.handler, this, this.hud, this.player, this.spawner, this.upgrades));
@@ -149,6 +151,8 @@ public class Game extends Canvas implements Runnable {
 			upgradeScreen.tick();
 		} else if (gameState == STATE.GameOver) {// game is over, update the game over screen
 			gameOver.tick();
+		} else if (gameState == STATE.Victory) {// game is over, update the game over screen
+			victory.tick();
 		}
 
 	}
@@ -185,6 +189,8 @@ public class Game extends Canvas implements Runnable {
 			upgradeScreen.render(g);
 		} else if (gameState == STATE.GameOver) {// game is over, draw the game over screen
 			gameOver.render(g);
+		} else if (gameState == STATE.Victory) {// game is over, draw the game over screen
+			victory.render(g);
 		}
 
 		///////// Draw things above this//////////////

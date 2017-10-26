@@ -3,6 +3,8 @@ package mainGame;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mainGame.Game.STATE;
+
 /**
  * This class closely resembles Spawn1to10. Please refer to that class for
  * documentation
@@ -395,6 +397,11 @@ public class Spawn10to20 {
 					handler.pickups.clear();
 					handler.removeObject(tempObject);
 					levelTimer +=200;
+					tempObject = handler.object.get(1);
+					if (tempObject.getId() != ID.BossEye)
+					{
+						game.gameState = STATE.Victory;
+					}
 				}
 			}
 		}
