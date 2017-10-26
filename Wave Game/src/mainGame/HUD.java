@@ -18,7 +18,7 @@ public class HUD {
 
 	private double greenValue = 255;
 
-	private int score = 00000000000;
+	private int score = 00000000;
 	private int level = 0;
 	private String boss = "";
 	private boolean isBoss = false;
@@ -41,8 +41,10 @@ public class HUD {
 		greenValue = Game.clamp(greenValue, 0, 255);
 
 		greenValue = health * healthBarModifier;
-
+		
 		score++;
+		
+		increaseLife();
 
 		if (regen) {// regenerates health if that ability has been unlocked
 			timer--;
@@ -154,7 +156,15 @@ public class HUD {
 	public int getExtraLives() {
 		return this.extraLives;
 	}
+	
+	public int increaseLife() {
+		if (score % 500 == 0) {
+			setExtraLives(getExtraLives() + 1); 
+			}
+		return this.extraLives;
+		}
 
+	
 	public void healthIncrease() {
 		doubleHealth = true;
 		healthMax = 200;

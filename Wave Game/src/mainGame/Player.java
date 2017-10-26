@@ -24,9 +24,9 @@ public class Player extends GameObject {
 	private int damage;
 	private int playerWidth, playerHeight;
 	public static int playerSpeed = 10;
-
+	
+	
 	public Player(double x, double y, ID id, Handler handler, HUD hud, Game game) {
-		
 		super(x, y, id);
 		this.handler = handler;
 		this.hud = hud;
@@ -48,7 +48,6 @@ public class Player extends GameObject {
 
 		collision();
 		checkIfDead();
-
 	}
 
 	public void checkIfDead() {
