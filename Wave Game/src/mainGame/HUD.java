@@ -135,8 +135,8 @@ public class HUD {
 		this.isBoss = isBoss;
 	}
 
-	public void setHealth(int health) {
-		this.health = health;
+	public void setHealth(double d) {
+		this.health = d;
 	}
 
 	public void setRegen() {

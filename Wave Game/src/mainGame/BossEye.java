@@ -39,7 +39,7 @@ public class BossEye extends GameObject {
 
 	public BossEye(double x, double y, ID id, Handler handler, int placement) {
 		super(x, y, id);
-		this.img = getImage("images/bosseye.png");
+		this.img = getImage("images/KimImage.png");
 		this.velX = 0;
 		this.velY = 0;
 		this.speed = speedTypes[r.nextInt(4)];
@@ -130,7 +130,8 @@ public class BossEye extends GameObject {
 		}
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setComposite(makeTransparent(alpha));
-		g.drawImage(img, (int) this.x, (int) this.y, null);
+	//	g.drawImage(img, (int) this.x, (int) this.y, null);
+		g.drawImage(img, (int) this.x, (int) this.y, 100, 150, null);
 		g2d.setComposite(makeTransparent(1));
 	}
 
@@ -141,7 +142,7 @@ public class BossEye extends GameObject {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) this.x, (int) this.y, (int) this.img.getWidth(null), (int) this.img.getHeight(null));
+		return new Rectangle((int) this.x, (int) this.y, 100, 110);
 	}
 
 	public Image getImage(String path) {

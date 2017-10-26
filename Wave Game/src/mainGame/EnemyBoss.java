@@ -29,7 +29,7 @@ public class EnemyBoss extends GameObject {
 		this.handler = handler;
 		velX = 0;
 		velY = 2;
-		img = getImage("images/EnemyBoss.png");
+		img = getImage("images/CNNImage.png");
 		this.health = 1000;//full health is 1000
 	}
 
@@ -57,7 +57,7 @@ public class EnemyBoss extends GameObject {
 		}
 
 		// if (this.y <= 0 || this.y >= Game.HEIGHT - 40) velY *= -1;
-		if (this.x <= 0 || this.x >= Game.WIDTH - 96)
+		if (this.x <= 0 || this.x >= Game.WIDTH - 120)
 			velX *= -1;
 
 		// handler.addObject(new Trail(x, y, ID.Trail, Color.red, 96, 96, 0.025,
@@ -80,7 +80,7 @@ public class EnemyBoss extends GameObject {
 	public void render(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.drawLine(0, 138, Game.WIDTH, 138);
-		g.drawImage(img, (int) this.x, (int) this.y, 96, 96, null);
+		g.drawImage(img, (int) this.x, (int) this.y, 120, 120, null);
 
 		// HEALTH BAR
 		g.setColor(Color.GRAY);
@@ -94,7 +94,7 @@ public class EnemyBoss extends GameObject {
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle((int) this.x, (int) this.y, 96, 96);
+		return new Rectangle((int) this.x, (int) this.y, 120, 120);
 	}
 
 	// allows for grey line to be drawn, as well as first bullet shot
