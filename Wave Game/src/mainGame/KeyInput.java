@@ -22,7 +22,7 @@ public class KeyInput extends KeyAdapter {
 	private Player player;
 	private Spawn1to10 spawner;
 	private Upgrades upgrades;
-	private String ability;
+	private String ability = "";
 
 	// uses current handler created in Game as parameter
 	public KeyInput(Handler handler, Game game, HUD hud, Player player, Spawn1to10 spawner, Upgrades upgrades) {

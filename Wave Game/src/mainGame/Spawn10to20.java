@@ -42,6 +42,7 @@ public class Spawn10to20 {
 		addLevels();
 		index = r.nextInt(randomMax);
 		levelNumber = 0;
+		Player.playerSpeed = 10;
 	}
 
 	public void addLevels() {
@@ -63,6 +64,7 @@ public class Spawn10to20 {
 				handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2, "...but a little harder now",
 						ID.Levels1to10Text));
 				tempCounter++;
+				
 			}
 			if (levelTimer <= 0) {
 				handler.clearEnemies();
@@ -78,6 +80,11 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
+				
+				if (hud.health >= 50){
+					handler.addPickup(new PickupHealth2(ID.PickupHealth2, handler));
+				}
+				
 			}
 			if (timer == 0) {
 				handler.addObject(
@@ -104,6 +111,10 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
+				
+				if (hud.health <= 50){
+					handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
+				}
 			}
 			if (timer == 30) {
 				handler.addObject(
@@ -166,6 +177,7 @@ public class Spawn10to20 {
 						-30, ID.EnemyShooter, this.handler));
 				levelTimer = 1300;
 				tempCounter++;
+				handler.addPickup(new PickupSpeed2(ID.PickupSpeed2, handler));
 			}
 
 			if (levelTimer == 0) {
@@ -188,6 +200,7 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1400;
 				tempCounter++;
+				handler.addPickup(new PickupSpeed(ID.PickupSpeed, handler));
 			}
 			if (timer <= 0) {
 				handler.addObject(new EnemyBurst(-250, 250, 75, 75, 250, side[r.nextInt(4)], ID.EnemyBurst, handler));
@@ -240,6 +253,7 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
+				handler.addPickup(new PickupHealth2(ID.PickupHealth2, handler));
 			}
 			if (timer == 35) {
 				handler.addObject(
@@ -273,8 +287,10 @@ public class Spawn10to20 {
 			timer--;
 			levelTimer--;
 			if (tempCounter < 1) {
+				handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
 				levelTimer = 1000;
 				tempCounter++;
+				
 			}
 			if (timer == 0) {
 				handler.addObject(
@@ -324,6 +340,7 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1400;
 				tempCounter++;
+				handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
 			}
 			if (timer <= 0) {
 				handler.addObject(new EnemyBurst(-300, 300, 60, 60, 300, side[r.nextInt(4)], ID.EnemyBurst, handler));
@@ -350,16 +367,24 @@ public class Spawn10to20 {
 			levelTimer--;
 			if (tempCounter < 1) {
 				levelTimer = 2000;
-				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT - 150, ID.BossEye, handler, 1));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT - 150, ID.BossEye, handler, 2));
-				handler.addObject(new BossEye(50, Game.HEIGHT - 150, ID.BossEye, handler, 3));
+				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT - 200, ID.BossEye, handler, 1));
+				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT - 200, ID.BossEye, handler, 2));
+				handler.addObject(new BossEye(50, Game.HEIGHT - 200, ID.BossEye, handler, 3));
 				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
 				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
-				handler.addObject(new BossEye(50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 6));
+				handler.addObject(new BossEye(50, Game.HEIGHT / 2 - 120, ID.BossEye, handler, 6));
 				handler.addObject(new BossEye(Game.WIDTH - 150, 50, ID.BossEye, handler, 7));
 				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
 				handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
 				tempCounter++;
+				
+				if (hud.health <= 60){
+					
+					handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
+					
+				} else {
+					handler.addPickup(new PickupSpeed(ID.PickupSpeed, handler));
+				}
 				hud.setBossLevel("Boss Two");
 				hud.setBoss(true);
 			}
@@ -367,6 +392,7 @@ public class Spawn10to20 {
 			if (levelTimer == 0) {
 				GameObject tempObject = handler.object.get(1);
 				if (tempObject.getId() == ID.BossEye) {
+					handler.pickups.clear();
 					handler.removeObject(tempObject);
 					levelTimer +=200;
 				}
@@ -394,9 +420,12 @@ public class Spawn10to20 {
 
 	public void skipLevel() {
 		if (randomMax == 1) {
+			handler.pickups.clear();
 			tempCounter = 0;
 			levelNumber = 101;
 		} else if (randomMax > 1) {
+			handler.pickups.clear();
+			Player.playerSpeed = 10;
 			levels.remove(index);
 			randomMax--;
 			tempCounter = 0;

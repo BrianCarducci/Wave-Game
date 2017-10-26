@@ -6,26 +6,17 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.net.URL;
 
-import javax.swing.ImageIcon;
-
-/**
- * TO BE IMPLEMENTED - adds health to the player when they move over it
- * @author Brandon Loehle
- * 5/30/16
- *
- */
-
-public class PickupHealth extends Pickup{
+public class PickupSpeed2 extends Pickup{
 	
 	private Handler handler;
 
-	public PickupHealth(ID id, Handler handler) {
+	public PickupSpeed2(ID id, Handler handler) {
 		super(Math.random()*800, Math.random()*800, id);
 		this.handler = handler;
 		this.handler = handler;
 		velX = Math.random()*10;
 		velY = Math.random()*10;
-		img = getImage("images/PutinImage.png");
+		img = getImage("images/NFLImage.png");
 	}
 
 

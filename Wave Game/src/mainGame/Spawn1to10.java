@@ -1,7 +1,10 @@
 package mainGame;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 import mainGame.Game.STATE;
 
@@ -101,7 +104,7 @@ public class Spawn1to10 {
 																														// handles
 																														// all
 																														// game
-																														// objects
+				// objects
 				spawnTimer = 100;// reset the spawn timer
 			}
 			if (levelTimer == 0) {// level is over
@@ -121,6 +124,7 @@ public class Spawn1to10 {
 		} else if (levelNumber == 2) {
 			spawnTimer--;
 			levelTimer--;
+			
 			if (tempCounter < 1) {
 				levelTimer = 2000;
 				tempCounter++;
@@ -154,6 +158,7 @@ public class Spawn1to10 {
 				}
 			}
 		} else if (levelNumber == 3) {
+			
 			spawnTimer--;
 			levelTimer--;
 			if (tempCounter < 1) {
@@ -184,12 +189,20 @@ public class Spawn1to10 {
 			if (tempCounter < 1) {
 				handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 100, 100,
 						-20, ID.EnemyShooter, this.handler));
+				
+				if (hud.health <= 50){
+					handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
+				} else {
+					handler.addPickup(new PickupHealth2(ID.PickupHealth2, handler));
+				}
+				
 				levelTimer = 1300;
 				tempCounter++;
 			}
 
 			if (levelTimer == 0) {
 				handler.clearEnemies();
+				handler.pickups.clear();
 				hud.setLevel(hud.getLevel() + 1);
 				spawnTimer = 10;
 				tempCounter = 0;
@@ -234,6 +247,7 @@ public class Spawn1to10 {
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
+				handler.addPickup(new PickupSpeed2(ID.PickupSpeed2, handler));
 			}
 			if (spawnTimer == 0) {
 				handler.addObject(
@@ -241,6 +255,8 @@ public class Spawn1to10 {
 				spawnTimer = 50;
 			}
 			if (levelTimer == 0) {
+				handler.pickups.clear();
+				Player.playerSpeed = 10;
 				handler.clearEnemies();
 				hud.setLevel(hud.getLevel() + 1);
 				spawnTimer = 40;
@@ -322,6 +338,7 @@ public class Spawn1to10 {
 						-15, ID.EnemyShooter, this.handler));
 				levelTimer = 2500;
 				tempCounter++;
+				handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
 			}
 
 			if (levelTimer == 0) {
@@ -369,6 +386,11 @@ public class Spawn1to10 {
 		else if (levelNumber == 101) {// arbitrary number for the boss
 			if (tempCounter < 1) {
 				handler.addObject(new EnemyBoss(ID.EnemyBoss, handler));
+				
+				if (hud.health <= 50){
+					handler.addPickup(new PickupSpeed(ID.PickupSpeed, handler));
+				}
+				
 				tempCounter++;
 				hud.setBossLevel("Boss One");
 				hud.setBoss(true);
@@ -378,9 +400,11 @@ public class Spawn1to10 {
 					if (tempObject.getId() == ID.EnemyBoss) {
 						if (tempObject.getHealth() <= 0) {
 							handler.removeObject(tempObject);
+							handler.pickups.clear();
 							hud.setBoss(false);
 							LEVEL_SET++;
 							game.gameState = STATE.Upgrade;
+							Player.playerSpeed = 10;
 						}
 					}
 				}
@@ -392,9 +416,12 @@ public class Spawn1to10 {
 
 	public void skipLevel() {
 		if (levelsRemaining == 1) {
+			handler.pickups.clear();
 			tempCounter = 0;
 			levelNumber = 101;
 		} else if (levelsRemaining > 1) {
+			handler.pickups.clear();
+			Player.playerSpeed = 10;
 			levels.remove(index);
 			levelsRemaining--;
 			System.out.println(levelsRemaining);

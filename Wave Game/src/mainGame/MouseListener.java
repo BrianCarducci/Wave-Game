@@ -52,8 +52,10 @@ public class MouseListener extends MouseAdapter {
 		//mouselistener that checks if the game state is gameover and resets variables on restart
 		if (game.gameState == STATE.GameOver) {
 			handler.object.clear();
+			handler.pickups.clear();
 			upgrades.resetUpgrades();
 			hud.health = 100;
+			player.playerSpeed = 10;
 			hud.setScore(0);
 			hud.setLevel(1);
 			spawner.restart();

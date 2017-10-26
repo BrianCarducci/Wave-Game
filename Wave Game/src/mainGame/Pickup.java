@@ -21,13 +21,14 @@ public abstract class Pickup {
 	protected ID id;
 	protected String path;
 	protected Image img;
+	protected double velX, velY;
+	protected boolean isMoving;
+	protected int health;
 
-	public Pickup(double x, double y, ID id, String path) {
+	public Pickup(double x, double y, ID id) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
-		this.path = path;
-		this.img = setImg(this.path);
 
 	}
 
@@ -70,6 +71,25 @@ public abstract class Pickup {
 
 	public void setId(ID id) {
 		this.id = id;
+	}
+	public double getVelX() {
+		return velX;
+	}
+
+	public void setVelX(int velX) {
+		this.velX = velX;
+	}
+
+	public double getVelY() {
+		return velY;
+	}
+
+	public void setVelY(int velY) {
+		this.velY = velY;
+	}
+
+	public int getHealth() {
+		return this.health;
 	}
 
 }
