@@ -6,12 +6,13 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.net.URL;
 
+// implements speed increase via twitter logo
 public class PickupSpeed extends Pickup{
 	
 	private Handler handler;
 
 	public PickupSpeed(ID id, Handler handler) {
-		super(Math.random()*800, Math.random()*800, id);
+		super(Game.WIDTH*Math.random(), Game.HEIGHT*Math.random(), id);
 		this.handler = handler;
 		this.handler = handler;
 		velX = Math.random()*10;

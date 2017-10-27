@@ -59,7 +59,6 @@ public class Handler {
 		}
 		for (int i = 0; i < pickups.size(); i++) {
 			Pickup tempObject = pickups.get(i);
-
 			tempObject.render(g);
 		}
 	}

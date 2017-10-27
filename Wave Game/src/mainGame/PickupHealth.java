@@ -15,12 +15,13 @@ import javax.swing.ImageIcon;
  *
  */
 
+// implements health increase via Putin
 public class PickupHealth extends Pickup{
 	
 	private Handler handler;
 
 	public PickupHealth(ID id, Handler handler) {
-		super(Math.random()*800, Math.random()*800, id);
+		super(Game.WIDTH*Math.random(), Game.HEIGHT*Math.random(), id);
 		this.handler = handler;
 		this.handler = handler;
 		velX = Math.random()*10;

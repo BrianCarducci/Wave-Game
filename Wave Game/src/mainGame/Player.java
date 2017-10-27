@@ -114,11 +114,12 @@ public class Player extends GameObject {
 		}
 
 		// for loop that checks to see if player runs into pickup
-		// if player does, increase health, remove item from array
+		// if player does, affect player, remove item from array
 		for (int i = 0; i < handler.pickups.size(); i++) {
 			Pickup tempObject = handler.pickups.get(i);
 			if (tempObject.getId() == ID.PickupHealth) {
 				if (getBounds().intersects(tempObject.getBounds())) {
+					
 					if (hud.health >= 60) {
 						hud.setHealth(100);
 					} else {
