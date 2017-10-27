@@ -93,6 +93,7 @@ public class Spawn10to20 {
 			}
 			if (levelTimer == 0) {
 				handler.clearEnemies();
+				handler.pickups.clear();
 				hud.setLevel(hud.getLevel() + 1);
 				timer = 40;
 				tempCounter = 0;
@@ -133,6 +134,7 @@ public class Spawn10to20 {
 
 			if (levelTimer == 0) {
 				handler.clearEnemies();
+				handler.pickups.clear();
 				hud.setLevel(hud.getLevel() + 1);
 				tempCounter = 0;
 				if (randomMax == 1) {
@@ -182,6 +184,7 @@ public class Spawn10to20 {
 
 			if (levelTimer == 0) {
 				handler.clearEnemies();
+				handler.pickups.clear();
 				hud.setLevel(hud.getLevel() + 1);
 				timer = 10;
 				tempCounter = 0;
@@ -209,6 +212,7 @@ public class Spawn10to20 {
 
 			if (levelTimer == 0) {
 				handler.clearEnemies();
+				handler.pickups.clear();
 				hud.setLevel(hud.getLevel() + 1);
 				timer = 10;
 				tempCounter = 0;
@@ -272,6 +276,7 @@ public class Spawn10to20 {
 
 			if (levelTimer == 0) {
 				handler.clearEnemies();
+				handler.pickups.clear();
 				hud.setLevel(hud.getLevel() + 1);
 				tempCounter = 0;
 				if (randomMax == 1) {
@@ -299,6 +304,7 @@ public class Spawn10to20 {
 			}
 			if (levelTimer == 0) {
 				handler.clearEnemies();
+				handler.pickups.clear();
 				hud.setLevel(hud.getLevel() + 1);
 				timer = 10;
 				tempCounter = 0;
@@ -349,6 +355,7 @@ public class Spawn10to20 {
 
 			if (levelTimer == 0) {
 				handler.clearEnemies();
+				handler.pickups.clear();
 				hud.setLevel(hud.getLevel() + 1);
 				timer = 10;
 				tempCounter = 0;
