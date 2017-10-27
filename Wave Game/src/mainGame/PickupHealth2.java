@@ -6,12 +6,13 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.net.URL;
 
+// implements health decrease via Eminem
 public class PickupHealth2 extends Pickup{
 	
 	private Handler handler;
 
 	public PickupHealth2(ID id, Handler handler) {
-		super(Math.random()*800, Math.random()*800, id);
+		super(Game.WIDTH*Math.random(), Game.HEIGHT*Math.random(), id);
 		this.handler = handler;
 		this.handler = handler;
 		velX = Math.random()*10;
