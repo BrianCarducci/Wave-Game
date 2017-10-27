@@ -87,7 +87,7 @@ public class Player extends GameObject {
 						game.renderGameOver();
 						game.gameState = STATE.GameOver;
 					}
-				}else if (hud2.health <= 0) {
+				}if (hud2.health <= 0) {
 					if (hud2.getExtraLives() == 0) {
 						game.getGameOver().setWhoDied(2);
 						game.renderGameOver();
@@ -95,11 +95,11 @@ public class Player extends GameObject {
 					}
 				}
 
-				else if (hud.getExtraLives() > 0) {// has an extra life, game continues
+				if (hud.getExtraLives() > 0) {// has an extra life, game continues
 					hud.setExtraLives(hud.getExtraLives() - 1);
 					hud.setHealth(100);
 				}
-				else if (hud2.getExtraLives() > 0) {
+				if (hud2.getExtraLives() > 0) {
 					hud2.setExtraLives(hud2.getExtraLives() - 1);
 					hud2.setHealth(100);
 				}

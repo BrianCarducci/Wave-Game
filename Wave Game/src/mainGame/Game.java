@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 /**
  * Main game class. This class is the driver class and it follows the Holder
  * pattern. It houses references to ALL of the components of the game
- * 
+ *
  * @author Brandon Loehle 5/30/16
  */
 
@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
 	private Player player,player2;
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
-	
+
 	Sound sound = new Sound();
 
 	/**
@@ -73,7 +73,6 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseListener(mouseListener);
 		new Window((int) WIDTH, (int) HEIGHT, "Wave Game", this);
 	}
-
 	/**
 	 * The thread is simply a programs path of execution. This method ensures that
 	 * this thread starts properly.
@@ -82,7 +81,7 @@ public class Game extends Canvas implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 		running = true;
-		
+
 	}
 
 	public synchronized void stop() {
@@ -144,7 +143,7 @@ public class Game extends Canvas implements Runnable {
 			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
 				spawner2.tick();
 			}
-		} 
+		}
 		//changes game state to different game mode for coop
 		else if(gameState == STATE.Coop){
 			hud.tick();
@@ -195,7 +194,7 @@ public class Game extends Canvas implements Runnable {
 			hud.render(g);
 			hud2.render(g);
 		}
-		
+
 		else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is in help or the menu, draw the menu// and help objects
 			menu.render(g);
 		} else if (gameState == STATE.Upgrade) {// user is on the upgrade screen, draw the upgrade screen
@@ -210,10 +209,10 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/**
-	 * 
+	 *
 	 * Constantly checks bounds, makes sure players, enemies, and info doesn't leave
 	 * screen
-	 * 
+	 *
 	 * @param var
 	 *            x or y location of entity
 	 * @param min
@@ -233,24 +232,24 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		new Game();
-		
+
 		//Screen size debug printout
 		System.out.println("Screensize: " + screenSize);
-		
+
 		//Plays background noise; 1st parameter = sound file 2nd = amount you want to play
 		try {
 			//large number chosen so it will never stop playing in background
 			System.out.println("Background music started");
 			Sound.playSound("Sound/neonDrive.wav", 1000000);
-			
-			
+
+
 			//Use catch block or sound file will not play
 		} catch (InterruptedException | UnsupportedAudioFileException
 				| LineUnavailableException | IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void renderGameOver() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
@@ -265,7 +264,7 @@ public class Game extends Canvas implements Runnable {
 		g.fillRect(0, 0, (int) WIDTH, (int) HEIGHT);
 		gameOver.render(g);
 	}
-	
+
 	public GameOver getGameOver() {
 		return gameOver;
 	}
