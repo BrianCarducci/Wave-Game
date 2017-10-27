@@ -15,6 +15,7 @@ public class CoopHud {
 	public double health = 100;
 	private double healthMax = 100;
 	private double greenValue = 255;
+	private double redValue = 0;
 	private int score = 00000000000;
 	private int level = 0;
 	private String boss = "";
@@ -35,6 +36,7 @@ public class CoopHud {
 		greenValue = Game.clamp(greenValue, 0, 255);
 		greenValue = health * healthBarModifier;
 		score++;
+		increaseLife();
 		if (regen) {// regenerates health if that ability has been unlocked
 			timer--;
 			if (timer == 0 && health < 100) {
@@ -50,7 +52,7 @@ public class CoopHud {
 		Font font = new Font("Amoebic", 1, 30);
 		g.setColor(Color.GRAY);
 		g.fillRect(1485, 15, healthBarWidth, 64);
-		g.setColor(new Color(75, (int) greenValue, 0));
+		g.setColor(new Color((int) redValue, (int) greenValue, 0));
 		g.fillRect((int) 1485, (int) 15, (int) health * 4, 64);
 		g.setColor(scoreColor);
 		g.drawRect(1485, 15, healthBarWidth, 64);
@@ -136,6 +138,13 @@ public class CoopHud {
 	}
 
 	public int getExtraLives() {
+		return this.extraLives;
+	}
+	
+	public int increaseLife() {
+		if (score % 500 == 0) {
+			setExtraLives(getExtraLives() + 1); 
+			}
 		return this.extraLives;
 	}
 

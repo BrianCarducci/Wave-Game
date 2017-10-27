@@ -240,17 +240,13 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		new Game();
-		
 		//Screen size debug printout
 		System.out.println("Screensize: " + screenSize);
-		
 		//Plays background noise; 1st parameter = sound file 2nd = amount you want to play
 		try {
 			//large number chosen so it will never stop playing in background
 			System.out.println("Background music started");
 			Sound.playSound("Sound/neonDrive.wav", 1000000);
-			
-			
 			//Use catch block or sound file will not play
 		} catch (InterruptedException | UnsupportedAudioFileException
 				| LineUnavailableException | IOException e) {
@@ -265,9 +261,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-
 		///////// Draw things bellow this/////////////
-
 		g.setColor(Color.black);
 		g.fillRect(0, 0, (int) WIDTH, (int) HEIGHT);
 		gameOver.render(g);

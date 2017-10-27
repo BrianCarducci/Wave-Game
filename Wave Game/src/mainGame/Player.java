@@ -39,6 +39,7 @@ public class Player extends GameObject {
 		this.game 		= game;
 		this.damage 	= 2;
 		img = getImage("images/TrumpImage.png");
+		img = getImage("images/HillaryImage.png");
 		//playerWidth 	= 32;
 		//playerHeight 	= 32;
 
@@ -55,7 +56,6 @@ public class Player extends GameObject {
 		//handler.addObject(new Trail(x, y, ID.Trail, Color.white, playerWidth, playerHeight, 0.05, this.handler));
 
 		collision();
-		checkIfDead();
 		if (game.gameState == STATE.Game) 
 			checkIfDead();
 		if (game.gameState == STATE.Coop)

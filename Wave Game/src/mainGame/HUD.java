@@ -149,7 +149,7 @@ public class HUD {
 			}
 		return this.extraLives;
 		}
-
+		
 	
 	public void healthIncrease() {
 		doubleHealth = true;
