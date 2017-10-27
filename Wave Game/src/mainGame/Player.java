@@ -30,7 +30,6 @@ public class Player extends GameObject {
 	private int playerWidth, playerHeight;
 	public static int playerSpeed = 10;
 
-
 	public Player(double x, double y, ID id, Handler handler, HUD hud, CoopHud hud2, Game game) {
 
 		super(x, y, id);
@@ -58,10 +57,12 @@ public class Player extends GameObject {
 		//handler.addObject(new Trail(x, y, ID.Trail, Color.white, playerWidth, playerHeight, 0.05, this.handler));
 
 		collision();
+
 		if (game.gameState == STATE.Game)
 			checkIfDead();
 		if (game.gameState == STATE.Coop)
 			checkIfDeadCoop();
+
 	}
 
 	public void checkIfDead() {

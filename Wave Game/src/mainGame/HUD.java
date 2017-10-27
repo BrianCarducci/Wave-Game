@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 /**
  * The main Heads Up Display of the game
- * 
+ *
  * @author Brandon Loehle 5/30/16
  *
  */
@@ -16,7 +16,9 @@ public class HUD {
 	public double health = 100;
 	private double healthMax = 100;
 	private double greenValue = 255;
+
 	private int score = 00000000000;
+
 	private int level = 0;
 	private String boss = "";
 	private boolean isBoss = false;
@@ -29,12 +31,16 @@ public class HUD {
 	private int abilityUses;
 	private Color scoreColor = Color.white;
 	private int extraLives = 0;
-	
+
 	public void tick() {
 		health = Game.clamp(health, 0, health);
 		greenValue = Game.clamp(greenValue, 0, 255);
 		greenValue = health * healthBarModifier;
+
 		score++;
+
+		increaseLife();
+
 		if (regen) {// regenerates health if that ability has been unlocked
 			timer--;
 			if (timer == 0 && health < 100) {
@@ -101,19 +107,19 @@ public class HUD {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
+
 	public String getBossLevel(){
 		return boss;
 	}
-	
+
 	public void setBossLevel(String boss){
 		this.boss = boss;
 	}
-	
+
 	public boolean getBoss(){
 		return isBoss;
 	}
-	
+
 	public void setBoss(boolean isBoss){
 		this.isBoss = isBoss;
 	}
@@ -137,6 +143,14 @@ public class HUD {
 	public int getExtraLives() {
 		return this.extraLives;
 	}
+
+	public int increaseLife() {
+		if (score % 500 == 0) {
+			setExtraLives(getExtraLives() + 1);
+			}
+		return this.extraLives;
+		}
+
 
 	public void healthIncrease() {
 		doubleHealth = true;
