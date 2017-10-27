@@ -15,6 +15,7 @@ public class Spawn10to20 {
 
 	private Handler handler;
 	private HUD hud;
+	private CoopHud hud2;
 	private Game game;
 	private int scoreKeep = 0;
 	private Random r = new Random();
@@ -28,12 +29,14 @@ public class Spawn10to20 {
 	private int tempCounter = 0;
 	public static int LEVEL_SET_2_RESET = 0;
 
-	public Spawn10to20(Handler handler, HUD hud, Spawn1to10 spawner, Game game) {
+	public Spawn10to20(Handler handler, HUD hud, CoopHud hud2, Spawn1to10 spawner, Game game) {
 		restart();
 		this.handler = handler;
 		this.hud = hud;
+		this.hud2 = hud2;
 		this.game = game;
 		hud.restoreHealth();
+		hud2.restoreHealth();
 		timer = 10;
 		levelTimer = 150;
 		randomMax = 10;

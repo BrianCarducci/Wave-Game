@@ -17,7 +17,7 @@ public class EnemyShooter extends GameObject {
 	private int sizeX;
 	private int sizeY;
 	private int timer;
-	private GameObject player;
+	private GameObject player,player2;
 	private double bulletVelX;
 	private double bulletVelY;
 	private int bulletSpeed;
@@ -31,10 +31,14 @@ public class EnemyShooter extends GameObject {
 		this.sizeY = sizeY;
 		this.timer = 60;
 		this.bulletSpeed = bulletSpeed;
+		player = null;
+		player2 = null;
 
 		for (int i = 0; i < handler.object.size(); i++) {
 			if (handler.object.get(i).getId() == ID.Player)
 				player = handler.object.get(i);
+			if (handler.object.get(i).getId() == ID.player2)
+				player2 = handler.object.get(i);
 		}
 	}
 
@@ -59,15 +63,34 @@ public class EnemyShooter extends GameObject {
 	}
 
 	public void shoot() {
+		
 		double diffX = this.x - player.getX() - 16;
 		double diffY = this.y - player.getY() - 16;
 		double distance = Math.sqrt(((this.x - player.getX()) * (this.x - player.getX()))
 				+ ((this.y - player.getY()) * (this.y - player.getY())));
+		
+		if(player2 != null) {
+			double diffX2 = this.x - player2.getX() - 16;
+			double diffY2 = this.y - player2.getY() - 16;
+			double distance2 = Math.sqrt(((this.x - player2.getX()) * (this.x - player2.getX()))
+					+ ((this.y - player2.getY()) * (this.y - player2.getY())));
+			
+			if(distance < distance2) {
+				bulletVelX = ((this.bulletSpeed / distance) * diffX); // numerator affects speed of enemy
+				bulletVelY = ((this.bulletSpeed / distance) * diffY);// numerator affects speed of enemy
+			}else  {
+				bulletVelX = ((this.bulletSpeed / distance2) * diffX2); // numerator affects speed of enemy
+				bulletVelY = ((this.bulletSpeed / distance2) * diffY2);// numerator affects speed of enemy
+			}
+		}
+		
+		if (player2 == null) {
 		////////////////////////////// pythagorean theorem
 		////////////////////////////// above//////////////////////////////////////////////////
 		bulletVelX = ((this.bulletSpeed / distance) * diffX); // numerator affects speed of enemy
 		bulletVelY = ((this.bulletSpeed / distance) * diffY);// numerator affects speed of enemy
-
+		}
+		
 		handler.addObject(
 				new EnemyShooterBullet(this.x, this.y, bulletVelX, bulletVelY, ID.EnemyShooterBullet, this.handler));
 	}

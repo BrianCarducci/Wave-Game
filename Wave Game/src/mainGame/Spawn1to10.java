@@ -10,7 +10,7 @@ import mainGame.Game.STATE;
 
 /**
  * Contains the programming of levels 1-10, as well as handles level progression
- * 
+ *
  * @author Brandon Loehle 5/30/16
  */
 
@@ -20,6 +20,7 @@ public class Spawn1to10 {
 	private Handler handler;
 	private HUD hud;
 	private Game game;
+	private CoopHud hud2;
 	private int scoreKeep = 0;
 	private Random r = new Random();
 	private int spawnTimer;
@@ -31,13 +32,15 @@ public class Spawn1to10 {
 	private int levelNumber = 0;
 	private int tempCounter = 0;
 
-	public Spawn1to10(Handler handler, HUD hud, Game game) {
+	public Spawn1to10(Handler handler, HUD hud, CoopHud hud2, Game game) {
 		this.handler = handler;
 		this.hud = hud;
+		this.hud2 = hud2;
 		this.game = game;
 		handler.object.clear();
 		hud.health = 100;
 		hud.setScore(0);
+		hud2.setScore(0);
 		hud.setLevel(1);
 		spawnTimer = 10;
 		levelTimer = 150;
@@ -79,11 +82,11 @@ public class Spawn1to10 {
 		}
 		/*
 		 * EVERY LEVEL WORKS THE SAME WAY
-		 * 
+		 *
 		 * Only the first level is commented
-		 * 
+		 *
 		 * Please refer to this bit of code to understand how each level works
-		 * 
+		 *
 		 */
 		else if (levelNumber == 1) {// this is level 1
 			spawnTimer--;// keep decrementing the spawning spawnTimer 60 times a second
@@ -95,16 +98,9 @@ public class Spawn1to10 {
 			}
 			if (spawnTimer == 0) {// time to spawn another enemy
 				handler.addObject(
-						new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 9, 9, ID.EnemyBasic, handler));// add
-																														// them
-																														// to
-																														// the
-																														// handler,
-																														// which
-																														// handles
-																														// all
-																														// game
-				// objects
+
+						new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 9, 9, ID.EnemyBasic, handler));// add them to the handler, which handles all game objects
+
 				spawnTimer = 100;// reset the spawn timer
 			}
 			if (levelTimer == 0) {// level is over
@@ -124,7 +120,7 @@ public class Spawn1to10 {
 		} else if (levelNumber == 2) {
 			spawnTimer--;
 			levelTimer--;
-			
+
 			if (tempCounter < 1) {
 				levelTimer = 2000;
 				tempCounter++;
@@ -158,7 +154,7 @@ public class Spawn1to10 {
 				}
 			}
 		} else if (levelNumber == 3) {
-			
+
 			spawnTimer--;
 			levelTimer--;
 			if (tempCounter < 1) {
@@ -189,13 +185,13 @@ public class Spawn1to10 {
 			if (tempCounter < 1) {
 				handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 100, 100,
 						-20, ID.EnemyShooter, this.handler));
-				
+
 				if (hud.health <= 50){
 					handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
 				} else {
 					handler.addPickup(new PickupHealth2(ID.PickupHealth2, handler));
 				}
-				
+
 				levelTimer = 1300;
 				tempCounter++;
 			}
@@ -386,11 +382,11 @@ public class Spawn1to10 {
 		else if (levelNumber == 101) {// arbitrary number for the boss
 			if (tempCounter < 1) {
 				handler.addObject(new EnemyBoss(ID.EnemyBoss, handler));
-				
+
 				if (hud.health <= 50){
 					handler.addPickup(new PickupSpeed(ID.PickupSpeed, handler));
 				}
-				
+
 				tempCounter++;
 				hud.setBossLevel("Boss One");
 				hud.setBoss(true);

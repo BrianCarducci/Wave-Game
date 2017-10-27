@@ -21,25 +21,44 @@ public class MouseListener extends MouseAdapter {
 	private Game game;
 	private Handler handler;
 	private HUD hud;
+	private CoopHud hud2;
 	private Spawn1to10 spawner;
 	private Spawn10to20 spawner2;
 	private UpgradeScreen upgradeScreen;
 	private Upgrades upgrades;
-	private Player player;
+	private Player player, player2;
 	private String upgradeText;
 	private double width;
 	private double height;
 
+	//this constructor not really necessary but I am leaving it just in case
 	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to10 spawner, Spawn10to20 spawner2,
 			UpgradeScreen upgradeScreen, Player player, Upgrades upgrades) {
-		this.game = game;
-		this.handler = handler;
-		this.hud = hud;
-		this.spawner = spawner;
-		this.spawner2 = spawner2;
-		this.upgradeScreen = upgradeScreen;
-		this.player = player;
-		this.upgrades = upgrades;
+		this.game 			= game;
+		this.handler 		= handler;
+		this.hud 			= hud;
+		this.spawner 		= spawner;
+		this.spawner2 		= spawner2;
+		this.upgradeScreen 	= upgradeScreen;
+		this.player 		= player;
+		this.upgrades 		= upgrades;
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		width = (double) screenSize.getWidth();
+		height = (double) screenSize.getHeight();
+	}
+	//added second constructor in case of multiplayer
+	public MouseListener(Game game, Handler handler, HUD hud, CoopHud hud2, Spawn1to10 spawner, Spawn10to20 spawner2,
+			UpgradeScreen upgradeScreen, Player player, Player player2, Upgrades upgrades) {
+		this.game 			= game;
+		this.handler 		= handler;
+		this.hud 			= hud;
+		this.hud2			= hud2;
+		this.spawner 		= spawner;
+		this.spawner2 		= spawner2;
+		this.upgradeScreen 	= upgradeScreen;
+		this.player 		= player;
+		this.player2 		= player2;
+		this.upgrades 		= upgrades;
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		width = (double) screenSize.getWidth();
 		height = (double) screenSize.getHeight();
@@ -58,11 +77,14 @@ public class MouseListener extends MouseAdapter {
 			player.playerSpeed = 10;
 			hud.setScore(0);
 			hud.setLevel(1);
+			hud2.health = 100;
+			hud2.setScore(0);
 			spawner.restart();
 			spawner.addLevels();
 			spawner2.restart();
 			spawner2.addLevels();
-			player = new Player(width / 2 - 32, height/ 2 - 32, ID.Player, handler, this.hud, game);
+			player 		= new Player(width / 2 - 32,  height / 2 - 32, ID.Player, handler, this.hud, this.hud2, game);
+			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.player2, handler, this.hud, this.hud2, game);
 			Spawn1to10.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
 			hud.setBoss(false);
@@ -109,6 +131,13 @@ public class MouseListener extends MouseAdapter {
 				handler.addObject(player);
 				// handler.addPickup(new PickupHealth(100, 100, ID.PickupHealth,
 				// "images/PickupHealth.png", handler));
+			}
+			//multiplayer coop button
+			else if(mouseOver(mx,my,990,635,400,400)) {
+				handler.object.clear();
+				game.gameState = STATE.Coop;
+				handler.addObject(player);
+				handler.addObject(player2);
 			}
 
 			// Help Button
