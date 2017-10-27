@@ -8,6 +8,8 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.AlphaComposite;
 
+import mainGame.Game.STATE;
+
 /**
  * The game over screen
  * 
@@ -20,17 +22,22 @@ public class GameOver {
 	private Game game;
 	private Handler handler;
 	private HUD hud;
+	private CoopHud hud2;
 	private int timer;
 	private Color retryColor;
-	private String text;
-	private float alpha = 1;
 
-	public GameOver(Game game, Handler handler, HUD hud) {
+	private float alpha = 1;
+	private String text,text2;
+	private int player;
+	
+	public GameOver(Game game, Handler handler, HUD hud, CoopHud hud2) {
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
+		this.hud2 = hud2;
 		timer = 90;
 		this.retryColor = Color.white;
+		player = 0;
 	}
 
 	public void tick() {
@@ -38,12 +45,33 @@ public class GameOver {
 		flash();
 
 	}
-
+	public void setWhoDied(int player) {
+		if (player == 1) {
+			this.player = 1;
+		}
+		else if (player == 2) {
+			this.player = 2;
+		}
+	}
+	
+	public String getwhodied() {
+		if (player == 1) {
+			return "Player 2 ";
+		}
+		else {
+			return "Player 1 ";
+		}
+	}
+	
 	public void render(Graphics g) {
 		Font font = new Font("Amoebic", 1, 100);
 		Font font2 = new Font("Amoebic", 1, 60);
 		g.setFont(font);
 		text = "Game Over";
+
+			text2 = getwhodied() + " Wins!!";
+			g.drawString(text2, Game.WIDTH/2 - getTextWidth(font,text2)/2, Game.HEIGHT/2 - 300);
+		
 		g.drawString(text, Game.WIDTH / 2 - getTextWidth(font, text) / 2, Game.HEIGHT / 2 - 150);
 		g.setFont(font2);
 		

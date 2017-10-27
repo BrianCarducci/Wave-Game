@@ -23,27 +23,25 @@ public class Player extends GameObject {
 	Random r = new Random();
 	Handler handler;
 	private HUD hud;
+	private CoopHud hud2;
 	private Game game;
 	private int damage;
 	private Image img;
 	private int playerWidth, playerHeight;
 	public static int playerSpeed = 10;
 
-
-	public Player(double x, double y, ID id, Handler handler, HUD hud, Game game) {
-//<<<<<<< HEAD
-//
-//=======
-//>>>>>>> Extralives
+	public Player(double x, double y, ID id, Handler handler, HUD hud,CoopHud hud2, Game game) {
+		
 		super(x, y, id);
-		this.handler = handler;
-		this.hud = hud;
-		this.game = game;
-		this.damage = 2;
+		this.handler 	= handler;
+		this.hud 		= hud;
+		this.hud2		= hud2;
+		this.game 		= game;
+		this.damage 	= 2;
 		img = getImage("images/TrumpImage.png");
+		//playerWidth 	= 32;
+		//playerHeight 	= 32;
 
-		// playerWidth = 32;
-		// playerHeight = 32;
 	}
 
 	@Override
@@ -58,20 +56,50 @@ public class Player extends GameObject {
 
 		collision();
 		checkIfDead();
+		if (game.gameState == STATE.Game) 
+			checkIfDead();
+		if (game.gameState == STATE.Coop)
+			checkIfDeadCoop();
 	}
 
 	public void checkIfDead() {
 		if (hud.health <= 0) {// player is dead, game over!
-
 			if (hud.getExtraLives() == 0) {
 				game.gameState = STATE.GameOver;
 			}
 
-			else if (hud.getExtraLives() > 0) {// has an extra life, game
-												// continues
+			else if (hud.getExtraLives() > 0) {// has an extra life, game continues
+
 				hud.setExtraLives(hud.getExtraLives() - 1);
 				hud.setHealth(100);
 			}
+		}
+	}
+	
+	public void checkIfDeadCoop() {
+		if (hud.health <= 0 || hud2.health <= 0) {// player is dead, game over!
+				if (hud.health <= 0) {
+					if (hud.getExtraLives() == 0) {
+						game.getGameOver().setWhoDied(1);
+						game.renderGameOver();
+						game.gameState = STATE.GameOver;
+					}
+				}else if (hud2.health <= 0) {
+					if (hud2.getExtraLives() == 0) {
+						game.getGameOver().setWhoDied(2);
+						game.renderGameOver();
+						game.gameState = STATE.GameOver;
+					}
+				}
+
+				else if (hud.getExtraLives() > 0) {// has an extra life, game continues
+					hud.setExtraLives(hud.getExtraLives() - 1);
+					hud.setHealth(100);
+				}	
+				else if (hud2.getExtraLives() > 0) {
+					hud2.setExtraLives(hud2.getExtraLives() - 1);
+					hud2.setHealth(100);
+				}
 		}
 	}
 
@@ -92,12 +120,16 @@ public class Player extends GameObject {
 															// enemy
 
 				// collision code
-				if (getBounds().intersects(tempObject.getBounds())) {// player
-																		// hit
-																		// an
-																		// enemy
-					hud.health -= damage;
-					hud.updateScoreColor(Color.red);
+				if (getBounds().intersects(tempObject.getBounds())) {// player hit an enemy
+					if(this.id == ID.Player) {
+						hud.health -= damage;
+						hud.updateScoreColor(Color.red);
+					}
+					else {
+						hud2.health -= damage;
+						hud2.updateScoreColor(Color.red);
+					}
+
 				}
 
 			}
@@ -106,8 +138,13 @@ public class Player extends GameObject {
 				// get hurt once the
 				// boss starts moving
 				if (this.y <= 138 && tempObject.isMoving) {
-					hud.health -= 2;
-					hud.updateScoreColor(Color.red);
+					if (this.id == ID.Player) {
+						hud.health -= 2;
+						hud.updateScoreColor(Color.red);
+					}else {
+						hud2.health -= 2;
+						hud2.updateScoreColor(Color.red);
+					}
 				}
 			}
 
@@ -176,7 +213,6 @@ public class Player extends GameObject {
 		this.playerWidth = size;
 		this.playerHeight = size;
 	}
-
 	public Image getImage(String path) {
 		Image image = null;
 		try {

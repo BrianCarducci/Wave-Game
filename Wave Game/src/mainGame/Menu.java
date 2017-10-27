@@ -109,7 +109,7 @@ public class Menu {
 			g.drawRect(990, 585, 400, 400);
 			g.setFont(font2);
 			g.setColor(Color.white);
-			g.drawString("Attack", 1095, 665);
+			g.drawString("Coop", 1095, 665);
 
 			g.setColor(Color.white);
 			g.drawRect(1440, 585, 400, 400);

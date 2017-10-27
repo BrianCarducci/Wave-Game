@@ -20,6 +20,7 @@ public class Spawn1to10 {
 	private Handler handler;
 	private HUD hud;
 	private Game game;
+	private CoopHud hud2;
 	private int scoreKeep = 0;
 	private Random r = new Random();
 	private int spawnTimer;
@@ -31,13 +32,15 @@ public class Spawn1to10 {
 	private int levelNumber = 0;
 	private int tempCounter = 0;
 
-	public Spawn1to10(Handler handler, HUD hud, Game game) {
+	public Spawn1to10(Handler handler, HUD hud, CoopHud hud2, Game game) {
 		this.handler = handler;
 		this.hud = hud;
+		this.hud2 = hud2;
 		this.game = game;
 		handler.object.clear();
 		hud.health = 100;
 		hud.setScore(0);
+		hud2.setScore(0);
 		hud.setLevel(1);
 		spawnTimer = 10;
 		levelTimer = 150;
@@ -95,16 +98,8 @@ public class Spawn1to10 {
 			}
 			if (spawnTimer == 0) {// time to spawn another enemy
 				handler.addObject(
-						new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 9, 9, ID.EnemyBasic, handler));// add
-																														// them
-																														// to
-																														// the
-																														// handler,
-																														// which
-																														// handles
-																														// all
-																														// game
-				// objects
+						new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 9, 9, ID.EnemyBasic, handler));// add them to the handler, which handles all game objects
+
 				spawnTimer = 100;// reset the spawn timer
 			}
 			if (levelTimer == 0) {// level is over
