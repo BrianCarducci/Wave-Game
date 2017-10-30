@@ -40,8 +40,13 @@ public class Player extends GameObject {
 		this.hud2 = hud2;
 		img = getImage("images/TrumpImage.png");
 
-		playerWidth = 32;
-		playerHeight = 32;
+//		playerWidth = 32;
+//		playerHeight = 32;
+		
+		if (this.id == ID.Player)
+            img = getImage("images/TrumpImage.png");
+        else if (this.id == ID.player2)
+            img = getImage("images/HillaryImage.png");
 
 	}
 
