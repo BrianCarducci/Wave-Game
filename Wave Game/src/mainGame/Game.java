@@ -186,14 +186,10 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-
 		///////// Draw things bellow this/////////////
-
 		g.setColor(Color.black);
 		g.fillRect(0, 0, (int) WIDTH, (int) HEIGHT);
-
 		handler.render(g); // ALWAYS RENDER HANDLER, NO MATTER IF MENU OR GAME SCREEN
-
 		if (gameState == STATE.Game) {// user is playing game, draw game objects
 			hud.render(g);
 		} else if (gameState == STATE.Coop) {

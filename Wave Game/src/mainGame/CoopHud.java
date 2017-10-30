@@ -52,7 +52,7 @@ public class CoopHud {
 		Font font = new Font("Amoebic", 1, 30);
 		g.setColor(Color.GRAY);
 		g.fillRect(1485, 15, healthBarWidth, 64);
-		g.setColor(new Color((int) redValue, (int) greenValue, 0));
+		g.setColor(new Color(0, 255, 0));
 		g.fillRect((int) 1485, (int) 15, (int) health * 4, 64);
 		g.setColor(scoreColor);
 		g.drawRect(1485, 15, healthBarWidth, 64);
