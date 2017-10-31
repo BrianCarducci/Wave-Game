@@ -377,15 +377,18 @@ public class Spawn10to20 {
 			levelTimer--;
 			if (tempCounter < 1) {
 				levelTimer = 2000;
-				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT - 200, ID.BossEye, handler, 1));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT - 200, ID.BossEye, handler, 2));
-				handler.addObject(new BossEye(50, Game.HEIGHT - 200, ID.BossEye, handler, 3));
-				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
-				handler.addObject(new BossEye(50, Game.HEIGHT / 2 - 120, ID.BossEye, handler, 6));
-				handler.addObject(new BossEye(Game.WIDTH - 150, 50, ID.BossEye, handler, 7));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
-				handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
+				
+				handler.addObject(new SnakeBoss(200, 200, ID.SnakeBoss, handler));
+				
+//				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT - 200, ID.BossEye, handler, 1));
+//				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT - 200, ID.BossEye, handler, 2));
+//				handler.addObject(new BossEye(50, Game.HEIGHT - 200, ID.BossEye, handler, 3));
+//				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
+//				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
+//				handler.addObject(new BossEye(50, Game.HEIGHT / 2 - 120, ID.BossEye, handler, 6));
+//				handler.addObject(new BossEye(Game.WIDTH - 150, 50, ID.BossEye, handler, 7));
+//				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
+//				handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
 				tempCounter++;
 				
 				if (hud.health <= 60){
