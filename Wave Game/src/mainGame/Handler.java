@@ -23,7 +23,7 @@ public class Handler {
 	public void tick() {
 		for (int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
-			if (tempObject.getId() == ID.Player || tempObject.getId() == ID.Trail || tempObject.getId() == ID.EnemyBurstWarning) {// we don't want these to ever be frozen by the
+			if (tempObject.getId() == ID.Player || tempObject.getId() == ID.player2 || tempObject.getId() == ID.Trail || tempObject.getId() == ID.EnemyBurstWarning) {// we don't want these to ever be frozen by the
 				// Screen Freeze ability
 				// Every GameObject has a tick method, so this effectively updates every single
 				// object

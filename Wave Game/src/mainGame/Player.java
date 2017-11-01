@@ -73,6 +73,8 @@ public class Player extends GameObject {
 	public void checkIfDead() {
 		if (hud.health <= 0) {// player is dead, game over!
 			if (hud.getExtraLives() == 0) {
+				game.renderGameOver();
+				game.getGameOver().setWhoDied(0);
 				game.gameState = STATE.GameOver;
 			}
 
@@ -89,13 +91,11 @@ public class Player extends GameObject {
 				if (hud.health <= 0) {
 					if (hud.getExtraLives() == 0) {
 						game.getGameOver().setWhoDied(1);
-						game.renderGameOver();
-						game.gameState = STATE.GameOver;
+					game.gameState = STATE.GameOver;
 					}
 				}if (hud2.health <= 0) {
 					if (hud2.getExtraLives() == 0) {
 						game.getGameOver().setWhoDied(2);
-						game.renderGameOver();
 						game.gameState = STATE.GameOver;
 					}
 				}
@@ -117,6 +117,7 @@ public class Player extends GameObject {
 	public void collision() {
 
 		hud.updateScoreColor(Color.white);
+		hud2.updateScoreColor(Color.white);
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 

@@ -28,7 +28,6 @@ public class CoopHud {
 	private int abilityUses;
 	private Color scoreColor = Color.white;
 	private int extraLives = 0;
-	private int extraLives2 = 0;
 	
 	public void tick() {
 		health = Game.clamp(health, 0, health);

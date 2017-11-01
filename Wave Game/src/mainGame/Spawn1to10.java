@@ -399,7 +399,7 @@ public class Spawn1to10 {
 							handler.pickups.clear();
 							hud.setBoss(false);
 							LEVEL_SET++;
-							game.gameState = STATE.Upgrade;
+							//game.gameState = STATE.Upgrade;
 							Player.playerSpeed = 10;
 						}
 					}

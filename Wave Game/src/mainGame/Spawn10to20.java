@@ -302,7 +302,7 @@ public class Spawn10to20 {
 			}
 			if (timer == 0) {
 				handler.addObject(
-						new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -9, ID.EnemySmart, handler));
+				new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -9, ID.EnemySmart, handler));
 				timer = 50;
 			}
 			if (levelTimer == 0) {

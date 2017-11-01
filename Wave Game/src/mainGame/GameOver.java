@@ -54,8 +54,11 @@ public class GameOver {
 		if (player == 1) {
 			return "Player 2 ";
 		}
-		else {
+		else if (player == 2) {
 			return "Player 1 ";
+		}
+		else {
+			return null;
 		}
 	}
 	
@@ -64,10 +67,10 @@ public class GameOver {
 		Font font2 = new Font("Amoebic", 1, 60);
 		g.setFont(font);
 		text = "Game Over";
-
+		if (getwhodied() != null) {
 			text2 = getwhodied() + " Wins!!";
 			g.drawString(text2, Game.WIDTH/2 - getTextWidth(font,text2)/2, Game.HEIGHT/2 - 300);
-		
+		}
 		g.drawString(text, Game.WIDTH / 2 - getTextWidth(font, text) / 2, Game.HEIGHT / 2 - 150);
 		g.setFont(font2);
 		

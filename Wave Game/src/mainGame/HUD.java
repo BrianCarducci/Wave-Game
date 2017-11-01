@@ -31,7 +31,7 @@ public class HUD {
 	private int abilityUses;
 	private Color scoreColor = Color.white;
 	private int extraLives = 0;
-
+	
 	public void tick() {
 		health = Game.clamp(health, 0, health);
 		greenValue = Game.clamp(greenValue, 0, 255);
