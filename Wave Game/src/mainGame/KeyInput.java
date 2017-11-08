@@ -40,6 +40,14 @@ public class KeyInput extends KeyAdapter {
 		keyDown[4] = false;
 
 	}
+	
+	public void stopPlayer(Boolean move){
+		keyDown[0] = move;
+		keyDown[1] = move;
+		keyDown[2] = move;
+		keyDown[3] = move;
+		keyDown[4] = move;
+	}
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();

@@ -6,18 +6,17 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.net.URL;
 
-// implements health decrease via Eminem
-public class PickupHealth2 extends Pickup{
+// implements speed increase via twitter logo
+public class TwitterSpeed extends Pickup{
 	
 	private Handler handler;
 
-	public PickupHealth2(ID id, Handler handler) {
-		super(Game.WIDTH*Math.random(), Game.HEIGHT*Math.random(), id);
-		this.handler = handler;
+	public TwitterSpeed(ID id, Handler handler) {
+		super((Game.WIDTH - 70) * Math.random(), (Game.HEIGHT - 100) * Math.random(), id);
 		this.handler = handler;
 		velX = Math.random()*10;
 		velY = Math.random()*10;
-		img = getImage("images/EminemImage.png");
+		img = getImage("images/TwitterImage.png");
 	}
 
 
@@ -26,10 +25,10 @@ public class PickupHealth2 extends Pickup{
 		this.x += velX;
 		this.y += velY;
 		
-		if (this.x <= 0 || this.x >= Game.WIDTH - 100){
+		if (this.x <= 0 || this.x >= Game.WIDTH - 70){
 			velX *= -1;
 		}
-		if (this.y<= 0 || this.y >= Game.HEIGHT - 70){
+		if (this.y<= 0 || this.y >= Game.HEIGHT - 100){
 			velY *= -1;
 		}
 		
@@ -49,14 +48,13 @@ public class PickupHealth2 extends Pickup{
 
 
 	public void render(Graphics g) {
-		g.drawImage(img, (int) this.x, (int) this.y, 100, 70, null);
+		g.drawImage(img, (int) this.x, (int) this.y, 70, 50, null);
 		
 	}
 
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) this.x, (int) this.y, 100, 70);
+		return new Rectangle((int) this.x, (int) this.y, 70, 50);
 	}
 
 }
-

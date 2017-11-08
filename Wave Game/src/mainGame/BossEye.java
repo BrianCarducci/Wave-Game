@@ -152,7 +152,6 @@ public class BossEye extends GameObject {
 		}
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setComposite(makeTransparent(alpha));
-	//	g.drawImage(img, (int) this.x, (int) this.y, null);
 		g.drawImage(img, (int) this.x, (int) this.y, 100, 150, null);
 		g2d.setComposite(makeTransparent(1));
 	}

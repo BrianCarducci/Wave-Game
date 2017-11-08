@@ -28,6 +28,7 @@ public class EnemyBossBullet extends GameObject {
 
 	public void tick() {
 		this.x += velX;
+
 		this.y += velY;
 
 		// if (this.y <= 0 || this.y >= Game.HEIGHT - 40) velY *= -1;

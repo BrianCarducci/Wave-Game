@@ -6,18 +6,26 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.net.URL;
 
-// implements speed decrease via NFL logo
-public class PickupSpeed2 extends Pickup{
+import javax.swing.ImageIcon;
+
+/**
+ * TO BE IMPLEMENTED - adds health to the player when they move over it
+ * @author Brandon Loehle
+ * 5/30/16
+ *
+ */
+
+// implements health increase via Putin
+public class PutinHealth extends Pickup{
 	
 	private Handler handler;
 
-	public PickupSpeed2(ID id, Handler handler) {
-		super(Game.WIDTH*Math.random(), Game.HEIGHT*Math.random(), id);
-		this.handler = handler;
+	public PutinHealth(ID id, Handler handler) {
+		super((Game.WIDTH - 70)*Math.random(), (Game.HEIGHT - 120)*Math.random(), id);
 		this.handler = handler;
 		velX = Math.random()*10;
 		velY = Math.random()*10;
-		img = getImage("images/NFLImage.png");
+		img = getImage("images/PutinImage.png");
 	}
 
 
@@ -29,7 +37,7 @@ public class PickupSpeed2 extends Pickup{
 		if (this.x <= 0 || this.x >= Game.WIDTH - 70){
 			velX *= -1;
 		}
-		if (this.y<= 0 || this.y >= Game.HEIGHT - 90){
+		if (this.y<= 0 || this.y >= Game.HEIGHT - 120){
 			velY *= -1;
 		}
 		

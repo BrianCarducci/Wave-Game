@@ -67,7 +67,7 @@ public class Spawn10to20 {
 				handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2, "...but a little harder now",
 						ID.Levels1to10Text));
 				tempCounter++;
-				
+
 			}
 			if (levelTimer <= 0) {
 				handler.clearEnemies();
@@ -83,11 +83,11 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
-				
-				if (hud.health >= 50){
-					handler.addPickup(new PickupHealth2(ID.PickupHealth2, handler));
+
+				if (hud.health >= 50) {
+					handler.addPickup(new EminemHealth(ID.EminemHealth, handler));
 				}
-				
+
 			}
 			if (timer == 0) {
 				handler.addObject(
@@ -115,9 +115,9 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
-				
-				if (hud.health <= 50){
-					handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
+
+				if (hud.health <= 50) {
+					handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
 				}
 			}
 			if (timer == 30) {
@@ -182,7 +182,7 @@ public class Spawn10to20 {
 						-30, ID.EnemyShooter, this.handler));
 				levelTimer = 1300;
 				tempCounter++;
-				handler.addPickup(new PickupSpeed2(ID.PickupSpeed2, handler));
+				handler.addPickup(new NFLSpeed(ID.NFLSpeed, handler));
 			}
 
 			if (levelTimer == 0) {
@@ -206,7 +206,7 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1400;
 				tempCounter++;
-				handler.addPickup(new PickupSpeed(ID.PickupSpeed, handler));
+				handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
 			}
 			if (timer <= 0) {
 				handler.addObject(new EnemyBurst(-250, 250, 75, 75, 250, side[r.nextInt(4)], ID.EnemyBurst, handler));
@@ -260,7 +260,7 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
-				handler.addPickup(new PickupHealth2(ID.PickupHealth2, handler));
+				handler.addPickup(new EminemHealth(ID.EminemHealth, handler));
 			}
 			if (timer == 35) {
 				handler.addObject(
@@ -295,10 +295,10 @@ public class Spawn10to20 {
 			timer--;
 			levelTimer--;
 			if (tempCounter < 1) {
-				handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
+				handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
 				levelTimer = 1000;
 				tempCounter++;
-				
+
 			}
 			if (timer == 0) {
 				handler.addObject(
@@ -349,7 +349,7 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1400;
 				tempCounter++;
-				handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
+				handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
 			}
 			if (timer <= 0) {
 				handler.addObject(new EnemyBurst(-300, 300, 60, 60, 300, side[r.nextInt(4)], ID.EnemyBurst, handler));
@@ -372,11 +372,56 @@ public class Spawn10to20 {
 				}
 			}
 		}
+		
+		//else if (levelNumber == 101) {
+//		timer--;
+//		levelTimer--;
+//		if (tempCounter < 1) {
+//			levelTimer = 1400;
+//			tempCounter++;
+	//
+//			if (hud.health <= 60) {
+//				handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
+//			} else {
+//				handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
+//			}
+	//
+//		}
+	//
+//		if (timer <= 0) {
+	//
+//			handler.addObject(new HillaryBoss(-250, 250, 10, 20, 250, side[r.nextInt(4)], ID.HillaryBoss, handler));
+//			handler.addPickup(new HillaryEmail(ID.HillaryEmail, handler));
+//			timer = 30;
+	//
+//		}
+//		hud.setBossLevel("Boss Two");
+//		hud.setBoss(true);
+	//
+//		if (levelTimer == 0) {
+//			GameObject tempObject = handler.object.get(1);
+//			if (tempObject.getId() == ID.BossEye) {
+//				handler.pickups.clear();
+//				handler.removeObject(tempObject);
+//				levelTimer += 200;
+//			}
+//		}
+	//}
 
 		else if (levelNumber == 101) {
+			
+			
 			levelTimer--;
 			if (tempCounter < 1) {
 				levelTimer = 2000;
+				tempCounter++;
+
+				if (hud.health <= 60) {
+					handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
+				} else {
+					handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
+				}
+
 				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT - 200, ID.BossEye, handler, 1));
 				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT - 200, ID.BossEye, handler, 2));
 				handler.addObject(new BossEye(50, Game.HEIGHT - 200, ID.BossEye, handler, 3));
@@ -386,15 +431,6 @@ public class Spawn10to20 {
 				handler.addObject(new BossEye(Game.WIDTH - 150, 50, ID.BossEye, handler, 7));
 				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
 				handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
-				tempCounter++;
-				
-				if (hud.health <= 60){
-					
-					handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
-					
-				} else {
-					handler.addPickup(new PickupSpeed(ID.PickupSpeed, handler));
-				}
 				hud.setBossLevel("Boss Two");
 				hud.setBoss(true);
 			}
@@ -404,7 +440,7 @@ public class Spawn10to20 {
 				if (tempObject.getId() == ID.BossEye) {
 					handler.pickups.clear();
 					handler.removeObject(tempObject);
-					levelTimer +=200;
+					levelTimer += 200;
 				}
 			}
 		}
@@ -412,9 +448,11 @@ public class Spawn10to20 {
 		// else if(levelNumber){
 		// levelTimer --;
 		// if(tempCounter < 1){
-		// handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200,
+		// handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2
+		// - 200,
 		// "Same levels...", ID.Levels1to10Text));
-		// handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2,
+		// handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT /
+		// 2,
 		// "...but a little harder now", ID.Levels1to10Text));
 		// tempCounter++;
 		// }
