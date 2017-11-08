@@ -25,10 +25,11 @@ public enum ID {
 	CircleTrail(),
 	Levels1to10Text(),
 	EnemyBasic(),
-	PickupHealth(),
-	PickupHealth2(),
-	PickupSpeed(),
-	PickupSpeed2(),
-	SnakeBoss();
+	PutinHealth(),
+	EminemHealth(),
+	TwitterSpeed(),
+	NFLSpeed(),
+	HillaryBoss(),
+	HillaryEmail();
 	
 }

@@ -27,8 +27,10 @@ public class Player extends GameObject {
 	private Game game;
 	private int damage;
 	private Image img;
+	private KeyInput key;
 	private int playerWidth, playerHeight;
 	public static int playerSpeed = 10;
+	private int timer;
 
 	public Player(double x, double y, ID id, Handler handler, HUD hud, CoopHud hud2, Game game) {
 
@@ -36,8 +38,9 @@ public class Player extends GameObject {
 		this.handler = handler;
 		this.hud = hud;
 		this.game = game;
-		this.damage = 2;
+		this.damage = 1;
 		this.hud2 = hud2;
+		timer = 60;
 		img = getImage("images/TrumpImage.png");
 
 //		playerWidth = 32;
@@ -55,13 +58,18 @@ public class Player extends GameObject {
 	public void tick() {
 		this.x += velX;
 		this.y += velY;
-		x = Game.clamp(x, 0, Game.WIDTH - 75);
-		y = Game.clamp(y, 0, Game.HEIGHT - 85);
+		x = Game.clamp(x, 0, Game.WIDTH - 95);
+		y = Game.clamp(y, 0, Game.HEIGHT - 125);
 
 		// add the trail that follows it
 		//handler.addObject(new Trail(x, y, ID.Trail, Color.white, playerWidth, playerHeight, 0.05, this.handler));
 
 		collision();
+		
+		if (timer == 0){
+			timer = 60;
+			playerSpeed = 10;
+		}
 
 		if (game.gameState == STATE.Game)
 			checkIfDead();
@@ -79,7 +87,7 @@ public class Player extends GameObject {
 			else if (hud.getExtraLives() > 0) {// has an extra life, game continues
 
 				hud.setExtraLives(hud.getExtraLives() - 1);
-				hud.setHealth(100);
+				hud.restoreHealth();
 			}
 		}
 	}
@@ -124,7 +132,7 @@ public class Player extends GameObject {
 					|| tempObject.getId() == ID.EnemySmart || tempObject.getId() == ID.EnemyBossBullet
 					|| tempObject.getId() == ID.EnemySweep || tempObject.getId() == ID.EnemyShooterBullet
 					|| tempObject.getId() == ID.EnemyBurst || tempObject.getId() == ID.EnemyShooter
-					|| tempObject.getId() == ID.BossEye) {// tempObject is an
+					|| tempObject.getId() == ID.BossEye || tempObject.getId() == ID.HillaryBoss) {// tempObject is an
 															// enemy
 
 				// collision code
@@ -163,7 +171,7 @@ public class Player extends GameObject {
 		// if player does, affect player, remove item from array
 		for (int i = 0; i < handler.pickups.size(); i++) {
 			Pickup tempObject = handler.pickups.get(i);
-			if (tempObject.getId() == ID.PickupHealth) {
+			if (tempObject.getId() == ID.PutinHealth) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 
 					if (hud.health >= 60) {
@@ -174,7 +182,7 @@ public class Player extends GameObject {
 					handler.removePickup(tempObject);
 				}
 			}
-			if (tempObject.getId() == ID.PickupHealth2) {
+			if (tempObject.getId() == ID.EminemHealth) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 
 					if (hud.health <= 40) {
@@ -186,17 +194,29 @@ public class Player extends GameObject {
 					handler.removePickup(tempObject);
 				}
 			}
-			if (tempObject.getId() == ID.PickupSpeed) {
+			if (tempObject.getId() == ID.TwitterSpeed) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 					playerSpeed = 20;
 					handler.removePickup(tempObject);
 				}
 			}
-			if (tempObject.getId() == ID.PickupSpeed2) {
+			if (tempObject.getId() == ID.NFLSpeed) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 					playerSpeed = 5;
 					handler.removePickup(tempObject);
 				}
+			}
+			
+			if (tempObject.getId() == ID.HillaryEmail) {
+				if (getBounds().intersects(tempObject.getBounds())) {
+					
+					if (playerSpeed > 0){
+					playerSpeed--;
+					} 
+					
+					handler.removePickup(tempObject);
+				}
+				
 			}
 		}
 	}
@@ -206,7 +226,6 @@ public class Player extends GameObject {
 
 		g.setColor(Color.white);
 		g.drawImage(img, (int) this.x, (int) this.y, 75, 85, null);
-		// g.fillRect((int) x, (int) y, playerWidth, playerHeight);
 
 	}
 

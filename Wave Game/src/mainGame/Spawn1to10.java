@@ -187,9 +187,9 @@ public class Spawn1to10 {
 						-20, ID.EnemyShooter, this.handler));
 
 				if (hud.health <= 50){
-					handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
+					handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
 				} else {
-					handler.addPickup(new PickupHealth2(ID.PickupHealth2, handler));
+					handler.addPickup(new EminemHealth(ID.EminemHealth, handler));
 				}
 
 				levelTimer = 1300;
@@ -243,7 +243,7 @@ public class Spawn1to10 {
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
-				handler.addPickup(new PickupSpeed2(ID.PickupSpeed2, handler));
+				handler.addPickup(new NFLSpeed(ID.NFLSpeed, handler));
 			}
 			if (spawnTimer == 0) {
 				handler.addObject(
@@ -334,7 +334,7 @@ public class Spawn1to10 {
 						-15, ID.EnemyShooter, this.handler));
 				levelTimer = 2500;
 				tempCounter++;
-				handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
+				handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
 			}
 
 			if (levelTimer == 0) {
@@ -384,7 +384,7 @@ public class Spawn1to10 {
 				handler.addObject(new EnemyBoss(ID.EnemyBoss, handler));
 
 				if (hud.health <= 50){
-					handler.addPickup(new PickupSpeed(ID.PickupSpeed, handler));
+					handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
 				}
 
 				tempCounter++;
