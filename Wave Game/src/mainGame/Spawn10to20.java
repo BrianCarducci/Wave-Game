@@ -3,6 +3,8 @@ package mainGame;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mainGame.Game.STATE;
+
 /**
  * This class closely resembles Spawn1to10. Please refer to that class for
  * documentation
@@ -19,13 +21,14 @@ public class Spawn10to20 {
 	private Game game;
 	private int scoreKeep = 0;
 	private Random r = new Random();
-	private int timer;
 	private int levelTimer;
 	private String[] side = { "left", "right", "top", "bottom" };
 	ArrayList<Integer> levels = new ArrayList<Integer>();
 	private int index;
 	private int randomMax;
 	private int levelNumber = 0;
+	private int voteTimer;
+	private int timer;
 	private int tempCounter = 0;
 	public static int LEVEL_SET_2_RESET = 0;
 
@@ -46,6 +49,8 @@ public class Spawn10to20 {
 		index = r.nextInt(randomMax);
 		levelNumber = 0;
 		Player.playerSpeed = 10;
+		timer = 120;
+		voteTimer = 20;
 	}
 
 	public void addLevels() {
@@ -80,6 +85,13 @@ public class Spawn10to20 {
 		else if (levelNumber == 1) {
 			timer--;
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
@@ -112,6 +124,13 @@ public class Spawn10to20 {
 		} else if (levelNumber == 2) {
 			timer--;
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
@@ -152,6 +171,13 @@ public class Spawn10to20 {
 		} else if (levelNumber == 3) {
 			timer--;
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
@@ -177,6 +203,13 @@ public class Spawn10to20 {
 			}
 		} else if (levelNumber == 4) {
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 100, 100,
 						-30, ID.EnemyShooter, this.handler));
@@ -203,6 +236,13 @@ public class Spawn10to20 {
 		} else if (levelNumber == 5) {
 			timer--;
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				levelTimer = 1400;
 				tempCounter++;
@@ -231,6 +271,13 @@ public class Spawn10to20 {
 		} else if (levelNumber == 6) {
 			timer--;
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
@@ -257,6 +304,13 @@ public class Spawn10to20 {
 		} else if (levelNumber == 7) {
 			timer--;
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
@@ -294,6 +348,13 @@ public class Spawn10to20 {
 		} else if (levelNumber == 8) {
 			timer--;
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				handler.addPickup(new PickupHealth(ID.PickupHealth, handler));
 				levelTimer = 1000;
@@ -322,6 +383,13 @@ public class Spawn10to20 {
 			}
 		} else if (levelNumber == 9) {
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 200, 200,
 						-40, ID.EnemyShooter, this.handler));
@@ -346,6 +414,13 @@ public class Spawn10to20 {
 		} else if (levelNumber == 10) {
 			timer--;
 			levelTimer--;
+			voteTimer--;
+			if (game.gameState == STATE.Coop) {
+				if (voteTimer == 0) {
+					handler.addPickup(new PickupVote(ID.Vote, handler));
+					voteTimer = timer;
+				}
+			}
 			if (tempCounter < 1) {
 				levelTimer = 1400;
 				tempCounter++;

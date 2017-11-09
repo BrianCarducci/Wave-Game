@@ -28,6 +28,7 @@ public enum ID {
 	PickupHealth(),
 	PickupHealth2(),
 	PickupSpeed(),
-	PickupSpeed2();
+	PickupSpeed2(),
+	Vote();
 	
 }

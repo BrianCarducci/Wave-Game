@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import mainGame.Game.STATE;
+
 /**
  * The main Heads Up Display of the game
  *
@@ -26,11 +28,13 @@ public class HUD {
 	private int timer = 60;
 	private int healthBarWidth = 400;
 	private int healthBarModifier = 2;
+	private int voteCount = 0;
 	private boolean doubleHealth = false;
 	private String ability = "";
 	private int abilityUses;
 	private Color scoreColor = Color.white;
 	private int extraLives = 0;
+	private STATE state = null;
 	
 	public void tick() {
 		health = Game.clamp(health, 0, health);
@@ -58,9 +62,14 @@ public class HUD {
 		g.setColor(new Color(75, (int) greenValue, 0));
 		g.fillRect((int) 15, (int) 15, (int) health * 4, 64);
 		g.setColor(scoreColor);
+		
 		g.drawRect(15, 15, healthBarWidth, 64);
 		g.setFont(font);
-		g.drawString("Score: " + score, 15, 115);
+		if (state != STATE.Coop) {
+			g.drawString("Score: " + score, 15, 115);
+		}else {
+			g.drawString("Vote Count: " + voteCount, 15, 115);
+		}
 		if (isBoss == false) {
 		g.drawString("Level: " + level, 15, 150);
 		} else {
@@ -149,7 +158,7 @@ public class HUD {
 			setExtraLives(getExtraLives() + 1);
 			}
 		return this.extraLives;
-		}
+	}
 
 
 	public void healthIncrease() {
@@ -170,5 +179,28 @@ public class HUD {
 
 	public void restoreHealth() {
 		this.health = healthMax;
+	}
+	
+	//used to set the variable gamestate to whatever state the game is in
+	//used mainly for coop implementation
+	public void setState(STATE n) {
+		state = n;
+	}
+	
+	//used to update vote count to track in coop
+	public void updateVote() {
+		voteCount++;
+	}
+	
+	public int getVote() {
+		return voteCount;
+	}
+	
+	public void resetVote() {
+		voteCount = 0;
+	}
+	
+	public STATE getState() {
+		return state;
 	}
 }
