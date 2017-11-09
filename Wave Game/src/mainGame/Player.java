@@ -181,17 +181,14 @@ public class Player extends GameObject {
 						hud.setHealth(hud.health + 40);
 					}
 					handler.removePickup(tempObject);
-					Thread thread = new Thread(new Sound(), "damage");
+					
+					//Plays sound effect on different thread
+					//Each sound effect is the same except for which string is called
+					Thread thread = new Thread(new Sound(), "PutinHealth");
 					thread.start();
 
 				}
 
-//				try {
-//					thread.join();
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
 			}
 			if (tempObject.getId() == ID.EminemHealth) {
 				if (getBounds().intersects(tempObject.getBounds())) {
@@ -203,7 +200,7 @@ public class Player extends GameObject {
 
 					}
 					handler.removePickup(tempObject);
-					Thread thread = new Thread(new Sound(), "damage");
+					Thread thread = new Thread(new Sound(), "EminemDecrease");
 					thread.start();
 
 				}
@@ -212,7 +209,7 @@ public class Player extends GameObject {
 				if (getBounds().intersects(tempObject.getBounds())) {
 					playerSpeed = 20;
 					handler.removePickup(tempObject);
-					Thread thread = new Thread(new Sound(), "damage");
+					Thread thread = new Thread(new Sound(), "twitterNoise");
 					thread.start();
 				}
 			}
@@ -220,7 +217,7 @@ public class Player extends GameObject {
 				if (getBounds().intersects(tempObject.getBounds())) {
 					playerSpeed = 5;
 					handler.removePickup(tempObject);
-					Thread thread = new Thread(new Sound(), "damage");
+					Thread thread = new Thread(new Sound(), "NFLSound");
 					thread.start();
 
 				}

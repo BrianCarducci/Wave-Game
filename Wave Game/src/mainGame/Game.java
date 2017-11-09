@@ -235,20 +235,8 @@ public class Game extends Canvas implements Runnable {
 
 		//Screen size debug printout
 		System.out.println("Screensize: " + screenSize);
-
-		//Plays background noise; 1st parameter = sound file 2nd = amount you want to play
-//		try {
-//			//large number chosen so it will never stop playing in background
-//			System.out.println("Background music started");
-//			Sound.playSound("Sound/neonDrive.wav", 1000000);
-//
-//
-//			//Use catch block or sound file will not play
-//		} catch (InterruptedException | UnsupportedAudioFileException
-//				| LineUnavailableException | IOException e) {
-//			e.printStackTrace();
-//		}
-
+		
+		//Plays background music
 		Thread thread = new Thread(new Sound(), "music");
 		thread.start();
 	}
