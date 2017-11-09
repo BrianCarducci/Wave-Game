@@ -1,152 +1,71 @@
 package mainGame;
-
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-
-import javax.swing.*;
-import javax.sound.sampled.*;
-
-
-//All sound is played from this class; All music is 100% legally obtained
-//and there is no need to investigate any further
-public class Sound {
-
-	
-   
-	//Call this function to play music; second parameter decides amount sound file is played (0 = zero repeats)
-	public static void playSound(String file, int loopAmount) throws InterruptedException, UnsupportedAudioFileException, 
-    LineUnavailableException, IOException  {
-    		
-			//Reads file in and then plays it
-            File playThis = new File(file);
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(playThis);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
-            clip.start();
-            
-            //This is where loop amount is located
-            clip.loop(loopAmount);
-            Thread.sleep(clip.getMicrosecondLength());
-            
-    } //End of playSound
-    
-   
-} //End of sound class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-package mainGame;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
-import javax.swing.*;
-import javax.sound.sampled.*;
-public class Sound {
-
-    public static void main(String[] args) throws InterruptedException, UnsupportedAudioFileException, 
-    LineUnavailableException, IOException  {
-    	
-            File file = new File("Sound/pacman_Sound.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(file);
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
-            clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            Thread.sleep(clip.getMicrosecondLength());
-            
-    } //End of main
-
-} //End of sound class
-
-
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-package mainGame;
+import java.net.MalformedURLException;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.net.URL;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+public class Sound implements Runnable {
+	private Clip clip;
+	private File file;
+	private AudioInputStream audioIn;
+
+	@Override
+	public void run() {
+		if (Thread.currentThread().getName() == "music") {
+			file = new File("Sound/neonDrive.wav");
+		} else
+		if (Thread.currentThread().getName() == "damage") {
+			file = new File("Sound/firedTrump.wav");
+		}
+
+		audioIn = null;
+		try {
+			audioIn = AudioSystem.getAudioInputStream(file);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		clip = null;
+		try {
+			clip = AudioSystem.getClip();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			clip.open(audioIn);
+		} catch (LineUnavailableException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		clip.start();
+		if (Thread.currentThread().getName() == "music") {
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		}
+		try {
+			System.out.println(Thread.currentThread().getName());
+			Thread.sleep(clip.getMicrosecondLength());
+			System.out.println(Thread.currentThread().isAlive());
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		clip.stop();
+		try {
+			audioIn.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+}
 
 
-public class Sound {
-
-	
-public static synchronized void playSound(final String url) {
-	
-	
-  new Thread(new Runnable() {
-  
-    public void run() {
-      try {
-        Clip clip = AudioSystem.getClip();
-        System.out.println(url);
-        //URL myUrl = getClass().getResource("Sound/" + url);
-        System.out.println("DEBUG: URL is " + url);
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-        Game.class.getResourceAsStream(url.toString()));
-        clip.open(inputStream);
-        clip.start(); 
-      } catch (Exception e) {
-    	  e.printStackTrace();
-      }
-    }
-  } //End of thread
-  
-  ).start();
-
-	} //End of playSound
-
-} //End of class
-
-*/

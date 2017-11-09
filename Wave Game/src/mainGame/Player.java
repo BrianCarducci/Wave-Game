@@ -31,6 +31,7 @@ public class Player extends GameObject {
 	private int playerWidth, playerHeight;
 	public static int playerSpeed = 10;
 	private int timer;
+	private Thread healthThread;
 
 	public Player(double x, double y, ID id, Handler handler, HUD hud, CoopHud hud2, Game game) {
 
@@ -45,7 +46,7 @@ public class Player extends GameObject {
 
 //		playerWidth = 32;
 //		playerHeight = 32;
-		
+
 		if (this.id == ID.Player)
             img = getImage("images/TrumpImage.png");
         else if (this.id == ID.player2)
@@ -65,7 +66,7 @@ public class Player extends GameObject {
 		//handler.addObject(new Trail(x, y, ID.Trail, Color.white, playerWidth, playerHeight, 0.05, this.handler));
 
 		collision();
-		
+
 		if (timer == 0){
 			timer = 60;
 			playerSpeed = 10;
@@ -180,7 +181,17 @@ public class Player extends GameObject {
 						hud.setHealth(hud.health + 40);
 					}
 					handler.removePickup(tempObject);
+					Thread thread = new Thread(new Sound(), "damage");
+					thread.start();
+
 				}
+
+//				try {
+//					thread.join();
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			}
 			if (tempObject.getId() == ID.EminemHealth) {
 				if (getBounds().intersects(tempObject.getBounds())) {
@@ -192,31 +203,39 @@ public class Player extends GameObject {
 
 					}
 					handler.removePickup(tempObject);
+					Thread thread = new Thread(new Sound(), "damage");
+					thread.start();
+
 				}
 			}
 			if (tempObject.getId() == ID.TwitterSpeed) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 					playerSpeed = 20;
 					handler.removePickup(tempObject);
+					Thread thread = new Thread(new Sound(), "damage");
+					thread.start();
 				}
 			}
 			if (tempObject.getId() == ID.NFLSpeed) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 					playerSpeed = 5;
 					handler.removePickup(tempObject);
+					Thread thread = new Thread(new Sound(), "damage");
+					thread.start();
+
 				}
 			}
-			
+
 			if (tempObject.getId() == ID.HillaryEmail) {
 				if (getBounds().intersects(tempObject.getBounds())) {
-					
+
 					if (playerSpeed > 0){
 					playerSpeed--;
-					} 
-					
+					}
+
 					handler.removePickup(tempObject);
 				}
-				
+
 			}
 		}
 	}
