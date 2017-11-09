@@ -99,8 +99,8 @@ public class Spawn1to10 {
 			if (spawnTimer == 0) {// time to spawn another enemy
 				handler.addObject(
 
-						new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 9, 9, ID.EnemyBasic, handler));// add them to the handler, which handles all game objects
-
+						new EnemyFBI(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -3, -10, ID.EnemyFBI, handler));// add them to the handler, which handles all game objects
+				
 				spawnTimer = 100;// reset the spawn timer
 			}
 			if (levelTimer == 0) {// level is over
@@ -163,7 +163,7 @@ public class Spawn1to10 {
 			}
 			if (spawnTimer == 0) {
 				handler.addObject(
-						new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -5, ID.EnemySmart, handler));
+						new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -3, ID.EnemySmart, handler));
 				spawnTimer = 100;
 			}
 			if (levelTimer == 0) {

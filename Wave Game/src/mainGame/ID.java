@@ -8,10 +8,11 @@ package mainGame;
 public enum ID {
 
 	Player,
-	player2,
+	player2,  //make capital P
 	Trail(),
 	BossEye(),
 	EnemyFast(),
+	EnemyFBI(),
 	EnemySmart(),
 	EnemyBoss(),
 	EnemyBossBullet(),

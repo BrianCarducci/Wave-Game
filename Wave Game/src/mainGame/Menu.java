@@ -137,20 +137,81 @@ public class Menu {
 
 		} else if (game.gameState == STATE.Help) {// if the user clicks on "help"
 			Font font = new Font("impact", 1, 50);
-			Font font2 = new Font("impact", 1, 30);
-
-			g.setFont(font);
-			g.setColor(Color.white);
-			g.drawString("Help", 900, 70);
-
-			g.setFont(font2);
-			g.drawString("Controls: Use WASD or Arrow Keys To Move." + " \n"
-					+ "them long enough, a new batch will spawn in! Defeat each boss to win!", 40, 200);
+			Font font2 = new Font("impact", 70, 30);
+			Font font3 = new Font("Amoebic", 1,50);
+			
+			g.setFont(font3);
+			g.setColor(Color.red);
+			g.drawString("Help", 900, 50);
 
 			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("Controls:", 40, 200);// + " \n"
+			
+			g.setFont((font2));
+			g.setColor(Color.green);
+			g.drawString("Use WASD Or The Arrow Keys To Move Around And Avoid The Enemeies", 160, 200);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("Waves:", 40, 250);
+					
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Avoid The Enemies That Appear.  After Every 10 Levels,  A Boss Level Will Appear.  Beat All The Bosses To Win The Game", 135, 250);		//+ " long enough, a new batch will spawn in! Defeat each boss to win!", 40, 200);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("CO-OP:", 40, 300);
+			g.setFont(font2);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Player 1 Moves By Using The WASD Keys, Where Player 2 Moves By Using The Arrow Keys. The First Player To Collect 50 Votes Wins.", 130, 300);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("Pick Ups:", 40, 350);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Description Of What Each Pickup In The Game Does", 160, 350);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("Putin-", 120, 400);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Replenishes A Portion Of The Players Health", 200, 400);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("Twitter Symbol-", 120, 440);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Increases The Players Speed For The Rest Of That Level", 315, 440);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("Eminem-", 120, 480);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Takes Away Portion Of The Players Health ", 230, 480);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("NFL Logo-", 120, 520);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Decreases The Players Speed For The Rest Of That Level", 235, 520);
+			
 			g.setColor(Color.white);
-			g.drawRect((game.HEIGHT / 2) + 400, (game.WIDTH / 2) - 400, 200, 64);
-			g.drawString("Back", (game.HEIGHT / 2) + 400, (game.WIDTH / 2) - 400);
+			g.drawRect(850, 600, 200, 64);
+			g.drawString("Back", 918, 642);
 		}
 
 	}
