@@ -3,8 +3,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import mainGame.Game.STATE;
+
 /**
- * Coop Heads up display for the game
+ * Coop Heads up display for the game, similar to the normal hud just functions for player 2
  * 
  * @author Ryan Hanlon 10/23/17
  *
@@ -28,13 +30,16 @@ public class CoopHud {
 	private int abilityUses;
 	private Color scoreColor = Color.white;
 	private int extraLives = 0;
-	private int extraLives2 = 0;
+	private STATE state = null;
+	private int voteCount = 0;
 	
+	//hud begins ticking
 	public void tick() {
 		health = Game.clamp(health, 0, health);
 		greenValue = Game.clamp(greenValue, 0, 255);
 		greenValue = health * healthBarModifier;
 		score++;
+		increaseLife();
 		if (regen) {// regenerates health if that ability has been unlocked
 			timer--;
 			if (timer == 0 && health < 100) {
@@ -45,7 +50,7 @@ public class CoopHud {
 	}
 
 
-		
+	//renders the coophud
 	public void render(Graphics g) {
 		Font font = new Font("Amoebic", 1, 30);
 		g.setColor(Color.GRAY);
@@ -55,7 +60,11 @@ public class CoopHud {
 		g.setColor(scoreColor);
 		g.drawRect(1485, 15, healthBarWidth, 64);
 		g.setFont(font);
-		g.drawString("Score: " + score, 1485, 115);
+		if (state != STATE.Coop) {
+			g.drawString("Score: " + score, 1485, 115);
+		} else {
+			g.drawString("Vote Count: " + voteCount, 1485, 115);
+		}
 		//if (isBoss == false) {
 		//g.drawString("Level: " + level, 1485, 150);
 		//} else {
@@ -139,6 +148,13 @@ public class CoopHud {
 		return this.extraLives;
 	}
 
+	public int increaseLife() {
+		if (score % 500 == 0) {
+			setExtraLives(getExtraLives() + 1);
+			}
+		return this.extraLives;
+	}
+	
 	public void healthIncrease() {
 		doubleHealth = true;
 		healthMax = 200;
@@ -157,5 +173,28 @@ public class CoopHud {
 
 	public void restoreHealth() {
 		this.health = healthMax;
+	}
+	
+	//used to set the variable gamestate to whatever state the game is in
+	//used mainly for coop implementation
+	public void setState(STATE n) {
+		state = n;
+	}
+	
+	//used to update vote count to track in coop
+	public void updateVote() {
+		voteCount++;
+	}
+	//gets the vote count
+	public int getVote() {
+		return voteCount;
+	}
+	//resets the vote count
+	public void resetVote() {
+		voteCount = 0;
+	}
+	//returns the game state
+	public STATE getState() {
+		return state;
 	}
 }

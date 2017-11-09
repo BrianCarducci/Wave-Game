@@ -35,16 +35,15 @@ public class EnemySmart extends GameObject {
 	
 	//alter the Algorithm to take the player closest to it to lock on to.
 	public void tick() {
-		this.x += velX;
-		this.y += velY;
-		////////////////////////////// pythagorean theorem
-		////////////////////////////// below//////////////////////////////////////////////////
+		////////////////////////////// pythagorean theorem below//////////////////////////////////////////////////
 		double diffX = this.x - player.getX() - 16;
 		double diffY = this.y - player.getY() - 16;
 		double distance = Math.sqrt(((this.x - player.getX()) * (this.x - player.getX()))
 				+ ((this.y - player.getY()) * (this.y - player.getY())));
-		////////////////////////////// pythagorean theorem
-		////////////////////////////// above//////////////////////////////////////////////////
+		////////////////////////////// pythagorean theorem above//////////////////////////////////////////////////
+		this.x += velX;
+		this.y += velY;
+		
 		if(player2 != null) {
 		double diffx2 = this.x - player2.getX() - 16;
 		double diffy2 = this.y - player2.getY() - 16;

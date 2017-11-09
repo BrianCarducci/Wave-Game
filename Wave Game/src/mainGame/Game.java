@@ -23,9 +23,9 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable {
 
-	private static final long serialVersionUID = 1L;
 	//using the imported tool api, Java automatically gets screen width and height to dynamically adjust
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = (int)screenSize.getWidth(), HEIGHT = (int) screenSize.getHeight();
 	private Thread thread;
 	private boolean running = false;
@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable {
 	private Player player,player2;
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
-
+	public String temp;
 	Sound sound = new Sound();
 
 	/**
@@ -134,7 +134,7 @@ public class Game extends Canvas implements Runnable {
 	 * for updating the instance variables (DATA) of each entity (location, health,
 	 * appearance, etc).
 	 */
-	private void tick() {
+	public void tick() {
 		handler.tick();// ALWAYS TICK HANDLER, NO MATTER IF MENU OR GAME SCREEN
 		if (gameState == STATE.Game) {// game is running
 			hud.tick();
@@ -147,7 +147,9 @@ public class Game extends Canvas implements Runnable {
 		//changes game state to different game mode for coop
 		else if(gameState == STATE.Coop){
 			hud.tick();
+			hud.setState(STATE.Coop);
 			hud2.tick();
+			hud2.setState(STATE.Coop);
 			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10, update them
 				spawner.tick();
 			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
@@ -169,7 +171,6 @@ public class Game extends Canvas implements Runnable {
 	 * Graphics objects (entities, screens, HUD's, etc).
 	 */
 	private void render() {
-
 		/*
 		 * BufferStrategies are used to prevent screen tearing. In other words, this
 		 * allows for all objects to be redrawn at the same time, and not individually
@@ -180,9 +181,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-
 		///////// Draw things bellow this/////////////
-
 		g.setColor(Color.black);
 		g.fillRect(0, 0, (int) WIDTH, (int) HEIGHT);
 
@@ -194,13 +193,12 @@ public class Game extends Canvas implements Runnable {
 			hud.render(g);
 			hud2.render(g);
 		}
-
 		else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is in help or the menu, draw the menu// and help objects
 			menu.render(g);
 		} else if (gameState == STATE.Upgrade) {// user is on the upgrade screen, draw the upgrade screen
 			upgradeScreen.render(g);
 		} else if (gameState == STATE.GameOver) {// game is over, draw the game over screen
-			gameOver.render(g);
+				gameOver.render(g);
 		}
 
 		///////// Draw things above this//////////////
@@ -232,16 +230,13 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		new Game();
-
 		//Screen size debug printout
 		System.out.println("Screensize: " + screenSize);
-
 		//Plays background noise; 1st parameter = sound file 2nd = amount you want to play
 		try {
 			//large number chosen so it will never stop playing in background
 			System.out.println("Background music started");
 			Sound.playSound("Sound/neonDrive.wav", 1000000);
-
 
 			//Use catch block or sound file will not play
 		} catch (InterruptedException | UnsupportedAudioFileException
@@ -249,7 +244,7 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void renderGameOver() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {

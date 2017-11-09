@@ -31,6 +31,7 @@ public class Player extends GameObject {
 	private int playerWidth, playerHeight;
 	public static int playerSpeed = 10;
 	private int timer;
+	public int voteCount;
 
 	public Player(double x, double y, ID id, Handler handler, HUD hud, CoopHud hud2, Game game) {
 
@@ -42,7 +43,7 @@ public class Player extends GameObject {
 		this.hud2 = hud2;
 		timer = 60;
 		img = getImage("images/TrumpImage.png");
-
+		voteCount = 0;
 //		playerWidth = 32;
 //		playerHeight = 32;
 		
@@ -81,6 +82,8 @@ public class Player extends GameObject {
 	public void checkIfDead() {
 		if (hud.health <= 0) {// player is dead, game over!
 			if (hud.getExtraLives() == 0) {
+				game.renderGameOver();
+				game.getGameOver().setWhoDied(0);
 				game.gameState = STATE.GameOver;
 			}
 
@@ -93,17 +96,25 @@ public class Player extends GameObject {
 	}
 
 	public void checkIfDeadCoop() {
-		if (hud.health <= 0 || hud2.health <= 0) {// player is dead, game over!
-				if (hud.health <= 0) {
-					if (hud.getExtraLives() == 0) {
+		int finalVote = 5;
+		if ((hud.health <= 0 || hud2.health <= 0) || (hud.getVote() == finalVote || hud2.getVote() == finalVote)) {// player is dead, game over!
+				if (hud.health <= 0 || hud.getVote() == finalVote) {
+					if (hud.getExtraLives() == 0 && hud.health <= 0) {
 						game.getGameOver().setWhoDied(1);
-						game.renderGameOver();
+					game.gameState = STATE.GameOver;
+					}
+					if (hud.getVote() >= finalVote) {
+						game.getGameOver().setWinner(1);
 						game.gameState = STATE.GameOver;
 					}
-				}if (hud2.health <= 0) {
-					if (hud2.getExtraLives() == 0) {
+					
+				}if (hud2.health <= 0 || hud2.getVote() == finalVote) {
+					if (hud2.getExtraLives() == 0 && hud2.health <= 0) {
 						game.getGameOver().setWhoDied(2);
-						game.renderGameOver();
+						game.gameState = STATE.GameOver;
+					}
+					if (hud2.getVote() >= finalVote) {
+						game.getGameOver().setWinner(2);
 						game.gameState = STATE.GameOver;
 					}
 				}
@@ -125,6 +136,7 @@ public class Player extends GameObject {
 	public void collision() {
 
 		hud.updateScoreColor(Color.white);
+		hud2.updateScoreColor(Color.white);
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 
@@ -151,9 +163,7 @@ public class Player extends GameObject {
 
 			}
 			if (tempObject.getId() == ID.EnemyBoss) {
-				// Allows player time to get out of upper area where they will
-				// get hurt once the
-				// boss starts moving
+				// Allows player time to get out of upper area where they will get hurt once the boss starts moving
 				if (this.y <= 138 && tempObject.isMoving) {
 					if (this.id == ID.Player) {
 						hud.health -= 2;
@@ -216,7 +226,16 @@ public class Player extends GameObject {
 					
 					handler.removePickup(tempObject);
 				}
+			}
 				
+			if (tempObject.getId() == ID.Vote) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					if (this.id == ID.Player)
+						hud.updateVote();
+					if (this.id == ID.player2)
+						hud2.updateVote();
+						handler.removePickup(tempObject);
+				}
 			}
 		}
 	}
@@ -254,6 +273,10 @@ public class Player extends GameObject {
 		}
 
 		return image;
+	}
+	
+	public void setCount() {
+		voteCount++; 
 	}
 
 }
