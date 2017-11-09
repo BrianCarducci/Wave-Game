@@ -64,6 +64,7 @@ public class Menu {
 		colorPick.add(Color.cyan);
 		colorPick.add(Color.magenta);
 		colorPick.add(Color.yellow);
+		colorPick.add(Color.pink);
 	}
 
 	public void tick() {
