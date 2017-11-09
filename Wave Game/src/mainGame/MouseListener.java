@@ -83,6 +83,8 @@ public class MouseListener extends MouseAdapter {
 			spawner.addLevels();
 			spawner2.restart();
 			spawner2.addLevels();
+			hud.resetVote();
+			hud2.resetVote();
 			player 		= new Player(width / 2 - 32,  height / 2 - 32, ID.Player, handler, this.hud, this.hud2, game);
 			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.player2, handler, this.hud, this.hud2, game);
 			Spawn1to10.LEVEL_SET = 1;
@@ -97,27 +99,20 @@ public class MouseListener extends MouseAdapter {
 		else if (game.gameState == STATE.Upgrade) {
 			if (mouseOver(mx, my, 100, 300, 1721, 174)) {
 				upgradeText = upgradeScreen.getPath(1);
-
 				upgrades.activateUpgrade(upgradeText);
-
 				upgradeScreen.removeUpgradeOption(1);
-
 				game.gameState = STATE.Game;
+				
 			} else if (mouseOver(mx, my, 100, 300 + (60 + Game.HEIGHT / 6), 1721, 174)) {
 				upgradeText = upgradeScreen.getPath(2);
-
 				upgrades.activateUpgrade(upgradeText);
-
 				upgradeScreen.removeUpgradeOption(2);
-
 				game.gameState = STATE.Game;
+				
 			} else if (mouseOver(mx, my, 100, 300 + 2 * (60 + Game.HEIGHT / 6), 1721, 174)) {
 				upgradeText = upgradeScreen.getPath(3);
-
 				upgrades.activateUpgrade(upgradeText);
-
 				upgradeScreen.removeUpgradeOption(3);
-
 				game.gameState = STATE.Game;
 			}
 
@@ -133,7 +128,7 @@ public class MouseListener extends MouseAdapter {
 				// "images/PickupHealth.png", handler));
 			}
 			//multiplayer coop button
-			else if(mouseOver(mx,my,990,635,400,400)) {
+			else if(mouseOver(mx,my,990,535,400,400)) {
 				handler.object.clear();
 				game.gameState = STATE.Coop;
 				handler.addObject(player);

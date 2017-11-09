@@ -31,6 +31,13 @@ public enum ID {
 	TwitterSpeed(),
 	NFLSpeed(),
 	HillaryBoss(),
-	HillaryEmail();
+	HillaryEmail(),
+	Vote();
+//=======
+//	PickupHealth(),
+//	PickupHealth2(),
+//	PickupSpeed(),
+//	PickupSpeed2(),
+//>>>>>>> coop2
 	
 }

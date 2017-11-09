@@ -20,7 +20,7 @@ import java.util.Random;
 public class BossEye extends GameObject {
 
 	private Image img;
-	private Random r = new Random();;
+	private Random r = new Random();
 	private float alpha = 0;
 	private double life = 0.005;
 	private int tempCounter = 0;
