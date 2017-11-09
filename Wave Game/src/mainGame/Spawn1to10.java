@@ -219,7 +219,7 @@ public class Spawn1to10 {
 				tempCounter++;
 			}
 			if (spawnTimer <= 0) {
-				handler.addObject(new EnemyBurst(-200, 200, 50, 50, 200, side[r.nextInt(4)], ID.EnemyBurst, handler));
+				handler.addObject(new EnemyDash(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -6, ID.EnemySmart, handler));
 				spawnTimer = 180;
 			}
 
