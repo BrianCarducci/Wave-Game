@@ -20,6 +20,7 @@ import mainGame.Game.STATE;
 
 public class Player extends GameObject {
 
+	private Thread healthThread;
 	Random r = new Random();
 	Handler handler;
 	private HUD hud;
@@ -42,11 +43,12 @@ public class Player extends GameObject {
 		this.damage = 1;
 		this.hud2 = hud2;
 		timer = 60;
+		
 		img = getImage("images/TrumpImage.png");
 		voteCount = 0;
 //		playerWidth = 32;
 //		playerHeight = 32;
-		
+
 		if (this.id == ID.Player)
             img = getImage("images/TrumpImage.png");
         else if (this.id == ID.player2)
@@ -66,17 +68,15 @@ public class Player extends GameObject {
 		//handler.addObject(new Trail(x, y, ID.Trail, Color.white, playerWidth, playerHeight, 0.05, this.handler));
 
 		collision();
-		
+
 		if (timer == 0){
 			timer = 60;
 			playerSpeed = 10;
 		}
-
 		if (game.gameState == STATE.Game)
 			checkIfDead();
 		if (game.gameState == STATE.Coop)
 			checkIfDeadCoop();
-
 	}
 
 	public void checkIfDead() {
@@ -162,6 +162,10 @@ public class Player extends GameObject {
 				}
 
 			}
+			
+			
+			
+			
 			if (tempObject.getId() == ID.EnemyBoss) {
 				// Allows player time to get out of upper area where they will get hurt once the boss starts moving
 				if (this.y <= 138 && tempObject.isMoving) {
@@ -190,7 +194,14 @@ public class Player extends GameObject {
 						hud.setHealth(hud.health + 40);
 					}
 					handler.removePickup(tempObject);
+					
+					//Plays sound effect on different thread
+					//Each sound effect is the same except for which string is called
+					Thread thread = new Thread(new Sound(), "PutinHealth");
+					thread.start();
+
 				}
+
 			}
 			if (tempObject.getId() == ID.EminemHealth) {
 				if (getBounds().intersects(tempObject.getBounds())) {
@@ -202,28 +213,36 @@ public class Player extends GameObject {
 
 					}
 					handler.removePickup(tempObject);
+					Thread thread = new Thread(new Sound(), "EminemDecrease");
+					thread.start();
+
 				}
 			}
 			if (tempObject.getId() == ID.TwitterSpeed) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 					playerSpeed = 20;
 					handler.removePickup(tempObject);
+					Thread thread = new Thread(new Sound(), "twitterNoise");
+					thread.start();
 				}
 			}
 			if (tempObject.getId() == ID.NFLSpeed) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 					playerSpeed = 5;
 					handler.removePickup(tempObject);
+					Thread thread = new Thread(new Sound(), "NFLSound");
+					thread.start();
+
 				}
 			}
-			
+
 			if (tempObject.getId() == ID.HillaryEmail) {
 				if (getBounds().intersects(tempObject.getBounds())) {
-					
+
 					if (playerSpeed > 0){
 					playerSpeed--;
-					} 
-					
+					}
+
 					handler.removePickup(tempObject);
 				}
 			}

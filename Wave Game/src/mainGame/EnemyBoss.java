@@ -30,7 +30,7 @@ public class EnemyBoss extends GameObject {
 		velX = 0;
 		velY = 2;
 		img = getImage("images/CNNImage.png");
-		this.health = 10;//full health is 1000
+		this.health = 20;//full health is 1000
 	}
 
 	public void tick() {

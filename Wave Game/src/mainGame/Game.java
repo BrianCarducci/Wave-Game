@@ -150,6 +150,7 @@ public class Game extends Canvas implements Runnable {
 			hud.setState(STATE.Coop);
 			hud2.tick();
 			hud2.setState(STATE.Coop);
+			
 			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10, update them
 				spawner.tick();
 			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
@@ -230,21 +231,15 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		new Game();
+		
 		//Screen size debug printout
 		System.out.println("Screensize: " + screenSize);
-		//Plays background noise; 1st parameter = sound file 2nd = amount you want to play
-		try {
-			//large number chosen so it will never stop playing in background
-			System.out.println("Background music started");
-			Sound.playSound("Sound/neonDrive.wav", 1000000);
-
-			//Use catch block or sound file will not play
-		} catch (InterruptedException | UnsupportedAudioFileException
-				| LineUnavailableException | IOException e) {
-			e.printStackTrace();
-		}
+		//Plays background music
+		Thread thread = new Thread(new Sound(), "music");
+		thread.start();
+		
+		
 	}
-	
 	public void renderGameOver() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
