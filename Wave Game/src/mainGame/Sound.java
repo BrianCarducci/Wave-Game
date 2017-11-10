@@ -81,7 +81,7 @@ public class Sound implements Runnable {
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 		}
 		try {
-			System.out.println(Thread.currentThread().getName());
+			System.out.println("File: " + Thread.currentThread().getName());
 			Thread.sleep(clip.getMicrosecondLength());
 			System.out.println(Thread.currentThread().isAlive());
 
