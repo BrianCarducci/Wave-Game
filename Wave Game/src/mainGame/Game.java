@@ -231,26 +231,14 @@ public class Game extends Canvas implements Runnable {
 	public static void main(String[] args) {
 		new Game();
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		//Screen size debug printout
+		System.out.println("Screensize: " + screenSize);
+		//Plays background music
+		Thread thread = new Thread(new Sound(), "music");
+		thread.start();
 		
 		
 	}
-//		//Screen size debug printout
-//		System.out.println("Screensize: " + screenSize);
-//		//Plays background music
-//		Thread thread = new Thread(new Sound(), "music");
-//		thread.start();
-
 	public void renderGameOver() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
