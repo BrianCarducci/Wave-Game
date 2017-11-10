@@ -134,7 +134,7 @@ public class Spawn1to10 {
 			levelTimer--;
 			voteTimer--;
 			if (tempCounter < 1) {
-				handler.addPickup(new PickupVote(ID.Vote, handler));
+				//handler.addPickup(new PickupVote(ID.Vote, handler));
 				levelTimer = 2000;
 				tempCounter++;
 			}
