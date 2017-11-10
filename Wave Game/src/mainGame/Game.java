@@ -23,9 +23,9 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable {
 
-	private static final long serialVersionUID = 1L;
 	//using the imported tool api, Java automatically gets screen width and height to dynamically adjust
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = (int)screenSize.getWidth(), HEIGHT = (int) screenSize.getHeight();
 	private Thread thread;
 	private boolean running = false;
@@ -147,7 +147,9 @@ public class Game extends Canvas implements Runnable {
 		//changes game state to different game mode for coop
 		else if(gameState == STATE.Coop){
 			hud.tick();
+			
 			hud2.tick();
+			
 			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10, update them
 				spawner.tick();
 			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
@@ -169,7 +171,6 @@ public class Game extends Canvas implements Runnable {
 	 * Graphics objects (entities, screens, HUD's, etc).
 	 */
 	private void render() {
-
 		/*
 		 * BufferStrategies are used to prevent screen tearing. In other words, this
 		 * allows for all objects to be redrawn at the same time, and not individually
@@ -180,9 +181,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		Graphics g = bs.getDrawGraphics();
-
 		///////// Draw things bellow this/////////////
-
 		g.setColor(Color.black);
 		g.fillRect(0, 0, (int) WIDTH, (int) HEIGHT);
 
@@ -194,7 +193,6 @@ public class Game extends Canvas implements Runnable {
 			hud.render(g);
 			hud2.render(g);
 		}
-
 		else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is in help or the menu, draw the menu// and help objects
 			menu.render(g);
 		} else if (gameState == STATE.Upgrade) {// user is on the upgrade screen, draw the upgrade screen
@@ -232,14 +230,26 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		new Game();
-
-		//Screen size debug printout
-		System.out.println("Screensize: " + screenSize);
 		
-		//Plays background music
-		Thread thread = new Thread(new Sound(), "music");
-		thread.start();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
+//		//Screen size debug printout
+//		System.out.println("Screensize: " + screenSize);
+//		//Plays background music
+//		Thread thread = new Thread(new Sound(), "music");
+//		thread.start();
 
 	public void renderGameOver() {
 		BufferStrategy bs = this.getBufferStrategy();
