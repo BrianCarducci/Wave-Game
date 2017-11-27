@@ -1,5 +1,7 @@
 package mainGame;
 
+import mainGame.Game.STATE;
+
 /**
  * The upgrades that a user can have (they modify the game for the user)
  * 
@@ -15,11 +17,13 @@ public class Upgrades {
 	private Player player;
 	private Spawn1to10 spawner;
 	private Spawn10to20 spawner2;
+	private AttackSpawn attackSpawn;
+	private AttackHUD attackHUD;
 	private UpgradeScreen upgradeScreen;
 	private String ability;
 
 	public Upgrades(Game game, Handler handler, HUD hud, UpgradeScreen upgradeScreen, Player player, Spawn1to10 spawner,
-			Spawn10to20 spawner2) {
+			Spawn10to20 spawner2, AttackHUD attackHUD, AttackSpawn attackSpawn) {
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
@@ -27,6 +31,8 @@ public class Upgrades {
 		this.player = player;
 		this.spawner = spawner;
 		this.spawner2 = spawner2;
+		this.attackHUD = attackHUD;
+		this.attackSpawn = attackSpawn;
 	}
 
 	public void clearScreenAbility() {
@@ -58,6 +64,11 @@ public class Upgrades {
 	}
 
 	public void levelSkipAbility() {
+		
+		if (game.gameState == STATE.Attack){
+			attackSpawn.skipLevel();
+		}
+		
 		handler.clearEnemies();
 		hud.setLevel(hud.getLevel() + 1);
 		if (Spawn1to10.LEVEL_SET == 1) {

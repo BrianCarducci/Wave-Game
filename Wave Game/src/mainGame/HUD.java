@@ -65,16 +65,19 @@ public class HUD {
 		
 		g.drawRect(15, 15, healthBarWidth, 64);
 		g.setFont(font);
+		
 		if (state != STATE.Coop) {
 			g.drawString("Score: " + score, 15, 115);
 		}else {
 			g.drawString("Vote Count: " + voteCount, 15, 115);
 		}
+		
 		if (isBoss == false) {
 		g.drawString("Level: " + level, 15, 150);
 		} else {
-			g.drawString("Level: " + boss, 15, 150);
+			g.drawString("" + boss, 15, 150);
 		}
+		
 		g.drawString("Extra Lives: " + extraLives, 15, 185);
 		if (ability.equals("freezeTime")) {
 			g.drawString("Time Freezes: " + abilityUses, Game.WIDTH - 300, 64);

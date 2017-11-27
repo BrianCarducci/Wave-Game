@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
+
+import mainGame.Game.STATE;
+
 import java.awt.AlphaComposite;
 
 /**
@@ -20,17 +23,23 @@ public class Victory {
 	private Game game;
 	private Handler handler;
 	private HUD hud;
+	private CoopHud coopHUD;
+	private AttackHUD attackHUD;
 	private int timer;
-	private Color menuColor;
-	private String text;
+	private Color retryColor;
+	private String text, text2;
 	private float alpha = 1;
+	private int player, coopPlayer;
 
-	public Victory(Game game, Handler handler, HUD hud) {
+	public Victory(Game game, Handler handler, HUD hud, CoopHud coopHUD, AttackHUD attackHUD) {
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
+		this.coopHUD = coopHUD;
+		this.attackHUD = attackHUD;
 		timer = 90;
-		this.menuColor = Color.white;
+		this.retryColor = Color.white;
+		player = 0;
 	}
 
 	public void tick() {
@@ -38,36 +47,36 @@ public class Victory {
 	}
 
 	public void render(Graphics g) {
-		Font font = new Font("Amoebic", 1, 100);
-		Font font2 = new Font("Amoebic", 1, 60);
+		Font font = new Font("Stencil", 1, 100);
+		Font font2 = new Font("Stencil", 1, 60);
 		g.setFont(font);
+
 		text = "You Won";
 		g.drawString(text, Game.WIDTH / 2 - getTextWidth(font, text) / 2, Game.HEIGHT / 2 - 150);
-		
-		text = "Score: " + hud.getScore();
-		g.drawString(text, (Game.WIDTH / 2) - (getTextWidth(font2, text) / 2) - 150, Game.HEIGHT / 2 + 25);
-		
-		Graphics2D g2d = (Graphics2D)g;
-		g2d.setComposite(makeTransparent(alpha));
+		g.setFont(font2);
 
-		g.setColor(Color.white);
+		if (attackHUD.getAttack() == true) {
+			text = "Score: " + attackHUD.getScore();
+			g.drawString(text, Game.WIDTH / 2 - getTextWidth(font2, text) / 2, Game.HEIGHT / 2 - 50);
+		} else {
+			text = "Score: " + hud.getScore();
+			g.drawString(text, Game.WIDTH / 2 - getTextWidth(font2, text) / 2, Game.HEIGHT / 2 - 50);
+
+		}
+
+		g.setColor(this.retryColor);
 		g.setFont(font2);
 		text = "Click anywhere to play again";
 		g.drawString(text, Game.WIDTH / 2 - getTextWidth(font2, text) / 2, Game.HEIGHT / 2 + 150);
-		g2d.setComposite(makeTransparent(1));
+
 	}
 	
-	private AlphaComposite makeTransparent(float alpha) {
-		int type = AlphaComposite.SRC_OVER;
-		return (AlphaComposite.getInstance(type, alpha));
-	}
-
 	public void flash() {
 		timer--;
 		if (timer == 45) {
-			this.alpha = 0;
+			this.retryColor = Color.black;
 		} else if (timer == 0) {
-			this.alpha = 1;
+			this.retryColor = Color.white;
 			timer = 90;
 		}
 	}
