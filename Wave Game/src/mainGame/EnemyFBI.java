@@ -14,7 +14,7 @@ import java.awt.Rectangle;
 public class EnemyFBI extends GameObject {
 
 	private Handler handler;
-	private GameObject player, player2;
+	private GameObject player, player2, server;
 	private int speed;
 	private int timer;
 	private int sizeX;
@@ -31,8 +31,9 @@ public class EnemyFBI extends GameObject {
 		this.velY = 0;
 		this.bulletSpeed = bulletSpeed;
 		this.timer = 0;
-		player = null;
+		player  = null;
 		player2 = null;
+		server  = null;
 		
 		for (int i = 0; i < handler.object.size(); i++) {
 			if (handler.object.get(i).getId() == ID.Player)
@@ -87,7 +88,23 @@ public class EnemyFBI extends GameObject {
 			velY = ((this.speed / distance2) * diffy2);// numerator affects speed of enemy
 		} 
 		
+		if(server != null) {
+		double diffx3 = this.x - server.getX() - 16;
+		double diffy3 = this.y - server.getY() - 16;
+		double distance3 = Math.sqrt(((this.x - server.getX()) * (this.x - server.getX())) + 
+				((this.y - server.getY()) * (this.y - server.getY())));
+		// Conditional to pull the enemy to different players
+		if (distance2 < distance3) {
+			velX = ((this.speed / distance2) * diffx2); // numerator affects speed of enemy
+			velY = ((this.speed / distance2) * diffy2);// numerator affects speed of enemy
+		} else {
+			velX = ((this.speed / distance3) * diffx3); // numerator affects speed of enemy
+			velY = ((this.speed / distance3) * diffy3);// numerator affects speed of enemy
+		} 
+		
 		}
+		}
+		
 		if(player2 == null) {
 		velX = ((this.speed / distance) * diffX); // numerator affects speed of enemy
 		velY = ((this.speed / distance) * diffY);// numerator affects speed of enemy

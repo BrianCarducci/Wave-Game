@@ -32,7 +32,8 @@ public enum ID {
 	NFLSpeed(),
 	HillaryBoss(),
 	HillaryEmail(),
-	Vote();
+	Vote(),
+	Server();
 //=======
 //	PickupHealth(),
 //	PickupHealth2(),

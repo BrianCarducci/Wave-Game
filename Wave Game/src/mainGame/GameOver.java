@@ -21,20 +21,22 @@ public class GameOver {
 	private Handler handler;
 	private HUD hud;
 	private CoopHud hud2;
+	private ServerHUD serverHUD;
 	private int timer;
 	private Color retryColor;
 	private String text,text2;
 	private int player,coopplayer;
 	
 	
-	public GameOver(Game game, Handler handler, HUD hud, CoopHud hud2) {
+	public GameOver(Game game, Handler handler, HUD hud, CoopHud hud2, ServerHUD serverHUD) {
 		this.game = game;
-		this.handler = handler;
-		this.hud = hud;
-		this.hud2 = hud2;
-		timer = 90;
+		this.handler 	= handler;
+		this.hud 		= hud;
+		this.hud2 		= hud2;
+		this.serverHUD 	= serverHUD;
+		timer 			= 90;
 		this.retryColor = Color.white;
-		player = 0;
+		player 			= 0;
 	}
 
 	public void tick() {
@@ -94,6 +96,11 @@ public class GameOver {
 		
 		if (hud.getState() == STATE.Coop || hud2.getState() == STATE.Coop) {
 			text = "Score: " + hud.getScore();
+			g.drawString(text, Game.WIDTH / 2 - getTextWidth(font2, text) / 2, Game.HEIGHT / 2 + 50);
+		}
+		
+		if (serverHUD.getState() == STATE.Defense) {
+			text = "Score: " + serverHUD.getScore();
 			g.drawString(text, Game.WIDTH / 2 - getTextWidth(font2, text) / 2, Game.HEIGHT / 2 + 50);
 		}
 		g.setColor(this.retryColor);

@@ -22,11 +22,13 @@ public class MouseListener extends MouseAdapter {
 	private Handler handler;
 	private HUD hud;
 	private CoopHud hud2;
+	private ServerHUD serverHUD;
 	private Spawn1to10 spawner;
 	private Spawn10to20 spawner2;
 	private UpgradeScreen upgradeScreen;
 	private Upgrades upgrades;
 	private Player player, player2;
+	private Server server;
 	private String upgradeText;
 	private double width;
 	private double height;
@@ -47,18 +49,20 @@ public class MouseListener extends MouseAdapter {
 		height = (double) screenSize.getHeight();
 	}
 	//added second constructor in case of multiplayer
-	public MouseListener(Game game, Handler handler, HUD hud, CoopHud hud2, Spawn1to10 spawner, Spawn10to20 spawner2,
-			UpgradeScreen upgradeScreen, Player player, Player player2, Upgrades upgrades) {
+	public MouseListener(Game game, Handler handler, HUD hud, CoopHud hud2, ServerHUD serverHUD, Spawn1to10 spawner, Spawn10to20 spawner2,
+			UpgradeScreen upgradeScreen, Player player, Player player2, Upgrades upgrades, Server server) {
 		this.game 			= game;
 		this.handler 		= handler;
 		this.hud 			= hud;
 		this.hud2			= hud2;
+		this.serverHUD		= serverHUD;
 		this.spawner 		= spawner;
 		this.spawner2 		= spawner2;
 		this.upgradeScreen 	= upgradeScreen;
 		this.player 		= player;
 		this.player2 		= player2;
 		this.upgrades 		= upgrades;
+		this.server			= server;
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		width = (double) screenSize.getWidth();
 		height = (double) screenSize.getHeight();
@@ -85,8 +89,11 @@ public class MouseListener extends MouseAdapter {
 			spawner2.addLevels();
 			hud.resetVote();
 			hud2.resetVote();
+			serverHUD.resetHealth();
+			serverHUD.setScore(0);
 			player 		= new Player(width / 2 - 32,  height / 2 - 32, ID.Player, handler, this.hud, this.hud2, game);
 			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.player2, handler, this.hud, this.hud2, game);
+			server		= new Server(width / 2 - 32, height / 2 - 32, ID.Server, handler, this.serverHUD, game);
 			Spawn1to10.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
 			hud.setBoss(false);
@@ -132,6 +139,13 @@ public class MouseListener extends MouseAdapter {
 				handler.object.clear();
 				game.gameState = STATE.Coop;
 				handler.addObject(player);
+				handler.addObject(player2);
+			}
+			//defense gamemode button
+			else if(mouseOver(mx,my,1450,135,400,400)) {
+				handler.object.clear();
+				game.gameState = STATE.Defense;
+				handler.addObject(server);
 				handler.addObject(player2);
 			}
 
