@@ -22,8 +22,9 @@ public class MouseListener extends MouseAdapter {
 	private Handler handler;
 	private HUD hud;
 	private CoopHud hud2;
-	private Spawn1to10 spawner;
-	private Spawn10to20 spawner2;
+	private Spawn1to5 spawner;
+	private Spawn5to10 spawner2;
+	private Spawn10to15 spawner3;
 	private UpgradeScreen upgradeScreen;
 	private Upgrades upgrades;
 	private Player player, player2;
@@ -32,13 +33,14 @@ public class MouseListener extends MouseAdapter {
 	private double height;
 
 	//this constructor not really necessary but I am leaving it just in case
-	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to10 spawner, Spawn10to20 spawner2,
-			UpgradeScreen upgradeScreen, Player player, Upgrades upgrades) {
+	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to5 spawner, Spawn5to10 spawner2,Spawn10to15 spawner3,
+			Player player, Upgrades upgrades) {
 		this.game 			= game;
 		this.handler 		= handler;
 		this.hud 			= hud;
 		this.spawner 		= spawner;
 		this.spawner2 		= spawner2;
+		this.spawner3       = spawner3;
 		this.upgradeScreen 	= upgradeScreen;
 		this.player 		= player;
 		this.upgrades 		= upgrades;
@@ -47,7 +49,7 @@ public class MouseListener extends MouseAdapter {
 		height = (double) screenSize.getHeight();
 	}
 	//added second constructor in case of multiplayer
-	public MouseListener(Game game, Handler handler, HUD hud, CoopHud hud2, Spawn1to10 spawner, Spawn10to20 spawner2,
+	public MouseListener(Game game, Handler handler, HUD hud, CoopHud hud2, Spawn1to5 spawner, Spawn5to10 spawner2, Spawn10to15 spawner3,
 			UpgradeScreen upgradeScreen, Player player, Player player2, Upgrades upgrades) {
 		this.game 			= game;
 		this.handler 		= handler;
@@ -55,6 +57,7 @@ public class MouseListener extends MouseAdapter {
 		this.hud2			= hud2;
 		this.spawner 		= spawner;
 		this.spawner2 		= spawner2;
+		this.spawner3       = spawner3;
 		this.upgradeScreen 	= upgradeScreen;
 		this.player 		= player;
 		this.player2 		= player2;
@@ -83,11 +86,13 @@ public class MouseListener extends MouseAdapter {
 			spawner.addLevels();
 			spawner2.restart();
 			spawner2.addLevels();
+			spawner3.restart();
+			spawner3.addLevels();
 			hud.resetVote();
 			hud2.resetVote();
 			player 		= new Player(width / 2 - 32,  height / 2 - 32, ID.Player, handler, this.hud, this.hud2, game);
 			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.player2, handler, this.hud, this.hud2, game);
-			Spawn1to10.LEVEL_SET = 1;
+			Spawn1to5.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
 			hud.setBoss(false);
 		}

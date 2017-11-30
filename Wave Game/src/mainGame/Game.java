@@ -32,8 +32,9 @@ public class Game extends Canvas implements Runnable {
 	private Handler handler;
 	private HUD hud;
 	private CoopHud hud2;
-	private Spawn1to10 spawner;
-	private Spawn10to20 spawner2;
+	private Spawn1to5 spawner;
+	private Spawn5to10 spawner2;
+	private Spawn10to15 spawner3;
 	private Menu menu;
 	private GameOver gameOver;
 	private UpgradeScreen upgradeScreen;
@@ -43,6 +44,7 @@ public class Game extends Canvas implements Runnable {
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
 	public String temp;
+	public static boolean paused = false; //added 11/29/17, for the pause button.
 	Sound sound = new Sound();
 
 	/**
@@ -59,16 +61,17 @@ public class Game extends Canvas implements Runnable {
 		handler 	  = new Handler();
 		hud 		  = new HUD();
 		hud2		  = new CoopHud();
-		spawner 	  = new Spawn1to10(this.handler, this.hud,this.hud2, this);
-		spawner2 	  = new Spawn10to20(this.handler, this.hud,this.hud2, this.spawner, this);
+		spawner 	  = new Spawn1to5(this.handler, this.hud,this.hud2, this);
+		spawner2 	  = new Spawn5to10(this.handler, this.hud,this.hud2, this.spawner, this);
+		spawner3      = new Spawn10to15(this.handler, this.hud,this.hud2,this.spawner2, this);
 		menu 		  = new Menu(this, this.handler, this.hud, this.spawner);
 		upgradeScreen = new UpgradeScreen(this, this.handler, this.hud);
 		player 		  = new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, this.hud, this.hud2, this);
 		player2 	  = new Player(WIDTH / 2 + 100, HEIGHT / 2 - 32, ID.player2, handler, this.hud, this.hud2, this);
-		upgrades 	  = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner, this.spawner2);
+		upgrades 	  = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner, this.spawner2, this.spawner3);
 		gameOver 	  = new GameOver(this, this.handler, this.hud, this.hud2);
-		mouseListener = new MouseListener(this, this.handler, this.hud, this.hud2, this.spawner, this.spawner2, this.upgradeScreen,
-				this.player,this.player2, this.upgrades);
+		mouseListener = new MouseListener(this, this.handler, this.hud, this.hud2, this.spawner, this.spawner2, this.spawner3,
+				upgradeScreen, this.player,this.player2, this.upgrades);
 		this.addKeyListener(new KeyInput(this.handler, this, this.hud, this.player,this.player2, this.spawner, this.upgrades));
 		this.addMouseListener(mouseListener);
 		new Window((int) WIDTH, (int) HEIGHT, "Wave Game", this);
@@ -121,7 +124,7 @@ public class Game extends Canvas implements Runnable {
 				timer += 1000;
 				System.out.println("FPS: " + frames);
 				System.out.println(gameState);
-				System.out.println(Spawn1to10.LEVEL_SET);
+				System.out.println(Spawn1to5.LEVEL_SET);
 				frames = 0;
 			}
 		}
@@ -135,37 +138,45 @@ public class Game extends Canvas implements Runnable {
 	 * appearance, etc).
 	 */
 	public void tick() {
-		handler.tick();// ALWAYS TICK HANDLER, NO MATTER IF MENU OR GAME SCREEN
-		if (gameState == STATE.Game) {// game is running
-			hud.tick();
-			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10, update them
-				spawner.tick();
-			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
-				spawner2.tick();
-			}
-		}
-		//changes game state to different game mode for coop
-		else if(gameState == STATE.Coop){
-			hud.tick();
-			hud.setState(STATE.Coop);
-			hud2.tick();
-			hud2.setState(STATE.Coop);
-			
-			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10, update them
-				spawner.tick();
-			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
-				spawner2.tick();
-			}
-		}
-		else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is on menu, update the menu items
-			menu.tick();
-		} else if (gameState == STATE.Upgrade) {// user is on upgrade screen, update the upgrade screen
-			upgradeScreen.tick();
-		} else if (gameState == STATE.GameOver) {// game is over, update the game over screen
-			gameOver.tick();
-		}
+		if (gameState == STATE.Game) {
+			if(!paused) {
 
+				handler.tick();// ALWAYS TICK HANDLER, NO MATTER IF MENU OR GAME SCREEN
+				// game is running
+				hud.tick();
+				if (Spawn1to5.LEVEL_SET == 1) {// user is on levels 1 thru 5, update them
+					spawner.tick();
+				} else if (Spawn1to5.LEVEL_SET == 2) {// user is on levels 5 thru 10, update them
+					spawner2.tick();
+				} else if (Spawn1to5.LEVEL_SET == 3) {// user is on levels 10 thru 15, update them
+					spawner3.tick();
+				}
+			}
+			//changes game state to different game mode for coop
+			else if(gameState == STATE.Coop){
+				hud.tick();
+				hud.setState(STATE.Coop);
+				hud2.tick();
+				hud2.setState(STATE.Coop);
+
+				if (Spawn1to5.LEVEL_SET == 1) {// user is on levels 1 thru 5, update them
+					spawner.tick();
+				} else if (Spawn1to5.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
+					spawner2.tick();
+				} else if (Spawn1to5.LEVEL_SET == 3) {//user in on levels 5 thru 10, update them
+					spawner3.tick();
+				}
+			}
+			else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is on menu, update the menu items
+				menu.tick();
+			} else if (gameState == STATE.Upgrade) {// user is on upgrade screen, update the upgrade screen
+				upgradeScreen.tick();
+			} else if (gameState == STATE.GameOver) {// game is over, update the game over screen
+				gameOver.tick();
+			}
+		}
 	}
+
 
 	/**
 	 * Constantly drawing to the many buffer screens of each entity requiring the
@@ -186,7 +197,13 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, (int) WIDTH, (int) HEIGHT);
 
-		handler.render(g); // ALWAYS RENDER HANDLER, NO MATTER IF MENU OR GAME SCREEN
+		handler.render(g);// ALWAYS RENDER HANDLER, NO MATTER IF MENU OR GAME SCREEN
+		
+		if(paused) {
+			g.setColor(Color.WHITE);
+			g.drawString("Paused", 0, 0);
+		}
+		
 
 		if (gameState == STATE.Game) {// user is playing game, draw game objects
 			hud.render(g);
@@ -199,7 +216,7 @@ public class Game extends Canvas implements Runnable {
 		} else if (gameState == STATE.Upgrade) {// user is on the upgrade screen, draw the upgrade screen
 			upgradeScreen.render(g);
 		} else if (gameState == STATE.GameOver) {// game is over, draw the game over screen
-				gameOver.render(g);
+			gameOver.render(g);
 		}
 
 		///////// Draw things above this//////////////
@@ -231,14 +248,14 @@ public class Game extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		new Game();
-		
+
 		//Screen size debug printout
 		System.out.println("Screensize: " + screenSize);
 		//Plays background music
 		Thread thread = new Thread(new Sound(), "music");
 		thread.start();
-		
-		
+
+
 	}
 	public void renderGameOver() {
 		BufferStrategy bs = this.getBufferStrategy();

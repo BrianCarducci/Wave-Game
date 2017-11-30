@@ -66,7 +66,7 @@ public class MenuFireworks extends GameObject {
 
 	}
 
-	public void sparks(GameObject tempObject) {// when the big circle breaks into a bunch of smaller ones
+	private void sparks(GameObject tempObject) {// when the big circle breaks into a bunch of smaller ones
 		for (int ii = 0; ii < 3; ii++) {
 			handler.addObject(new MenuFireworks(this.x, this.y, 20, 20, (r.nextInt((max - min) + 1) + min), -5,
 					this.color, ID.FireworkSpark, handler));

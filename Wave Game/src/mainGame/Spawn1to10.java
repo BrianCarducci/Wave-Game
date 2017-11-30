@@ -1,3 +1,4 @@
+/*
 package mainGame;
 
 import java.awt.Image;
@@ -12,7 +13,7 @@ import mainGame.Game.STATE;
  * Contains the programming of levels 1-10, as well as handles level progression
  *
  * @author Brandon Loehle 5/30/16
- */
+ *
 
 public class Spawn1to10 {
 
@@ -59,7 +60,7 @@ public class Spawn1to10 {
 
 	/**
 	 * Pre-load every level
-	 */
+	 *
 	public void addLevels() {
 		for (int i = 1; i <= 10; i++) {
 			levels.add(i);
@@ -68,7 +69,7 @@ public class Spawn1to10 {
 
 	/**
 	 * Called once every 60 seconds by the Game loop
-	 */
+	 *
 	public void tick() {
 		if (levelNumber <= 0) {
 			levelTimer--;
@@ -91,7 +92,7 @@ public class Spawn1to10 {
 		 *
 		 * Please refer to this bit of code to understand how each level works
 		 *
-		 */
+		 *
 		else if (levelNumber == 1) {// this is level 1
 			spawnTimer--;// keep decrementing the spawning spawnTimer 60 times a second
 			levelTimer--;// keep decrementing the level spawnTimer 60 times a second
@@ -513,3 +514,5 @@ public class Spawn1to10 {
 	}
 
 }
+
+*/

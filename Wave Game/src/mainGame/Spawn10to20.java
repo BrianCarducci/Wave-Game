@@ -1,3 +1,4 @@
+/*
 package mainGame;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import mainGame.Game.STATE;
  *
  * @author Brandon Loehle 5/30/16
  *
- */
+ *
 
 public class Spawn10to20 {
 
@@ -32,7 +33,7 @@ public class Spawn10to20 {
 	private int tempCounter = 0;
 	public static int LEVEL_SET_2_RESET = 0;
 
-	public Spawn10to20(Handler handler, HUD hud, CoopHud hud2, Spawn1to10 spawner, Game game) {
+	public Spawn10to20(Handler handler, HUD hud, CoopHud hud2, Spawn1to5 spawner, Game game) {
 		restart();
 		this.handler = handler;
 		this.hud = hud;
@@ -449,77 +450,77 @@ public class Spawn10to20 {
 			}
 		}
 		
-		else if (levelNumber == 101) {
-		timer--;
-		levelTimer--;
-		if (tempCounter < 1) {
-			levelTimer = 1400;
-			tempCounter++;
-	
-			if (hud.health <= 60) {
-				handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
-			} else {
-				handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
-			}
-	
-		}
-	
-		if (timer <= 0) {
-	
-			handler.addObject(new HillaryBoss(-250, 250, 10, 20, 250, side[r.nextInt(4)], ID.HillaryBoss, handler));
-			handler.addPickup(new HillaryEmail(ID.HillaryEmail, handler));
-			timer = 30;
-	
-		}
-		hud.setBossLevel("Boss Two");
-		hud.setBoss(true);
-	
-		if (levelTimer == 0) {
-			GameObject tempObject = handler.object.get(1);
-			if (tempObject.getId() == ID.BossEye) {
-				handler.pickups.clear();
-				handler.removeObject(tempObject);
-				levelTimer += 200;
-			}
-		}
-	}
-
 //		else if (levelNumber == 101) {
-//			
-//			
-//			levelTimer--;
-//			if (tempCounter < 1) {
-//				levelTimer = 2000;
-//				tempCounter++;
-//
-//				if (hud.health <= 60) {
-//					handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
-//				} else {
-//					handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
-//				}
-//
-//				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT - 200, ID.BossEye, handler, 1));
-//				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT - 200, ID.BossEye, handler, 2));
-//				handler.addObject(new BossEye(50, Game.HEIGHT - 200, ID.BossEye, handler, 3));
-//				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
-//				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
-//				handler.addObject(new BossEye(50, Game.HEIGHT / 2 - 120, ID.BossEye, handler, 6));
-//				handler.addObject(new BossEye(Game.WIDTH - 150, 50, ID.BossEye, handler, 7));
-//				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
-//				handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
-//				hud.setBossLevel("Boss Two");
-//				hud.setBoss(true);
+//		timer--;
+//		levelTimer--;
+//		if (tempCounter < 1) {
+//			levelTimer = 1400;
+//			tempCounter++;
+	
+//			if (hud.health <= 60) {
+	//			handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
+		//	} else {
+			//	handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
 //			}
-//
-//			if (levelTimer == 0) {
-//				GameObject tempObject = handler.object.get(1);
-//				if (tempObject.getId() == ID.BossEye) {
-//					handler.pickups.clear();
-//					handler.removeObject(tempObject);
-//					levelTimer += 200;
-//				}
+//	
+//		}
+//	
+//		if (timer <= 0) {
+//	
+//			handler.addObject(new HillaryBoss(-250, 250, 10, 20, 250, side[r.nextInt(4)], ID.HillaryBoss, handler));
+//			handler.addPickup(new HillaryEmail(ID.HillaryEmail, handler));
+//			timer = 30;
+//	
+//		}
+//		hud.setBossLevel("Boss Two");
+//		hud.setBoss(true);
+//	
+//		if (levelTimer == 0) {
+//			GameObject tempObject = handler.object.get(1);
+//			if (tempObject.getId() == ID.BossEye) {
+//				handler.pickups.clear();
+//				handler.removeObject(tempObject);
+//				levelTimer += 200;
 //			}
 //		}
+//	}
+
+	else if (levelNumber == 101) {
+			
+		
+			levelTimer--;
+			if (tempCounter < 1) {
+				levelTimer = 2000;
+			tempCounter++;
+
+				if (hud.health <= 60) {
+					handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
+				} else {
+					handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
+				}
+
+				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT - 200, ID.BossEye, handler, 1));
+				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT - 200, ID.BossEye, handler, 2));
+				handler.addObject(new BossEye(50, Game.HEIGHT - 200, ID.BossEye, handler, 3));
+				handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
+				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
+				handler.addObject(new BossEye(50, Game.HEIGHT / 2 - 120, ID.BossEye, handler, 6));
+				handler.addObject(new BossEye(Game.WIDTH - 150, 50, ID.BossEye, handler, 7));
+				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
+				handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
+				hud.setBossLevel("Boss Two");
+				hud.setBoss(true);
+			}
+
+			if (levelTimer == 0) {
+				GameObject tempObject = handler.object.get(1);
+				if (tempObject.getId() == ID.BossEye) {
+					handler.pickups.clear();
+					handler.removeObject(tempObject);
+					levelTimer += 200;
+				}
+			}
+		}
 		// WINNER
 		// else if(levelNumber){
 		// levelTimer --;
@@ -564,7 +565,7 @@ public class Spawn10to20 {
 		levelTimer = 150;
 		randomMax = 10;
 		index = r.nextInt(randomMax);
-
-	}
+		}
 
 }
+*/
