@@ -98,6 +98,8 @@ public class Player extends GameObject {
 	public void checkIfDead() {
 		if (hud.health <= 0) {// player is dead, game over!
 			if (hud.getExtraLives() == 0) {
+				Thread thread = new Thread(new Sound(), "death");
+				thread.start();
 				game.renderGameOver();
 				game.getGameOver().setWhoDied(0);
 				game.gameState = STATE.GameOver;

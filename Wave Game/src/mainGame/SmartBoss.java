@@ -15,7 +15,7 @@ public class SmartBoss extends GameObject {
 		this.handler = handler;
 		this.speed = speed;
 		player = null;
-		this.health = 1000;
+		this.health = 100;
 		for (int i = 0; i < handler.object.size(); i++) {
 			if (handler.object.get(i).getId() == ID.Player)
 				player = handler.object.get(i);

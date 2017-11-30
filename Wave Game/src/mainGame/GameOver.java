@@ -17,6 +17,7 @@ import mainGame.Game.STATE;
 
 public class GameOver {
 
+	Sound sound = new Sound();
 	private Game game;
 	private Handler handler;
 	private HUD hud;
@@ -41,7 +42,7 @@ public class GameOver {
 	public void tick() {
 		handler.clearPlayer();
 		flash();
-
+		
 	}
 
 	public void setWhoDied(int player) {
