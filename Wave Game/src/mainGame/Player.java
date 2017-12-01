@@ -51,7 +51,7 @@ public class Player extends GameObject {
 
 		if (this.id == ID.Player)
             img = getImage("images/TrumpImage.png");
-        else if (this.id == ID.player2)
+        else if (this.id == ID.Player2)
             img = getImage("images/HillaryImage.png");
 
 	}
@@ -251,7 +251,7 @@ public class Player extends GameObject {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					if (this.id == ID.Player)
 						hud.updateVote();
-					if (this.id == ID.player2)
+					if (this.id == ID.Player2)
 						hud2.updateVote();
 						handler.removePickup(tempObject);
 				}

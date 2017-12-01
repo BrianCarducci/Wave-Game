@@ -92,7 +92,7 @@ public class MouseListener extends MouseAdapter {
 			serverHUD.resetHealth();
 			serverHUD.setScore(0);
 			player 		= new Player(width / 2 - 32,  height / 2 - 32, ID.Player, handler, this.hud, this.hud2, game);
-			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.player2, handler, this.hud, this.hud2, game);
+			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.Player2, handler, this.hud, this.hud2, game);
 			server		= new Server(width / 2 - 32, height / 2 - 32, ID.Server, handler, this.serverHUD, game);
 			Spawn1to10.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;

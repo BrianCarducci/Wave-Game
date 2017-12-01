@@ -69,7 +69,7 @@ public class Game extends Canvas implements Runnable {
 		menu 		  = new Menu(this, this.handler, this.hud, this.spawner);
 		upgradeScreen = new UpgradeScreen(this, this.handler, this.hud);
 		player 		  = new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, this.hud, this.hud2, this);
-		player2 	  = new Player(WIDTH / 2 + 100, HEIGHT / 2 - 32, ID.player2, handler, this.hud, this.hud2, this);
+		player2 	  = new Player(WIDTH / 2 + 100, HEIGHT / 2 - 32, ID.Player2, handler, this.hud, this.hud2, this);
 		server		  = new Server(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Server, handler, this.serverHUD, this);
 		upgrades 	  = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner, this.spawner2);
 		gameOver 	  = new GameOver(this, this.handler, this.hud, this.hud2, this.serverHUD);
