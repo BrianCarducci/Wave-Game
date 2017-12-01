@@ -90,6 +90,16 @@ public class Handler {
 			}
 		}
 	}
+	
+	public void clearSmartEnemy(){
+		for (int i = 0; i < this.object.size(); i++) {
+			GameObject tempObject = this.object.get(i);
+			if (tempObject.getId() == ID.EnemySmart) {
+				this.removeObject(tempObject);
+				i--; // Removing shrinks the array by 1, causing the loop to skip an enemy
+			}
+		}
+	}
 
 	/**
 	 * Clears all entities that have an ID of player

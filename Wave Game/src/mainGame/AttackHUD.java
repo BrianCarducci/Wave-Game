@@ -6,21 +6,24 @@ import java.awt.Graphics;
 
 import mainGame.Game.STATE;
 
+/**
+ * 
+ * @author Kyle Horton
+ * 
+ * The heads up display for the Attack mode.
+ *
+ */
 public class AttackHUD {
 	
-	public double health = 100;
-	private double healthMax = 100;
+	// instance variables
+	public double health;
 	private double greenValue = 255;
-
-	private int score = 00000000000;
-
+	private int score = 0;
 	private int level = 0;
 	private String boss = "";
 	private boolean isBoss = false;
-	private boolean regen = false;
 	private boolean isAttack = false;
-	private int timer = 60;
-	private int healthBarWidth = 400;
+	private int healthBarWidth = 600;
 	private int healthBarModifier = 2;
 	private int abilityUses;
 	private Color scoreColor = Color.white;
@@ -31,24 +34,16 @@ public class AttackHUD {
 		health = Game.clamp(health, 0, health);
 		greenValue = Game.clamp(greenValue, 0, 255);
 		greenValue = health * healthBarModifier;
-
-		
-		if (regen) {// regenerates health if that ability has been unlocked
-			timer--;
-			if (timer == 0 && health < 100) {
-				health += 1;
-				timer = 60;
-			}
-		}
 	}
 
 	public void render(Graphics g) {
 		Font font = new Font("Stencil", 1, 30);
+		Font font2 = new Font("Stencil", 1, 100);
 
 		g.setColor(Color.GRAY);
 		g.fillRect(15, 15, healthBarWidth, 64);
 		g.setColor(new Color(75, (int) greenValue, 0));
-		g.fillRect((int) 15, (int) 15, (int) health * 4, 64);
+		g.fillRect((int) 15, (int) 15, (int) health *6, 64);
 		g.setColor(scoreColor);
 		
 		g.drawRect(15, 15, healthBarWidth, 64);
@@ -56,20 +51,22 @@ public class AttackHUD {
 		
 		g.drawString("Score: " + score, 15, 115);
 		
+		
+		// switches display based on if player has ammo or needs to reload
 		if (ammo > 0){
 		g.drawString("Ammo: " + ammo + "/" + mag , 1600, 60);
 		} if (ammo == 0 && mag > 0) {
-			g.drawString("PRESS ENTER TO RELOAD!" , 1450, 60);
+			g.drawString("PRESS 'ENTER' OR 'R' TO RELOAD!" , 1300, 60);
 		} if (ammo == 0 && mag == 0) {
 			g.drawString("OUT OF AMMO!!!" , 1600, 60);
 		}
 		
-		
-		
+		// switches display based on if player is on boss or not
+		g.setFont(font2);
 		if (isBoss == false) {
-		g.drawString("WAVE " + level, 15, 150);
+		g.drawString("WAVE " + level, Game.WIDTH/2 - 150, 100);
 		} else {
-			g.drawString("" + boss, 15, 150);
+			g.drawString("" + boss, Game.WIDTH/2 - 200, 100);
 		}
 	}
 
@@ -128,14 +125,6 @@ public class AttackHUD {
 	public void setHealth(double d) {
 		this.health = d;
 	}
-
-	public void setRegen() {
-		regen = true;
-	}
-
-	public void resetRegen() {
-		regen = false;
-	}
 	
 	public void setAmmo(int ammo){
 		this.ammo = ammo;
@@ -151,26 +140,6 @@ public class AttackHUD {
 	
 	public int getMag(){
 		return mag;
-	}
-	
-
-
-	public void healthIncrease() {
-		healthMax = 200;
-		this.health = healthMax;
-		healthBarModifier = 1;
-		healthBarWidth = 800;
-	}
-
-	public void resetHealth() {
-		healthMax = 100;
-		this.health = healthMax;
-		healthBarModifier = 2;
-		healthBarWidth = 400;
-	}
-
-	public void restoreHealth() {
-		this.health = healthMax;
 	}
 
 }

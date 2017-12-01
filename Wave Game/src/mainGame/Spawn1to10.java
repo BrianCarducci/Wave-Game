@@ -100,6 +100,7 @@ public class Spawn1to10 {
 			if (tempCounter < 1) {// called only once, but sets the levelTimer to how long we want this level to run for
 				levelTimer = 2000;// 2000 / 60 method calls a second = 33.33 seconds long
 				tempCounter++;// ensures the method is only called once
+				handler.addPickup(new NRABonusLife(ID.NRABonusLife, handler));
 			}
 			
 			//voteTimer spawns another vote after the timer reaches 0
@@ -327,6 +328,7 @@ public class Spawn1to10 {
 			if (tempCounter < 1) {
 				levelTimer = 1200;
 				tempCounter++;
+				handler.addPickup(new NRABonusLife(ID.NRABonusLife, handler));
 			}
 			if (spawnTimer == 35) {
 				handler.addObject(

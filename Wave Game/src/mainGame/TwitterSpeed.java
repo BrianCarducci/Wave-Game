@@ -6,7 +6,13 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.net.URL;
 
-// implements speed increase via twitter logo
+/**
+ * 
+ * @author Kyle Horton
+ * 
+ * Pickup that adds a speed increase to the player.
+ *
+ */
 public class TwitterSpeed extends Pickup{
 	
 	private Handler handler;

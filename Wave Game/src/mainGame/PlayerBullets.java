@@ -35,6 +35,7 @@ public class PlayerBullets extends GameObject{
 		
 	}
 	
+	// removes the bullets from screen
 	public void clearBullets() {
 
 		for (int i = 0; i < handler.object.size(); i++) {
@@ -49,16 +50,13 @@ public class PlayerBullets extends GameObject{
 
 	}
 	
+	// checks if bullets hit enemies
 	public void collision() {
 		
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 
-			if (tempObject.getId() == ID.EnemyBasic || tempObject.getId() == ID.EnemyFast
-					|| tempObject.getId() == ID.EnemySmart || tempObject.getId() == ID.EnemyBossBullet
-					|| tempObject.getId() == ID.EnemySweep || tempObject.getId() == ID.EnemyShooterBullet
-					|| tempObject.getId() == ID.EnemyBurst || tempObject.getId() == ID.EnemyShooter
-					|| tempObject.getId() == ID.BossEye || tempObject.getId() == ID.HillaryBoss || tempObject.getId() == ID.EnemyFBI) {// tempObject is an
+			if (tempObject.getId() == ID.EnemySmart ) {// tempObject is an
 															// enemy
 
 				// collision code

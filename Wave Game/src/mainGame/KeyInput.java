@@ -134,7 +134,7 @@ public class KeyInput extends KeyAdapter {
 					if (key == KeyEvent.VK_SPACE) {
 						upgrades.levelSkipAbility();
 					}
-					if (key == KeyEvent.VK_ENTER) {
+					if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_R) {
 
 						if (attackHUD.getAmmo() <= 0 && attackHUD.getMag() > 0) {
 							attackHUD.setMag(attackHUD.getMag() - 30);

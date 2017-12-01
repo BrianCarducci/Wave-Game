@@ -5,7 +5,13 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.net.URL;
-
+/**
+ * 
+ * @author Kyle Horton
+ * 
+ * Pickup that clears the enemies from the screen in attack mode.
+ *
+ */
 public class NukePickup extends Pickup{
 	
 	private Handler handler;

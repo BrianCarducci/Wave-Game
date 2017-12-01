@@ -1,11 +1,22 @@
 package mainGame;
-
+/**
+ * Kyle Horton
+ * 
+ * Class that creates the ammo pickup in the Attack mode.
+ */
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.net.URL;
 
+/**
+ * 
+ * @author Kyle Horton
+ * 
+ * Pickup that adds ammo in Attack mode.
+ *
+ */
 public class AmmoPickup extends Pickup{
 	
 	private Handler handler;
