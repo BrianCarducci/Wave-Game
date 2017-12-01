@@ -43,8 +43,6 @@ public class HUD {
 
 		score++;
 
-		increaseLife();
-
 		if (regen) {// regenerates health if that ability has been unlocked
 			timer--;
 			if (timer == 0 && health < 100) {
@@ -65,24 +63,20 @@ public class HUD {
 		
 		g.drawRect(15, 15, healthBarWidth, 64);
 		g.setFont(font);
+		
 		if (state != STATE.Coop) {
 			g.drawString("Score: " + score, 15, 115);
 		}else {
 			g.drawString("Vote Count: " + voteCount, 15, 115);
 		}
+		
 		if (isBoss == false) {
 		g.drawString("Level: " + level, 15, 150);
 		} else {
-			g.drawString("Level: " + boss, 15, 150);
+			g.drawString("" + boss, 15, 150);
 		}
+		
 		g.drawString("Extra Lives: " + extraLives, 15, 185);
-		if (ability.equals("freezeTime")) {
-			g.drawString("Time Freezes: " + abilityUses, Game.WIDTH - 300, 64);
-		} else if (ability.equals("clearScreen")) {
-			g.drawString("Screen Clears: " + abilityUses, Game.WIDTH - 300, 64);
-		} else if (ability.equals("levelSkip")) {
-			g.drawString("Level Skips: " + abilityUses, Game.WIDTH - 300, 64);
-		}
 	}
 
 	public void setAbility(String ability) {
@@ -150,13 +144,6 @@ public class HUD {
 	}
 
 	public int getExtraLives() {
-		return this.extraLives;
-	}
-
-	public int increaseLife() {
-		if (score % 500 == 0) {
-			setExtraLives(getExtraLives() + 1);
-			}
 		return this.extraLives;
 	}
 

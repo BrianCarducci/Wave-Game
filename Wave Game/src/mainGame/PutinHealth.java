@@ -9,13 +9,12 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 
 /**
- * TO BE IMPLEMENTED - adds health to the player when they move over it
- * @author Brandon Loehle
- * 5/30/16
+ * 
+ * @author Kyle Horton
+ * 
+ * Pickup that adds a health boost to player.
  *
  */
-
-// implements health increase via Putin
 public class PutinHealth extends Pickup{
 	
 	private Handler handler;

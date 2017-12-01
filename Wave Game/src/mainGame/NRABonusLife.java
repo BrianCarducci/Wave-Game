@@ -9,19 +9,19 @@ import java.net.URL;
  * 
  * @author Kyle Horton
  * 
- * Pickup that decreases the players speed.
+ * Pickup that adds a bonus life.
  *
  */
-public class NFLSpeed extends Pickup{
+public class NRABonusLife extends Pickup{
 	
 	private Handler handler;
 
-	public NFLSpeed(ID id, Handler handler) {
-		super((Game.WIDTH - 70)*Math.random(), (Game.HEIGHT - 120)*Math.random(), id);
+	public NRABonusLife(ID id, Handler handler) {
+		super((Game.WIDTH - 90)*Math.random(), (Game.HEIGHT - 120)*Math.random(), id);
 		this.handler = handler;
-		velX = Math.random()*10;
-		velY = Math.random()*10;
-		img = getImage("images/NFLImage.png");
+		velX = Math.random()*5;
+		velY = Math.random()*5;
+		img = getImage("images/NRAImage.png");
 	}
 
 
@@ -30,10 +30,10 @@ public class NFLSpeed extends Pickup{
 		this.x += velX;
 		this.y += velY;
 		
-		if (this.x <= 0 || this.x >= Game.WIDTH - 70){
+		if (this.x <= 0 || this.x >= Game.WIDTH - 100){
 			velX *= -1;
 		}
-		if (this.y<= 0 || this.y >= Game.HEIGHT - 120){
+		if (this.y<= 0 || this.y >= Game.HEIGHT - 100){
 			velY *= -1;
 		}
 		
@@ -53,13 +53,15 @@ public class NFLSpeed extends Pickup{
 
 
 	public void render(Graphics g) {
-		g.drawImage(img, (int) this.x, (int) this.y, 70, 90, null);
+		g.drawImage(img, (int) this.x, (int) this.y, 90, 90, null);
 		
 	}
 
 
 	public Rectangle getBounds() {
-		return new Rectangle((int) this.x, (int) this.y, 70, 90);
+		return new Rectangle((int) this.x, (int) this.y, 90, 90);
 	}
 
 }
+
+
