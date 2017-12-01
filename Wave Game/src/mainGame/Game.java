@@ -35,11 +35,14 @@ public class Game extends Canvas implements Runnable {
 	private Spawn1to5 spawner;
 	private Spawn5to10 spawner2;
 	private Spawn10to15 spawner3;
+	private ServerHUD serverHUD;
+	private DefenseSpawner dSpawner;
 	private Menu menu;
 	private GameOver gameOver;
 	private UpgradeScreen upgradeScreen;
 	private MouseListener mouseListener;
 	private Upgrades upgrades;
+	private Server server;
 	private Player player,player2;
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
@@ -51,7 +54,7 @@ public class Game extends Canvas implements Runnable {
 	 * Used to switch between each of the screens shown to the user
 	 */
 	public enum STATE {
-		Menu, Help, Game, GameOver, Upgrade, Coop
+		Menu, Help, Game, GameOver, Upgrade, Coop, Defense
 	};
 
 	/**
@@ -64,14 +67,16 @@ public class Game extends Canvas implements Runnable {
 		spawner 	  = new Spawn1to5(this.handler, this.hud,this.hud2, this);
 		spawner2 	  = new Spawn5to10(this.handler, this.hud,this.hud2, this.spawner, this);
 		spawner3      = new Spawn10to15(this.handler, this.hud,this.hud2,this.spawner2, this);
+		serverHUD	  = new ServerHUD();
+		dSpawner 	  = new DefenseSpawner(this.handler, this.serverHUD, this.hud2, this);
 		menu 		  = new Menu(this, this.handler, this.hud, this.spawner);
 		upgradeScreen = new UpgradeScreen(this, this.handler, this.hud);
 		player 		  = new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, this.hud, this.hud2, this);
 		player2 	  = new Player(WIDTH / 2 + 100, HEIGHT / 2 - 32, ID.player2, handler, this.hud, this.hud2, this);
 		upgrades 	  = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner, this.spawner2, this.spawner3);
-		gameOver 	  = new GameOver(this, this.handler, this.hud, this.hud2);
-		mouseListener = new MouseListener(this, this.handler, this.hud, this.hud2, this.spawner, this.spawner2, this.spawner3,
-				upgradeScreen, this.player,this.player2, this.upgrades);
+		mouseListener = new MouseListener(this, this.handler, this.hud, this.hud2, this.serverHUD, this.spawner, this.spawner2, this.spawner3,upgradeScreen, this.player,this.player2, this.upgrades, this.server);
+		server		  = new Server(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Server, handler, this.serverHUD, this);
+		gameOver 	  = new GameOver(this, this.handler, this.hud, this.hud2, this.serverHUD);
 		this.addKeyListener(new KeyInput(this.handler, this, this.hud, this.player,this.player2, this.spawner, this.upgrades));
 		this.addMouseListener(mouseListener);
 		new Window((int) WIDTH, (int) HEIGHT, "Wave Game", this);
@@ -167,6 +172,12 @@ public class Game extends Canvas implements Runnable {
 					spawner3.tick();
 				}
 			}
+			else if (gameState == STATE.Defense) {
+				//hud2.tick();
+				serverHUD.setState(STATE.Defense);
+				serverHUD.tick();
+				dSpawner.tick();
+			}
 			else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is on menu, update the menu items
 				menu.tick();
 			} else if (gameState == STATE.Upgrade) {// user is on upgrade screen, update the upgrade screen
@@ -210,6 +221,9 @@ public class Game extends Canvas implements Runnable {
 		} else if (gameState == STATE.Coop) {
 			hud.render(g);
 			hud2.render(g);
+		} else if (gameState == STATE.Defense) {
+		serverHUD.render(g);
+		//hud2.render(g);
 		}
 		else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is in help or the menu, draw the menu// and help objects
 			menu.render(g);

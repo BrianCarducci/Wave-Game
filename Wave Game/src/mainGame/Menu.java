@@ -119,19 +119,19 @@ public class Menu {
 			g.drawRect(1440, 135, 400, 400);
 			g.setFont(font2);
 			g.setColor(color1);
-			g.drawString("Bosses", 1550, 215);
+			g.drawString("Server", 1550, 215);
 
 			g.setColor(color1);
 			g.drawRect(990, 585, 400, 400);
 			g.setFont(font2);
 			g.setColor(color1);
-			g.drawString("Coop", 1095, 665);
+			g.drawString("Co-op", 1095, 665);
 
 			g.setColor(color1);
 			g.drawRect(1440, 585, 400, 400);
 			g.setFont(font2);
 			g.setColor(color1);
-			g.drawString("Hunger", 1550, 665);
+			g.drawString("Attack", 1550, 665);
 
 			g.setColor(color1);
 			g.drawRect(80, 135, 850, 250);
