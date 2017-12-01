@@ -110,11 +110,9 @@ public class GameOver {
 				g.drawString(text, Game.WIDTH / 2 - getTextWidth(font2, text) / 2, Game.HEIGHT / 2 - 50);
 			}
 
-		} else {
-			
-			if (hud.getState() == STATE.Coop || hud2.getState() == STATE.Coop) {
-
-			} else if (hud.getBoss() == true) {
+		} else if (hud.getState() == STATE.Coop || hud2.getState() == STATE.Coop) {
+				
+			if (hud.getBoss() == true) {
 				text = "Game Over";
 				g.drawString(text, Game.WIDTH / 2 - getTextWidth(font, text) / 2, Game.HEIGHT / 2 - 150);
 				g.setFont(font2);
@@ -130,12 +128,11 @@ public class GameOver {
 				g.drawString(text, Game.WIDTH / 2 - getTextWidth(font2, text) / 2, Game.HEIGHT / 2 - 50);
 
 			}
-		}
-		
-		if (serverHUD.getState() == STATE.Defense) {
+		} else if (serverHUD.getState() == STATE.Defense) {
 			text = "Score: " + serverHUD.getScore();
 			g.drawString(text, Game.WIDTH / 2 - getTextWidth(font2, text) / 2, Game.HEIGHT / 2 + 50);
 		}
+	
 		g.setColor(this.retryColor);
 		g.setFont(font2);
 		text = "Click anywhere to play again";

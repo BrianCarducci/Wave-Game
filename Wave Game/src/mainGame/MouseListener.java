@@ -138,7 +138,7 @@ public class MouseListener extends MouseAdapter {
 			attackHUD.setLevel(1);
 			attackHUD.health = 100;
 			attackHUD.setAmmo(30);
-			attackHUD.setMag(300);
+			attackHUD.setMag(360);
 			attackSpawn.restart();
 			spawner.restart();
 			spawner.addLevels();
@@ -150,15 +150,15 @@ public class MouseListener extends MouseAdapter {
 			hud2.resetVote();
 			serverHUD.resetHealth();
 			serverHUD.setScore(0);
+			hud.setBoss(false);
+			attackHUD.setBoss(false);
+			attackHUD.setAttack(false);
+			player.setShooting(false);
 			player 		= new Player(width / 2 - 32,  height / 2 - 32, ID.Player, handler, this.hud, this.hud2, this.attackHUD, game);
 			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.Player2, handler, this.hud, this.hud2, this.attackHUD, game);
 			Spawn1to5.LEVEL_SET = 1;
 			server		= new Server(width / 2 - 32, height / 2 - 32, ID.Server, handler, this.serverHUD, game);
 			game.gameState = STATE.Menu;
-			hud.setBoss(false);
-			attackHUD.setBoss(false);
-			attackHUD.setAttack(false);
-			player.setShooting(false);
 		}
 
 		else if (game.gameState == STATE.Game) {

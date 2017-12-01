@@ -90,12 +90,12 @@ public class KeyInput extends KeyAdapter {
 					if (key == KeyEvent.VK_SPACE) {
 						upgrades.levelSkipAbility();
 					}
-					if (key == KeyEvent.VK_P) {
-						if(game.gameState == STATE.Game) {
-							if(Game.paused) Game.paused = false;
-							else Game.paused = true;
-						}
-					}
+//					if (key == KeyEvent.VK_P) {
+//						if(game.gameState == STATE.Game) {
+//							if(Game.paused) Game.paused = false;
+//							else Game.paused = true;
+//						}
+//					}
 					if (key == KeyEvent.VK_ENTER) {
 						ability = upgrades.getAbility();
 						if (ability.equals("clearScreen")) {
