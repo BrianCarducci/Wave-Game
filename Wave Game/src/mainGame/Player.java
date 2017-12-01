@@ -26,6 +26,7 @@ public class Player extends GameObject {
 	private HUD hud;
 	private CoopHud hud2;
 	private AttackHUD attackHUD;
+	private ServerHUD serverHUD;
 	private Game game;
 	private int damage;
 	private Image img;
@@ -39,7 +40,7 @@ public class Player extends GameObject {
 	private double bulletY;
 	private int bulletSpeed;
 
-	public Player(double x, double y, ID id, Handler handler, HUD hud, CoopHud hud2, AttackHUD attackHUD, Game game) {
+	public Player(double x, double y, ID id, Handler handler, HUD hud, CoopHud hud2, AttackHUD attackHUD, ServerHUD serverHUD, Game game) {
 
 		super(x, y, id);
 		this.handler = handler;
@@ -48,6 +49,7 @@ public class Player extends GameObject {
 		this.damage = 1;
 		this.hud2 = hud2;
 		this.attackHUD = attackHUD;
+		this.serverHUD = serverHUD;
 		bulletX = 0;
 		bulletY = 0;
 		shooting = false;

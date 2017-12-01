@@ -112,10 +112,8 @@ public class MouseListener extends MouseAdapter {
 			hud.resetVote();
 			hud.setState(STATE.Menu);
 			hud2.resetVote();
-			player = new Player(width / 2 - 32, height / 2 - 32, ID.Player, handler, this.hud, this.hud2,
-					this.attackHUD, game);
-			player2 = new Player(width / 2 + 100, height / 2 - 32, ID.Player2, handler, this.hud, this.hud2,
-					this.attackHUD, game);
+			player = new Player(width / 2 - 32, height / 2 - 32, ID.Player, handler, this.hud, this.hud2, this.attackHUD, this.serverHUD, game);
+			player2 = new Player(width / 2 + 100, height / 2 - 32, ID.Player2, handler, this.hud, this.hud2, this.attackHUD, this.serverHUD, game);
 			Spawn1to5.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
 			hud.setBoss(false);
@@ -154,8 +152,8 @@ public class MouseListener extends MouseAdapter {
 			attackHUD.setBoss(false);
 			attackHUD.setAttack(false);
 			player.setShooting(false);
-			player 		= new Player(width / 2 - 32,  height / 2 - 32, ID.Player, handler, this.hud, this.hud2, this.attackHUD, game);
-			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.Player2, handler, this.hud, this.hud2, this.attackHUD, game);
+			player 		= new Player(width / 2 - 32,  height / 2 - 32, ID.Player, handler, this.hud, this.hud2, this.attackHUD, this.serverHUD, game);
+			player2 	= new Player(width / 2 + 100, height / 2 - 32, ID.Player2, handler, this.hud, this.hud2, this.attackHUD, this.serverHUD, game);
 			Spawn1to5.LEVEL_SET = 1;
 			server		= new Server(width / 2 - 32, height / 2 - 32, ID.Server, handler, this.serverHUD, game);
 			game.gameState = STATE.Menu;
