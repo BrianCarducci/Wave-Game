@@ -4,6 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+/**
+ * 
+ * @author Kyle Horton
+ * 
+ * This class creates the bosses seen in Attack mode.
+ *
+ */
 public class SmartBoss extends GameObject {
 	
 	private Handler handler;

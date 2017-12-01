@@ -28,6 +28,7 @@ public enum ID {
 	Levels1to5Text(),
 	EnemyBasic(),
 	PutinHealth(),
+	NRABonusLife(),
 	EminemHealth(),
 	TwitterSpeed(),
 	NFLSpeed(),

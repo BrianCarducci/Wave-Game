@@ -6,7 +6,13 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.net.URL;
 
-// implements health decrease via Eminem
+/**
+ * 
+ * @author Kyle Horton
+ * 
+ * Pickup that decreases player's health.
+ *
+ */
 public class EminemHealth extends Pickup{
 	
 	private Handler handler;

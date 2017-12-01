@@ -106,6 +106,7 @@ public class MouseListener extends MouseAdapter {
 			spawner2.restart();
 			spawner2.addLevels();
 			hud.resetVote();
+			hud.setState(STATE.Menu);
 			hud2.resetVote();
 			player = new Player(width / 2 - 32, height / 2 - 32, ID.Player, handler, this.hud, this.hud2,
 					this.attackHUD, game);

@@ -43,8 +43,6 @@ public class HUD {
 
 		score++;
 
-		increaseLife();
-
 		if (regen) {// regenerates health if that ability has been unlocked
 			timer--;
 			if (timer == 0 && health < 100) {
@@ -79,13 +77,6 @@ public class HUD {
 		}
 		
 		g.drawString("Extra Lives: " + extraLives, 15, 185);
-		if (ability.equals("freezeTime")) {
-			g.drawString("Time Freezes: " + abilityUses, Game.WIDTH - 300, 64);
-		} else if (ability.equals("clearScreen")) {
-			g.drawString("Screen Clears: " + abilityUses, Game.WIDTH - 300, 64);
-		} else if (ability.equals("levelSkip")) {
-			g.drawString("Level Skips: " + abilityUses, Game.WIDTH - 300, 64);
-		}
 	}
 
 	public void setAbility(String ability) {
@@ -153,13 +144,6 @@ public class HUD {
 	}
 
 	public int getExtraLives() {
-		return this.extraLives;
-	}
-
-	public int increaseLife() {
-		if (score % 500 == 0) {
-			setExtraLives(getExtraLives() + 1);
-			}
 		return this.extraLives;
 	}
 

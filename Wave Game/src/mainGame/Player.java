@@ -52,17 +52,16 @@ public class Player extends GameObject {
 		bulletY = 0;
 		shooting = false;
 		timer = 60;
-		
+
 		img = getImage("images/TrumpImage.png");
 		voteCount = 0;
 
 		if (this.id == ID.Player)
-            img = getImage("images/TrumpImage.png");
-        else if (this.id == ID.Player2)
-            img = getImage("images/HillaryImage.png");
+			img = getImage("images/TrumpImage.png");
+		else if (this.id == ID.Player2)
+			img = getImage("images/HillaryImage2.png");
 
 	}
-
 
 	@Override
 	public void tick() {
@@ -73,7 +72,7 @@ public class Player extends GameObject {
 
 		collision();
 
-		if (timer == 0){
+		if (timer == 0) {
 			timer = 60;
 			playerSpeed = 10;
 		}
@@ -81,15 +80,16 @@ public class Player extends GameObject {
 			checkIfDead();
 		if (game.gameState == STATE.Coop)
 			checkIfDeadCoop();
-		if (game.gameState == STATE.Attack){
-			checkIfDead();
-			
-			if (shooting == true){
-				handler.addObject(new PlayerBullets(this.x, this.y, bulletX, bulletY, this.attackHUD, ID.PlayerBullets, this.handler));
+		if (game.gameState == STATE.Attack) {
+			checkIfDeadAttack();
+
+			if (shooting == true) {
+				handler.addObject(new PlayerBullets(this.x, this.y, bulletX, bulletY, this.attackHUD, ID.PlayerBullets,
+						this.handler));
 				attackHUD.setAmmo(attackHUD.getAmmo() - 1);
 			}
-			
-			if (attackHUD.getAmmo() <= 0){
+
+			if (attackHUD.getAmmo() <= 0) {
 				setShooting(false);
 			}
 		}
@@ -105,7 +105,8 @@ public class Player extends GameObject {
 				game.gameState = STATE.GameOver;
 			}
 
-			else if (hud.getExtraLives() > 0) {// has an extra life, game continues
+			else if (hud.getExtraLives() > 0) {// has an extra life, game
+												// continues
 
 				hud.setExtraLives(hud.getExtraLives() - 1);
 				hud.restoreHealth();
@@ -113,38 +114,50 @@ public class Player extends GameObject {
 		}
 	}
 
+	public void checkIfDeadAttack() {
+		if (attackHUD.health <= 0) {// player is dead, game over!
+			game.renderGameOver();
+			game.gameState = STATE.GameOver;
+		}
+	}
+
 	public void checkIfDeadCoop() {
 		int finalVote = 5;
-		if ((hud.health <= 0 || hud2.health <= 0) || (hud.getVote() == finalVote || hud2.getVote() == finalVote)) {// player is dead, game over!
-				if (hud.health <= 0 || hud.getVote() == finalVote) {
-					if (hud.getExtraLives() == 0 && hud.health <= 0) {
-						game.getGameOver().setWhoDied(1);
+		if ((hud.health <= 0 || hud2.health <= 0) || (hud.getVote() == finalVote || hud2.getVote() == finalVote)) {// player
+																													// is
+																													// dead,
+																													// game
+																													// over!
+			if (hud.health <= 0 || hud.getVote() == finalVote) {
+				if (hud.getExtraLives() == 0 && hud.health <= 0) {
+					game.getGameOver().setWhoDied(1);
 					game.gameState = STATE.GameOver;
-					}
-					if (hud.getVote() >= finalVote) {
-						game.getGameOver().setWinner(1);
-						game.gameState = STATE.GameOver;
-					}
-					
-				}if (hud2.health <= 0 || hud2.getVote() == finalVote) {
-					if (hud2.getExtraLives() == 0 && hud2.health <= 0) {
-						game.getGameOver().setWhoDied(2);
-						game.gameState = STATE.GameOver;
-					}
-					if (hud2.getVote() >= finalVote) {
-						game.getGameOver().setWinner(2);
-						game.gameState = STATE.GameOver;
-					}
+				}
+				if (hud.getVote() >= finalVote) {
+					game.getGameOver().setWinner(1);
+					game.gameState = STATE.GameOver;
 				}
 
-				if (hud.getExtraLives() > 0) {// has an extra life, game continues
-					hud.setExtraLives(hud.getExtraLives() - 1);
-					hud.setHealth(100);
+			}
+			if (hud2.health <= 0 || hud2.getVote() == finalVote) {
+				if (hud2.getExtraLives() == 0 && hud2.health <= 0) {
+					game.getGameOver().setWhoDied(2);
+					game.gameState = STATE.GameOver;
 				}
-				if (hud2.getExtraLives() > 0) {
-					hud2.setExtraLives(hud2.getExtraLives() - 1);
-					hud2.setHealth(100);
+				if (hud2.getVote() >= finalVote) {
+					game.getGameOver().setWinner(2);
+					game.gameState = STATE.GameOver;
 				}
+			}
+
+			if (hud.getExtraLives() > 0) {// has an extra life, game continues
+				hud.setExtraLives(hud.getExtraLives() - 1);
+				hud.setHealth(100);
+			}
+			if (hud2.getExtraLives() > 0) {
+				hud2.setExtraLives(hud2.getExtraLives() - 1);
+				hud2.setHealth(100);
+			}
 		}
 	}
 
@@ -156,7 +169,7 @@ public class Player extends GameObject {
 		hud.updateScoreColor(Color.white);
 		hud2.updateScoreColor(Color.white);
 		attackHUD.updateScoreColor(Color.white);
-		
+
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 
@@ -164,18 +177,23 @@ public class Player extends GameObject {
 					|| tempObject.getId() == ID.EnemySmart || tempObject.getId() == ID.EnemyBossBullet
 					|| tempObject.getId() == ID.EnemySweep || tempObject.getId() == ID.EnemyShooterBullet
 					|| tempObject.getId() == ID.EnemyBurst || tempObject.getId() == ID.EnemyShooter
-					|| tempObject.getId() == ID.BossEye || tempObject.getId() == ID.HillaryBoss 
-					|| tempObject.getId() == ID.EnemyFBI || tempObject.getId() == ID.SmartBoss) { //tempObject is an enemy
-				
+					|| tempObject.getId() == ID.BossEye || tempObject.getId() == ID.HillaryBoss
+					|| tempObject.getId() == ID.EnemyFBI || tempObject.getId() == ID.SmartBoss) {// tempObject
+																									// is
+																									// an
+																									// enemy
+
 				// collision code
-				if (getBounds().intersects(tempObject.getBounds())) {// player hit an enemy
-					if(this.id == ID.Player) {
+
+				if (getBounds().intersects(tempObject.getBounds())) {// player
+																		// hit
+																		// an
+																		// enemy
+					if (this.id == ID.Player) {
 						hud.health -= damage;
 						hud.updateScoreColor(Color.red);
-						attackHUD.health -= damage;
-						hud.updateScoreColor(Color.red);
-					}
-					else {
+						attackHUD.health -= 0.5;
+					} else {
 						hud2.health -= damage;
 						hud2.updateScoreColor(Color.red);
 					}
@@ -183,19 +201,17 @@ public class Player extends GameObject {
 				}
 
 			}
-			
-			
-			
-			
+
 			if (tempObject.getId() == ID.EnemyBoss) {
-				// Allows player time to get out of upper area where they will get hurt once the boss starts moving
+				// Allows player time to get out of upper area where they will
+				// get hurt once the boss starts moving
 				if (this.y <= 138 && tempObject.isMoving) {
 					if (this.id == ID.Player) {
 						hud.health -= 2;
 						hud.updateScoreColor(Color.red);
 						attackHUD.health -= 2;
 						attackHUD.updateScoreColor(Color.red);
-					}else {
+					} else {
 						hud2.health -= 2;
 						hud2.updateScoreColor(Color.red);
 					}
@@ -217,9 +233,10 @@ public class Player extends GameObject {
 						hud.setHealth(hud.health + 40);
 					}
 					handler.removePickup(tempObject);
-					
-					//Plays sound effect on different thread
-					//Each sound effect is the same except for which string is called
+
+					// Plays sound effect on different thread
+					// Each sound effect is the same except for which string is
+					// called
 					Thread thread = new Thread(new Sound(), "PutinHealth");
 					thread.start();
 
@@ -249,6 +266,12 @@ public class Player extends GameObject {
 					thread.start();
 				}
 			}
+			if (tempObject.getId() == ID.NRABonusLife){
+				if (getBounds().intersects(tempObject.getBounds())){
+					hud.setExtraLives(hud.getExtraLives() + 1);
+					handler.removePickup(tempObject);
+				}
+			}
 			if (tempObject.getId() == ID.NFLSpeed) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 					playerSpeed = 5;
@@ -262,35 +285,35 @@ public class Player extends GameObject {
 			if (tempObject.getId() == ID.HillaryEmail) {
 				if (getBounds().intersects(tempObject.getBounds())) {
 
-					if (playerSpeed > 0){
-					playerSpeed--;
+					if (playerSpeed > 0) {
+						playerSpeed--;
 					}
 
 					handler.removePickup(tempObject);
 				}
 			}
-				
+
 			if (tempObject.getId() == ID.Vote) {
-				if(getBounds().intersects(tempObject.getBounds())) {
+				if (getBounds().intersects(tempObject.getBounds())) {
 					if (this.id == ID.Player)
 						hud.updateVote();
 					if (this.id == ID.Player2)
 						hud2.updateVote();
-						handler.removePickup(tempObject);
+					handler.removePickup(tempObject);
 				}
 			}
 			if (tempObject.getId() == ID.AmmoPickup) {
-				if(getBounds().intersects(tempObject.getBounds())) {
+				if (getBounds().intersects(tempObject.getBounds())) {
 					attackHUD.setMag(360);
 					handler.removePickup(tempObject);
 				}
 			}
-			
+
 			if (tempObject.getId() == ID.NukePickup) {
-				if(getBounds().intersects(tempObject.getBounds())) {
-					handler.clearEnemies();
+				if (getBounds().intersects(tempObject.getBounds())) {
+					handler.clearSmartEnemy();
 					handler.removePickup(tempObject);
-					
+
 				}
 			}
 		}
@@ -318,7 +341,6 @@ public class Player extends GameObject {
 		this.playerHeight = size;
 	}
 
-
 	public Image getImage(String path) {
 		Image image = null;
 		try {
@@ -330,24 +352,24 @@ public class Player extends GameObject {
 
 		return image;
 	}
-	
+
 	public void setCount() {
-		voteCount++; 
+		voteCount++;
 	}
-	
-	public void setShooting(boolean shooting){
+
+	public void setShooting(boolean shooting) {
 		this.shooting = shooting;
 	}
-	
-	public boolean getShooting(){
+
+	public boolean getShooting() {
 		return shooting;
 	}
-	
-	public void setBulletX(double bulletX){
+
+	public void setBulletX(double bulletX) {
 		this.bulletX = bulletX;
 	}
-	
-	public void setBulletY(double bulletY){
+
+	public void setBulletY(double bulletY) {
 		this.bulletY = bulletY;
 	}
 

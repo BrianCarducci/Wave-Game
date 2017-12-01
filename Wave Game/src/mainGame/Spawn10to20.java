@@ -31,6 +31,7 @@ public class Spawn10to20 {
 	private int voteTimer;
 	private int timer;
 	private int tempCounter = 0;
+	private int bossCount = 0;
 	public static int LEVEL_SET_2_RESET = 0;
 
 	public Spawn10to20(Handler handler, HUD hud, CoopHud hud2, Spawn1to5 spawner, Game game) {
@@ -52,6 +53,7 @@ public class Spawn10to20 {
 		Player.playerSpeed = 10;
 		timer = 120;
 		voteTimer = 20;
+		bossCount = 0;
 	}
 
 	public void addLevels() {
@@ -99,6 +101,8 @@ public class Spawn10to20 {
 
 				if (hud.health >= 50) {
 					handler.addPickup(new EminemHealth(ID.EminemHealth, handler));
+				} else {
+					handler.addPickup(new NRABonusLife(ID.NRABonusLife, handler));
 				}
 
 			}
@@ -282,6 +286,7 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 1500;
 				tempCounter++;
+				handler.addPickup(new NRABonusLife(ID.NRABonusLife, handler));
 			}
 			if (timer == 0) {
 				handler.addObject(
@@ -449,64 +454,20 @@ public class Spawn10to20 {
 				}
 			}
 		}
-<<<<<<< HEAD
-		
-//		else if (levelNumber == 101) {
-//		timer--;
-//		levelTimer--;
-//		if (tempCounter < 1) {
-//			levelTimer = 1400;
-//			tempCounter++;
-	
-//			if (hud.health <= 60) {
-	//			handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
-		//	} else {
-			//	handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
-//			}
-//	
-//		}
-//	
-//		if (timer <= 0) {
-//	
-//			handler.addObject(new HillaryBoss(-250, 250, 10, 20, 250, side[r.nextInt(4)], ID.HillaryBoss, handler));
-//			handler.addPickup(new HillaryEmail(ID.HillaryEmail, handler));
-//			timer = 30;
-//	
-//		}
-//		hud.setBossLevel("Boss Two");
-//		hud.setBoss(true);
-//	
-//		if (levelTimer == 0) {
-//			GameObject tempObject = handler.object.get(1);
-//			if (tempObject.getId() == ID.BossEye) {
-//				handler.pickups.clear();
-//				handler.removeObject(tempObject);
-//				levelTimer += 200;
-//			}
-//		}
-//	}
-
-	else if (levelNumber == 101) {
-			
-		
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 2000;
-			tempCounter++;
-=======
 
 		else if (levelNumber == 101) {
-			
-			
+			//System.out.println("Boss: " + bossCount);
 			levelTimer--;
 			if (tempCounter < 1) {
-				levelTimer = 2000;
-				tempCounter++;
->>>>>>> shooterSound
-
-				if (hud.health <= 60) {
+				levelTimer = 200;
+				
+				if (hud.health <= 60 && hud.health > 30) {
 					handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
-				} else {
+				}
+				if (hud.health <= 30 && hud.health > 20){
+					handler.addPickup(new NRABonusLife(ID.NRABonusLife, handler));
+				}
+				if (hud.health <= 20){
 					handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
 				}
 
@@ -519,46 +480,30 @@ public class Spawn10to20 {
 				handler.addObject(new BossEye(Game.WIDTH - 150, 50, ID.BossEye, handler, 7));
 				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
 				handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
+				tempCounter++;
 				hud.setBossLevel("Boss Two");
 				hud.setBoss(true);
 			}
 
 			if (levelTimer == 0) {
+				bossCount++;
+				System.out.println("Boss: " + bossCount);
 				GameObject tempObject = handler.object.get(1);
 				if (tempObject.getId() == ID.BossEye) {
 					handler.pickups.clear();
 					handler.removeObject(tempObject);
-<<<<<<< HEAD
 					levelTimer += 200;
 				}
 			}
 		}
-		// WINNER
-		// else if(levelNumber){
-		// levelTimer --;
-		// if(tempCounter < 1){
-		// handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2
-		// - 200,
-		// "Same levels...", ID.Levels1to10Text));
-		// handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT /
-		// 2,
-		// "...but a little harder now", ID.Levels1to10Text));
-		// tempCounter++;
-		// }
-		// if(levelTimer <= 0){
-		// handler.clearEnemies();
-		// tempCounter = 0;
-		// levelNumber = levels.get(index);
-		// }
-		//
-		// }
-=======
-					levelTimer += 100;
-					
+					levelTimer = 200;
 				}
 			}
+			
+			if (bossCount == 9){
+				game.gameState = STATE.Victory;
+			}
 		}
->>>>>>> shooterSound
 
 	}
 

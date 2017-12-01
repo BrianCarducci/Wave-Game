@@ -9,7 +9,7 @@ import java.net.URL;
  * 
  * @author Kyle Horton
  * 
- * Class that makes the emails in the second boss. Acts the same as the pickups.
+ * Class that makes the emails in the Hillary boss. Acts the same as the pickups.
  *
  */
 public class HillaryEmail extends Pickup {
