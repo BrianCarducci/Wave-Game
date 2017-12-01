@@ -81,5 +81,9 @@ public abstract class GameObject {
 	public int getHealth() {
 		return this.health;
 	}
+	
+	public void setHealth(int health){
+		this.health = health;
+	}
 
 }

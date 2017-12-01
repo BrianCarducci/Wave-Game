@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * 
  *  Kyle Horton
- *  Class that creates the third boss. 
+ *  Class that creates the Hillary boss. 
  *
  */
 public class HillaryBoss extends GameObject {

@@ -1,5 +1,7 @@
 package mainGame;
 
+import mainGame.Game.STATE;
+
 /**
  * The upgrades that a user can have (they modify the game for the user)
  * 
@@ -60,6 +62,7 @@ public class Upgrades {
 	}
 
 	public void levelSkipAbility() {
+		
 		handler.clearEnemies();
 		hud.setLevel(hud.getLevel() + 1);
 		if (Spawn1to5.LEVEL_SET == 1) {

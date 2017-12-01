@@ -8,7 +8,7 @@ package mainGame;
 public enum ID {
 
 	Player,
-	player2,  //make capital P
+	Player2,  //make capital P
 	Trail(),
 	BossEye(),
 	EnemyFast(),
@@ -28,18 +28,23 @@ public enum ID {
 	Levels1to5Text(),
 	EnemyBasic(),
 	PutinHealth(),
+	NRABonusLife(),
 	EminemHealth(),
 	TwitterSpeed(),
 	NFLSpeed(),
 	HillaryBoss(),
 	HillaryEmail(),
 	Vote(),
-	Server();
+	Server(),
 //=======
 //	PickupHealth(),
 //	PickupHealth2(),
 //	PickupSpeed(),
 //	PickupSpeed2(),
 //>>>>>>> coop2
+	PlayerBullets(),
+	SmartBoss(),
+	AmmoPickup(),
+	NukePickup();
 	
 }
