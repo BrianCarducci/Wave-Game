@@ -449,6 +449,7 @@ public class Spawn10to20 {
 				}
 			}
 		}
+<<<<<<< HEAD
 		
 //		else if (levelNumber == 101) {
 //		timer--;
@@ -492,6 +493,16 @@ public class Spawn10to20 {
 			if (tempCounter < 1) {
 				levelTimer = 2000;
 			tempCounter++;
+=======
+
+		else if (levelNumber == 101) {
+			
+			
+			levelTimer--;
+			if (tempCounter < 1) {
+				levelTimer = 2000;
+				tempCounter++;
+>>>>>>> shooterSound
 
 				if (hud.health <= 60) {
 					handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
@@ -517,6 +528,7 @@ public class Spawn10to20 {
 				if (tempObject.getId() == ID.BossEye) {
 					handler.pickups.clear();
 					handler.removeObject(tempObject);
+<<<<<<< HEAD
 					levelTimer += 200;
 				}
 			}
@@ -540,6 +552,13 @@ public class Spawn10to20 {
 		// }
 		//
 		// }
+=======
+					levelTimer += 100;
+					
+				}
+			}
+		}
+>>>>>>> shooterSound
 
 	}
 

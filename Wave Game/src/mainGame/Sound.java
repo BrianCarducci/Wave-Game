@@ -36,16 +36,22 @@ public class Sound implements Runnable {
 			file = new File("Sound/putinSound.wav");
 		} else if (Thread.currentThread().getName() == "EminemDecrease") {
 			System.out.println("Eminem Noise Triggered");
-			file = new File("Sound/eminemNoise.wav");
+			file = new File("Sound/slimShady.wav");
 		} else if (Thread.currentThread().getName() == "twitterNoise") {
 			System.out.println("Twitter Noise Triggerd");
 			file = new File("Sound/fakeNews.wav");
-		} else if (Thread.currentThread().getName() == "endgame") {
-			System.out.println("The Greatest Anthem Ever Played");
-			file = new File("Sound/sovUnionAnthem.wav");
 		} else if (Thread.currentThread().getName() == "NFLSound") {
 			System.out.println("NFL Noise Triggered");
-			file = new File("Sound/firedTrump.wav");
+			file = new File("Sound/nflTheme.wav");
+		} else if (Thread.currentThread().getName() == "reload") {
+			System.out.println("Reload Triggered");
+			file = new File("Sound/reloadNoise.wav");
+		} else if (Thread.currentThread().getName() == "death") {
+			System.out.println("Death Triggered");
+			file = new File("Sound/starwarsScream.wav");
+		} else if (Thread.currentThread().getName() == "comradeVictory") {
+			System.out.println("Programmers of the world unite!");
+			file = new File("Sound/sovUnionAnthem.wav");
 		}
 
 		// This is where file is read in
@@ -72,6 +78,8 @@ public class Sound implements Runnable {
 			FloatControl gainControl = (FloatControl) clip
 					.getControl(FloatControl.Type.MASTER_GAIN);
 			gainControl.setValue(6.0f);
+			
+			
 		}
 
 		clip.start();
@@ -95,6 +103,11 @@ public class Sound implements Runnable {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public void playEndMusic() {
+		Thread thread = new Thread(new Sound(), "comradeVictory");
+		thread.start();
 	}
 
 }

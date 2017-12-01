@@ -25,6 +25,7 @@ public class Player extends GameObject {
 	Handler handler;
 	private HUD hud;
 	private CoopHud hud2;
+	private AttackHUD attackHUD;
 	private Game game;
 	private int damage;
 	private Image img;
@@ -33,8 +34,12 @@ public class Player extends GameObject {
 	public static int playerSpeed = 10;
 	private int timer;
 	public int voteCount;
+	private boolean shooting;
+	private double bulletX;
+	private double bulletY;
+	private int bulletSpeed;
 
-	public Player(double x, double y, ID id, Handler handler, HUD hud, CoopHud hud2, Game game) {
+	public Player(double x, double y, ID id, Handler handler, HUD hud, CoopHud hud2, AttackHUD attackHUD, Game game) {
 
 		super(x, y, id);
 		this.handler = handler;
@@ -42,16 +47,18 @@ public class Player extends GameObject {
 		this.game = game;
 		this.damage = 1;
 		this.hud2 = hud2;
+		this.attackHUD = attackHUD;
+		bulletX = 0;
+		bulletY = 0;
+		shooting = false;
 		timer = 60;
 		
 		img = getImage("images/TrumpImage.png");
 		voteCount = 0;
-//		playerWidth = 32;
-//		playerHeight = 32;
 
 		if (this.id == ID.Player)
             img = getImage("images/TrumpImage.png");
-        else if (this.id == ID.player2)
+        else if (this.id == ID.Player2)
             img = getImage("images/HillaryImage.png");
 
 	}
@@ -64,9 +71,6 @@ public class Player extends GameObject {
 		x = Game.clamp(x, 0, Game.WIDTH - 95);
 		y = Game.clamp(y, 0, Game.HEIGHT - 125);
 
-		// add the trail that follows it
-		//handler.addObject(new Trail(x, y, ID.Trail, Color.white, playerWidth, playerHeight, 0.05, this.handler));
-
 		collision();
 
 		if (timer == 0){
@@ -77,11 +81,25 @@ public class Player extends GameObject {
 			checkIfDead();
 		if (game.gameState == STATE.Coop)
 			checkIfDeadCoop();
+		if (game.gameState == STATE.Attack){
+			checkIfDead();
+			
+			if (shooting == true){
+				handler.addObject(new PlayerBullets(this.x, this.y, bulletX, bulletY, this.attackHUD, ID.PlayerBullets, this.handler));
+				attackHUD.setAmmo(attackHUD.getAmmo() - 1);
+			}
+			
+			if (attackHUD.getAmmo() <= 0){
+				setShooting(false);
+			}
+		}
 	}
 
 	public void checkIfDead() {
 		if (hud.health <= 0) {// player is dead, game over!
 			if (hud.getExtraLives() == 0) {
+				Thread thread = new Thread(new Sound(), "death");
+				thread.start();
 				game.renderGameOver();
 				game.getGameOver().setWhoDied(0);
 				game.gameState = STATE.GameOver;
@@ -137,6 +155,8 @@ public class Player extends GameObject {
 
 		hud.updateScoreColor(Color.white);
 		hud2.updateScoreColor(Color.white);
+		attackHUD.updateScoreColor(Color.white);
+		
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 
@@ -145,14 +165,14 @@ public class Player extends GameObject {
 					|| tempObject.getId() == ID.EnemySweep || tempObject.getId() == ID.EnemyShooterBullet
 					|| tempObject.getId() == ID.EnemyBurst || tempObject.getId() == ID.EnemyShooter
 					|| tempObject.getId() == ID.BossEye || tempObject.getId() == ID.HillaryBoss 
-					|| tempObject.getId() == ID.EnemyFBI ) { //tempObject is an enemy
+					|| tempObject.getId() == ID.EnemyFBI || tempObject.getId() == ID.SmartBoss) { //tempObject is an enemy
 				
-														
 				// collision code
-
 				if (getBounds().intersects(tempObject.getBounds())) {// player hit an enemy
 					if(this.id == ID.Player) {
 						hud.health -= damage;
+						hud.updateScoreColor(Color.red);
+						attackHUD.health -= damage;
 						hud.updateScoreColor(Color.red);
 					}
 					else {
@@ -173,6 +193,8 @@ public class Player extends GameObject {
 					if (this.id == ID.Player) {
 						hud.health -= 2;
 						hud.updateScoreColor(Color.red);
+						attackHUD.health -= 2;
+						attackHUD.updateScoreColor(Color.red);
 					}else {
 						hud2.health -= 2;
 						hud2.updateScoreColor(Color.red);
@@ -252,9 +274,23 @@ public class Player extends GameObject {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					if (this.id == ID.Player)
 						hud.updateVote();
-					if (this.id == ID.player2)
+					if (this.id == ID.Player2)
 						hud2.updateVote();
 						handler.removePickup(tempObject);
+				}
+			}
+			if (tempObject.getId() == ID.AmmoPickup) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					attackHUD.setMag(360);
+					handler.removePickup(tempObject);
+				}
+			}
+			
+			if (tempObject.getId() == ID.NukePickup) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					handler.clearEnemies();
+					handler.removePickup(tempObject);
+					
 				}
 			}
 		}
@@ -297,6 +333,22 @@ public class Player extends GameObject {
 	
 	public void setCount() {
 		voteCount++; 
+	}
+	
+	public void setShooting(boolean shooting){
+		this.shooting = shooting;
+	}
+	
+	public boolean getShooting(){
+		return shooting;
+	}
+	
+	public void setBulletX(double bulletX){
+		this.bulletX = bulletX;
+	}
+	
+	public void setBulletY(double bulletY){
+		this.bulletY = bulletY;
 	}
 
 }

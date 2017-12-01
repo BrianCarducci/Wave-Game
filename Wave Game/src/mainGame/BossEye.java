@@ -60,7 +60,7 @@ public class BossEye extends GameObject {
 				for (int i = 0; i < handler.object.size(); i++) {
 					if (handler.object.get(i).getId() == ID.Player)
 						this.player = handler.object.get(i);
-					if (handler.object.get(i).getId() == ID.player2)
+					if (handler.object.get(i).getId() == ID.Player2)
 						this.player2 = handler.object.get(i);
 				}
 			}

@@ -30,7 +30,7 @@ public class EnemyBoss extends GameObject {
 		velX = 0;
 		velY = 2;
 		img = getImage("images/CNNImage.png");
-		this.health = 20;//full health is 1000
+		this.health = 100;//full health is 1000
 	}
 
 	public void tick() {
@@ -102,5 +102,7 @@ public class EnemyBoss extends GameObject {
 		if (timer2 == 1)
 			handler.addObject(new EnemyBossBullet((int) this.x + 48, (int) this.y + 96, ID.EnemyBossBullet, handler));
 	}
+	
+	
 
 }
