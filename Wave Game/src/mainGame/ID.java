@@ -34,6 +34,7 @@ public enum ID {
 	HillaryBoss(),
 	HillaryEmail(),
 	Vote(),
+	Server(),
 	PlayerBullets(),
 	SmartBoss(),
 	AmmoPickup(),

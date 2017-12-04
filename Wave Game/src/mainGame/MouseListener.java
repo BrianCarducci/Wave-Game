@@ -214,6 +214,7 @@ public class MouseListener extends MouseAdapter {
 				handler.addObject(player);
 				handler.addObject(player2);
 			}
+			
 
 			else if (mouseOver(mx, my, 1440, 585, 400, 400)) {
 				handler.object.clear();
