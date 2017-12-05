@@ -36,10 +36,10 @@ public class Menu {
 	private Random r;
 	private ArrayList<Color> colorPick = new ArrayList<Color>();
 	private int colorIndex;
-	private Spawn1to10 spawner;
+	private Spawn1to5 spawner;
 	public Image image,image2;
 
-	public Menu(Game game, Handler handler, HUD hud, Spawn1to10 spawner) {
+	public Menu(Game game, Handler handler, HUD hud, Spawn1to5 spawner) {
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
@@ -119,7 +119,8 @@ public class Menu {
 			g.drawRect(1440, 135, 400, 400);
 			g.setFont(font2);
 			g.setColor(color1);
-			g.drawString("Bosses", 1550, 215);
+			g.drawString("Server", 1550, 215);
+			g.drawString("Defense", 1530, 280);
 
 			g.setColor(color1);
 			g.drawRect(990, 585, 400, 400);
@@ -154,11 +155,11 @@ public class Menu {
 		} else if (game.gameState == STATE.Help) {// if the user clicks on "help"
 			Font font = new Font("impact", 1, 50);
 			Font font2 = new Font("impact", 70, 30);
-			Font font3 = new Font("Amoebic", 1,50);
+			Font font3 = new Font("Stencil", 1,100);
 			
 			g.setFont(font3);
 			g.setColor(Color.red);
-			g.drawString("Help", 900, 50);
+			g.drawString("Help Screen", 650, 100);
 
 			g.setFont(font2);
 			g.setColor(Color.red);
@@ -174,7 +175,7 @@ public class Menu {
 					
 			g.setFont(font2);
 			g.setColor(Color.green);
-			g.drawString("Avoid The Enemies That Appear.  After Every 10 Levels,  A Boss Level Will Appear.  Beat All The Bosses To Win The Game", 135, 250);		//+ " long enough, a new batch will spawn in! Defeat each boss to win!", 40, 200);
+			g.drawString("Avoid The Enemies That Appear.  After Every 10 Levels,  A Boss Level Will Appear.  Beat All The Bosses To Win The Game", 135, 250);		
 			
 			g.setFont(font2);
 			g.setColor(Color.red);
@@ -183,51 +184,78 @@ public class Menu {
 			
 			g.setFont(font2);
 			g.setColor(Color.green);
-			g.drawString("Player 1 Moves By Using The WASD Keys, Where Player 2 Moves By Using The Arrow Keys. The First Player To Collect 50 Votes Wins.", 130, 300);
+			g.drawString("Player 1 Moves By Using The WASD Keys, Where Player 2 Moves By Using The Arrow Keys. The First Player To Collect 20 Votes Wins.", 130, 300);
+			
 			
 			g.setFont(font2);
 			g.setColor(Color.red);
-			g.drawString("Pick Ups:", 40, 350);
+			g.drawString("Server Defense:", 40, 350);
+			g.setFont(font2);
 			
 			g.setFont(font2);
 			g.setColor(Color.green);
-			g.drawString("Description Of What Each Pickup In The Game Does", 160, 350);
+			g.drawString("Defend The Server From Incoming Enemies! Pull Them Away From The Server By Getting Close To Them.", 240, 350);
 			
 			g.setFont(font2);
 			g.setColor(Color.red);
-			g.drawString("Putin-", 120, 400);
+			g.drawString("Attack:", 40, 400);
+			g.setFont(font2);
 			
 			g.setFont(font2);
 			g.setColor(Color.green);
-			g.drawString("Replenishes A Portion Of The Players Health", 200, 400);
+			g.drawString("Shoot Back At The Enemies Using The Mouse Click. Reload With The 'R' Or 'Enter' Keys", 130, 400);
 			
 			g.setFont(font2);
 			g.setColor(Color.red);
-			g.drawString("Twitter Symbol-", 120, 440);
+			g.drawString("Pick Ups:", 40, 450);
 			
 			g.setFont(font2);
 			g.setColor(Color.green);
-			g.drawString("Increases The Players Speed For The Rest Of That Level", 315, 440);
+			g.drawString("Description Of What Each Pickup In The Game Does", 160, 450);
 			
 			g.setFont(font2);
 			g.setColor(Color.red);
-			g.drawString("Eminem-", 120, 480);
+			g.drawString("Putin-", 120, 500);
 			
 			g.setFont(font2);
 			g.setColor(Color.green);
-			g.drawString("Takes Away Portion Of The Players Health ", 230, 480);
+			g.drawString("Replenishes A Portion Of The Players Health", 200, 500);
 			
 			g.setFont(font2);
 			g.setColor(Color.red);
-			g.drawString("NFL Logo-", 120, 520);
+			g.drawString("Twitter Symbol-", 120, 540);
 			
 			g.setFont(font2);
 			g.setColor(Color.green);
-			g.drawString("Decreases The Players Speed For The Rest Of That Level", 235, 520);
+			g.drawString("Increases The Players Speed For The Rest Of That Level", 315, 540);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("Eminem-", 120, 580);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Takes Away Portion Of The Players Health ", 230, 580);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("NFL Logo-", 120, 620);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Decreases The Players Speed For The Rest Of That Level", 235, 620);
+			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("NRA Logo-", 120, 660);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Give The Player An Extra Life", 240, 660);
 			
 			g.setColor(Color.white);
-			g.drawRect(850, 600, 200, 64);
-			g.drawString("Back", 918, 642);
+			g.drawRect(850, 700, 200, 64);
+			g.drawString("Back", 918, 742);
 		}
 
 	}

@@ -25,6 +25,7 @@ public class HUD {
 	private String boss = "";
 	private boolean isBoss = false;
 	private boolean regen = false;
+	private boolean isWave = false;
 	private int timer = 60;
 	private int healthBarWidth = 400;
 	private int healthBarModifier = 2;
@@ -35,6 +36,8 @@ public class HUD {
 	private Color scoreColor = Color.white;
 	private int extraLives = 0;
 	private STATE state = null;
+	private int hillarySpeedX = 20; // tracks speeds of hillary boss
+	private int hillarySpeedY = 20;
 	
 	public void tick() {
 		health = Game.clamp(health, 0, health);
@@ -189,5 +192,29 @@ public class HUD {
 	
 	public STATE getState() {
 		return state;
+	}
+	
+	public void setWave(boolean wave){
+		this.isWave = wave;
+	}
+	
+	public boolean getWave(){
+		return this.isWave;
+	}
+	
+	public void setHillaryX(int hillaryX){
+		this.hillarySpeedX = hillaryX;
+	}
+	
+	public int getHillaryX(){
+		return hillarySpeedX;
+	}
+	
+	public void setHillaryY(int hillaryY){
+		this.hillarySpeedY = hillaryY;
+	}
+	
+	public int getHillaryY(){
+		return hillarySpeedY;
 	}
 }

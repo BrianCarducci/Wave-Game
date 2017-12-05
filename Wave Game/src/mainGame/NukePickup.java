@@ -25,6 +25,7 @@ public class NukePickup extends Pickup{
 	}
 
 
+	// does nothing since pickup is stationary
 	public void tick() {
 		
 	}

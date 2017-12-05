@@ -21,7 +21,7 @@ public class CoopHud {
 	private int level = 0;
 	private String boss = "";
 	private boolean isBoss = false;
-	private boolean regen = false;
+	private boolean mode = false;
 	private int timer = 60;
 	private int healthBarWidth = 400;
 	private int healthBarModifier = 2;
@@ -39,14 +39,6 @@ public class CoopHud {
 		greenValue = Game.clamp(greenValue, 0, 255);
 		greenValue = health * healthBarModifier;
 		score++;
-		increaseLife();
-		if (regen) {// regenerates health if that ability has been unlocked
-			timer--;
-			if (timer == 0 && health < 100) {
-				health += 1;
-				timer = 60;
-			}
-		}
 	}
 
 
@@ -64,19 +56,6 @@ public class CoopHud {
 			g.drawString("Score: " + score, 1485, 115);
 		} else {
 			g.drawString("Vote Count: " + voteCount, 1485, 115);
-		}
-		//if (isBoss == false) {
-		//g.drawString("Level: " + level, 1485, 150);
-		//} else {
-		//	g.drawString("Level: " + boss, 1485, 150);
-		//}
-		g.drawString("Extra Lives: " + extraLives, 1485, 150);
-		if (ability.equals("freezeTime")) {
-			g.drawString("Time Freezes: " + abilityUses, Game.WIDTH - 300, 64);
-		} else if (ability.equals("clearScreen")) {
-			g.drawString("Screen Clears: " + abilityUses, Game.WIDTH - 300, 64);
-		} else if (ability.equals("levelSkip")) {
-			g.drawString("Level Skips: " + abilityUses, Game.WIDTH - 300, 64);
 		}
 	}
 
@@ -127,17 +106,17 @@ public class CoopHud {
 	public void setBoss(boolean isBoss){
 		this.isBoss = isBoss;
 	}
+	
+	public void setCoop(boolean mode){
+		this.mode = mode;
+	}
+	
+	public boolean getCoop(){
+		return this.mode;
+	}
 
 	public void setHealth(int health) {
 		this.health = health;
-	}
-
-	public void setRegen() {
-		regen = true;
-	}
-
-	public void resetRegen() {
-		regen = false;
 	}
 
 	public void setExtraLives(int lives) {
@@ -145,13 +124,6 @@ public class CoopHud {
 	}
 
 	public int getExtraLives() {
-		return this.extraLives;
-	}
-
-	public int increaseLife() {
-		if (score % 500 == 0) {
-			setExtraLives(getExtraLives() + 1);
-			}
 		return this.extraLives;
 	}
 	

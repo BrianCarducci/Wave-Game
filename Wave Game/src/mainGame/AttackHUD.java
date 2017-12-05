@@ -115,7 +115,7 @@ public class AttackHUD {
 	}
 	
 	public boolean getAttack(){
-		return isAttack;
+		return this.isAttack;
 	}
 	
 	public void setAttack(boolean isAttack){

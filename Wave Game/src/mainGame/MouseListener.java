@@ -24,12 +24,16 @@ public class MouseListener extends MouseAdapter {
 	private HUD hud;
 	private CoopHud hud2;
 	private AttackHUD attackHUD;
-	private Spawn1to10 spawner;
-	private Spawn10to20 spawner2;
+	private ServerHUD serverHUD;
+	private Spawn1to5 spawner;
+	private Spawn5to10 spawner2;
+	private Spawn10to15 spawner3;
+	private Spawn15to20 spawner4;
 	private AttackSpawn attackSpawn;
 	private UpgradeScreen upgradeScreen;
 	private Upgrades upgrades;
 	private Player player, player2;
+	private Server server;
 	private String upgradeText;
 	private double width;
 	private double height;
@@ -38,13 +42,14 @@ public class MouseListener extends MouseAdapter {
 	private int bulletSpeed;
 
 	// this constructor not really necessary but I am leaving it just in case
-	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to10 spawner, Spawn10to20 spawner2,
+	public MouseListener(Game game, Handler handler, HUD hud, Spawn1to5 spawner, Spawn10to15 spawner2, Spawn15to20 spawner3,
 			UpgradeScreen upgradeScreen, Player player, Upgrades upgrades) {
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
 		this.spawner = spawner;
-		this.spawner2 = spawner2;
+		this.spawner3 = spawner2;
+		this.spawner4 = spawner3;
 		this.upgradeScreen = upgradeScreen;
 		this.player = player;
 		this.upgrades = upgrades;
@@ -54,20 +59,24 @@ public class MouseListener extends MouseAdapter {
 	}
 
 	// added second constructor in case of multiplayer
-	public MouseListener(Game game, Handler handler, HUD hud, CoopHud hud2, AttackHUD attackHUD, Spawn1to10 spawner,
-			Spawn10to20 spawner2, AttackSpawn attackSpawn, UpgradeScreen upgradeScreen, Player player, Player player2,
+	public MouseListener(Game game, Handler handler, HUD hud, CoopHud hud2, ServerHUD serverHUD, AttackHUD attackHUD, Spawn1to5 spawner, Spawn5to10 spawner2,
+			Spawn10to15 spawner3, Spawn15to20 spawner4, AttackSpawn attackSpawn, UpgradeScreen upgradeScreen, Player player, Player player2, Server server,
 			Upgrades upgrades) {
 		this.game = game;
 		this.handler = handler;
 		this.hud = hud;
 		this.hud2 = hud2;
 		this.attackHUD = attackHUD;
+		this.serverHUD = serverHUD;
 		this.spawner = spawner;
 		this.spawner2 = spawner2;
+		this.spawner3 = spawner3;
+		this.spawner4 = spawner4;
 		this.attackSpawn = attackSpawn;
 		this.upgradeScreen = upgradeScreen;
 		this.player = player;
 		this.player2 = player2;
+		this.server = server;
 		this.upgrades = upgrades;
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		width = (double) screenSize.getWidth();
@@ -103,19 +112,27 @@ public class MouseListener extends MouseAdapter {
 			spawner.addLevels();
 			spawner2.restart();
 			spawner2.addLevels();
+			spawner3.restart();
+			spawner3.addLevels();
+			spawner4.restart();
+			spawner4.addLevels();
 			hud.resetVote();
 			hud.setState(STATE.Menu);
 			hud2.resetVote();
 			player = new Player(width / 2 - 32, height / 2 - 32, ID.Player, handler, this.hud, this.hud2,
-					this.attackHUD, game);
+					this.attackHUD, this.serverHUD, game);
 			player2 = new Player(width / 2 + 100, height / 2 - 32, ID.Player2, handler, this.hud, this.hud2,
-					this.attackHUD, game);
-			Spawn1to10.LEVEL_SET = 1;
+					this.attackHUD, this.serverHUD, game);
+			server		= new Server(width / 2 - 32, height / 2 - 32, ID.Server, handler, this.serverHUD, game);
+			Spawn1to5.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
 			hud.setBoss(false);
 			attackHUD.setBoss(false);
 			player.setShooting(false);
 			attackHUD.setAttack(false);
+			hud.setWave(false);
+			hud2.setCoop(false);
+			serverHUD.setServer(false);
 		}
 		
 		else if (game.gameState == STATE.Victory){
@@ -138,13 +155,17 @@ public class MouseListener extends MouseAdapter {
 			spawner.addLevels();
 			spawner2.restart();
 			spawner2.addLevels();
+			spawner3.restart();
+			spawner3.addLevels();
+			spawner4.restart();
+			spawner4.addLevels();
 			hud.resetVote();
 			hud2.resetVote();
 			player = new Player(width / 2 - 32, height / 2 - 32, ID.Player, handler, this.hud, this.hud2,
-					this.attackHUD, game);
+					this.attackHUD, this.serverHUD, game);
 			player2 = new Player(width / 2 + 100, height / 2 - 32, ID.Player2, handler, this.hud, this.hud2,
-					this.attackHUD, game);
-			Spawn1to10.LEVEL_SET = 1;
+					this.attackHUD, this.serverHUD, game);
+			Spawn1to5.LEVEL_SET = 1;
 			game.gameState = STATE.Menu;
 			hud.setBoss(false);
 			attackHUD.setBoss(false);
@@ -205,6 +226,7 @@ public class MouseListener extends MouseAdapter {
 				handler.object.clear();
 				game.gameState = STATE.Game;
 				handler.addObject(player);
+				hud.setWave(true);
 
 			}
 			// multiplayer coop button
@@ -213,6 +235,7 @@ public class MouseListener extends MouseAdapter {
 				game.gameState = STATE.Coop;
 				handler.addObject(player);
 				handler.addObject(player2);
+				hud2.setCoop(true);
 			}
 
 			else if (mouseOver(mx, my, 1440, 585, 400, 400)) {
@@ -220,6 +243,14 @@ public class MouseListener extends MouseAdapter {
 				game.gameState = STATE.Attack;
 				handler.addObject(player);
 				attackHUD.setAttack(true);
+			}
+			
+			else if (mouseOver(mx, my, 1440, 135, 400, 400)){
+				handler.object.clear();
+				game.gameState = STATE.Defense;
+				handler.addObject(player2);
+				handler.addObject(server);
+				serverHUD.setServer(true);
 			}
 
 			// Help Button
@@ -230,9 +261,11 @@ public class MouseListener extends MouseAdapter {
 			// Credits
 			else if (mouseOver(mx, my, 80, 435, 850, 250)) {
 				JOptionPane.showMessageDialog(game,
-						"Made by Brandon Loehle for his "
-								+ "final project in AP Computer Science senior year, 2015 - 2016."
-								+ "\n\nThis game is grossly unfinished with minor bugs. However,"
+						"Game made by Brandon Loehle in 2016." 
+								+ "\n\nContributions of debugging and enhancements made by Kyle Horton, Rob Laudadio, Ryan Hanlon, "
+								+ "Eric Kinney and Kevin Maeder for"
+								+ "SER225 fall semester 2017."
+								+ "\n\nThis game has minor bugs. However,"
 								+ " it is 100% playable, enjoy!");
 			}
 
@@ -244,7 +277,7 @@ public class MouseListener extends MouseAdapter {
 
 		// Back Button for Help screen
 		else if (game.gameState == STATE.Help) {
-			if (mouseOver(mx, my, 850, 600, 200, 64)) {
+			if (mouseOver(mx, my, 850, 700, 200, 64)) {
 				game.gameState = STATE.Menu;
 				return;
 			}

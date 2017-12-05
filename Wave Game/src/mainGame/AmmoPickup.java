@@ -1,9 +1,4 @@
 package mainGame;
-/**
- * Kyle Horton
- * 
- * Class that creates the ammo pickup in the Attack mode.
- */
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -30,6 +25,7 @@ public class AmmoPickup extends Pickup{
 	}
 
 
+	// does nothing since pickup is stationary
 	public void tick() {
 		
 	}

@@ -34,9 +34,13 @@ public class Game extends Canvas implements Runnable {
 	private HUD hud;
 	private CoopHud hud2;
 	private AttackHUD attackHUD;
-	private Spawn1to10 spawner;
-	private Spawn10to20 spawner2;
+	private ServerHUD serverHUD;
+	private Spawn1to5 spawner;
+	private Spawn5to10 spawner2;
+	private Spawn10to15 spawner3;
+	private Spawn15to20 spawner4;
 	private AttackSpawn attackSpawn;
+	private DefenseSpawner dSpawner;
 	private Menu menu;
 	private GameOver gameOver;
 	private Victory victory;
@@ -44,6 +48,7 @@ public class Game extends Canvas implements Runnable {
 	private MouseListener mouseListener;
 	private Upgrades upgrades;
 	private Player player, player2;
+	private Server server;
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
 	public String temp;
@@ -53,7 +58,7 @@ public class Game extends Canvas implements Runnable {
 	 * Used to switch between each of the screens shown to the user
 	 */
 	public enum STATE {
-		Menu, Help, Game, GameOver, Upgrade, Coop, Attack, Victory
+		Menu, Help, Game, GameOver, Upgrade, Coop, Attack, Victory, Defense
 	};
 
 	/**
@@ -64,19 +69,24 @@ public class Game extends Canvas implements Runnable {
 		hud = new HUD();
 		hud2 = new CoopHud();
 		attackHUD = new AttackHUD();
-		spawner = new Spawn1to10(this.handler, this.hud, this.hud2, this);
-		spawner2 = new Spawn10to20(this.handler, this.hud, this.hud2, this.spawner, this);
+		serverHUD = new ServerHUD();
+		spawner = new Spawn1to5(this.handler, this.hud, this.hud2, this);
+		spawner2 = new Spawn5to10(this.handler, this.hud, this.hud2, this.spawner, this);
+		spawner3 = new Spawn10to15(this.handler, this.hud, this.hud2, this.spawner2, this);
+		spawner4 = new Spawn15to20(this.handler, this.hud,this.hud2,this.spawner3, this);
 		attackSpawn = new AttackSpawn(this.handler, this.attackHUD, this);
+		dSpawner = new DefenseSpawner(this.handler,this.serverHUD, this.hud2, this);
 		menu = new Menu(this, this.handler, this.hud, this.spawner);
 		upgradeScreen = new UpgradeScreen(this, this.handler, this.hud);
-		player = new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, this.hud, this.hud2, this.attackHUD, this);
-		player2 = new Player(WIDTH / 2 + 100, HEIGHT / 2 - 32, ID.Player2, handler, this.hud, this.hud2, this.attackHUD, this);
-		upgrades = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner,
-				this.spawner2, this.attackHUD, this.attackSpawn);
-		gameOver = new GameOver(this, this.handler, this.hud, this.hud2, this.attackHUD);
+		player = new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler, this.hud, this.hud2, this.attackHUD, this.serverHUD, this);
+		player2 = new Player(WIDTH / 2 + 100, HEIGHT / 2 - 32, ID.Player2, handler, this.hud, this.hud2, this.attackHUD, this.serverHUD, this);
+		server = new Server(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Server, handler, this.serverHUD, this);
+		upgrades = new Upgrades(this, this.handler, this.hud, this.upgradeScreen, this.player, this.spawner, this.spawner2,
+				this.spawner3, this.spawner4, this.attackHUD, this.attackSpawn);
+		gameOver = new GameOver(this, this.handler, this.hud, this.hud2, this.attackHUD, this.serverHUD);
 		victory = new Victory(this, this.handler, this.hud, this.hud2, this.attackHUD);
-		mouseListener = new MouseListener(this, this.handler, this.hud, this.hud2, this.attackHUD, this.spawner, this.spawner2, this.attackSpawn,
-				this.upgradeScreen, this.player, this.player2, this.upgrades);
+		mouseListener = new MouseListener(this, this.handler, this.hud, this.hud2, this.serverHUD, this.attackHUD, this.spawner, this.spawner2, this.spawner3, this.spawner4, this.attackSpawn,
+				this.upgradeScreen, this.player, this.player2, this.server, this.upgrades);
 		this.addKeyListener(
 				new KeyInput(this.handler, this, this.hud, this.attackHUD, this.player, this.player2, this.spawner, this.upgrades));
 		this.addMouseListener(mouseListener);
@@ -131,7 +141,7 @@ public class Game extends Canvas implements Runnable {
 				timer += 1000;
 				System.out.println("FPS: " + frames);
 				System.out.println(gameState);
-				System.out.println(Spawn1to10.LEVEL_SET);
+				System.out.println(Spawn1to5.LEVEL_SET);
 				frames = 0;
 			}
 		}
@@ -148,12 +158,16 @@ public class Game extends Canvas implements Runnable {
 		handler.tick();// ALWAYS TICK HANDLER, NO MATTER IF MENU OR GAME SCREEN
 		if (gameState == STATE.Game) {// game is running
 			hud.tick();
-			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10,
+			if (Spawn1to5.LEVEL_SET == 1) {// user is on levels 1 thru 10,
 											// update them
 				spawner.tick();
-			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru
+			} else if (Spawn1to5.LEVEL_SET == 2) {// user is on levels 10 thru
 													// 20, update them
 				spawner2.tick();
+			} else if (Spawn1to5.LEVEL_SET == 3){
+				spawner3.tick();
+			} else if (Spawn1to5.LEVEL_SET == 4){
+				spawner4.tick();
 			}
 		} else if (gameState == STATE.Attack) {
 			attackHUD.tick();
@@ -165,13 +179,22 @@ public class Game extends Canvas implements Runnable {
 			hud2.tick();
 			hud2.setState(STATE.Coop);
 
-			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10,
+			if (Spawn1to5.LEVEL_SET == 1) {// user is on levels 1 thru 10,
 											// update them
 				spawner.tick();
-			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru
+			} else if (Spawn1to5.LEVEL_SET == 2) {// user is on levels 10 thru
 													// 20, update them
 				spawner2.tick();
+			} else if (Spawn1to5.LEVEL_SET ==3){
+				spawner3.tick();
+			} else if (Spawn1to5.LEVEL_SET == 4){
+				spawner4.tick();
 			}
+		} else if (gameState == STATE.Defense) {
+			//hud2.tick();
+			serverHUD.setState(STATE.Defense);
+			serverHUD.tick();
+			dSpawner.tick();
 		} else if (gameState == STATE.Menu || gameState == STATE.Help) {// user
 																		// is on
 																		// menu,
@@ -222,6 +245,8 @@ public class Game extends Canvas implements Runnable {
 			hud2.render(g);
 		} else if (gameState == STATE.Attack) {
 			attackHUD.render(g);
+		} else if (gameState == STATE.Defense){
+			serverHUD.render(g);
 		} else if (gameState == STATE.Menu || gameState == STATE.Help) {// user
 																		// is in
 																		// help

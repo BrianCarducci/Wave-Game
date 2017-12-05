@@ -49,7 +49,7 @@ public class AttackSpawn {
 			introTimer--;
 			if (tempCounter < 1) {// display intro game message ONE time
 				handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200,
-						"Shoot and kill the enemies!", ID.Levels1to10Text));
+						"Shoot and kill the enemies!", ID.Levels1to5Text));
 				tempCounter++;
 			}
 

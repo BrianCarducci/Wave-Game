@@ -23,7 +23,7 @@ public class Handler {
 	public void tick() {
 		for (int i = 0; i < object.size(); i++) {
 			GameObject tempObject = object.get(i);
-			if (tempObject.getId() == ID.Player || tempObject.getId() == ID.Player2 || tempObject.getId() == ID.Trail || tempObject.getId() == ID.EnemyBurstWarning) {// we don't want these to ever be frozen by the
+			if (tempObject.getId() == ID.Player || tempObject.getId() == ID.Player2 || tempObject.getId() == ID.Server || tempObject.getId() == ID.Trail || tempObject.getId() == ID.EnemyBurstWarning) {// we don't want these to ever be frozen by the
 				// Screen Freeze ability Every GameObject has a tick method, so this effectively updates every single object
 				tempObject.tick();
 			} else {
@@ -84,7 +84,7 @@ public class Handler {
 	public void clearEnemies() {
 		for (int i = 0; i < this.object.size(); i++) {
 			GameObject tempObject = this.object.get(i);
-			if (tempObject.getId() != ID.Player && tempObject.getId() != ID.Player2) {
+			if (tempObject.getId() != ID.Player && tempObject.getId() != ID.Player2 && tempObject.getId() != ID.Server) {
 				this.removeObject(tempObject);
 				i--; // Removing shrinks the array by 1, causing the loop to skip an enemy
 			}
@@ -107,7 +107,7 @@ public class Handler {
 	public void clearPlayer() {
 		for (int i = 0; i < this.object.size(); i++) {
 			GameObject tempObject = this.object.get(i);
-			if (tempObject.getId() == ID.Player || tempObject.getId() == ID.Player2) {
+			if (tempObject.getId() == ID.Player || tempObject.getId() == ID.Player2 || tempObject.getId() != ID.Server) {
 				this.removeObject(tempObject);
 				i--; // Removing shrinks the array by 1, causing the loop to skip a player (should
 						// there be more than one)
