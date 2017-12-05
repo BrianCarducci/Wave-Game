@@ -36,7 +36,7 @@ public class BossPong extends GameObject {
 		player = null;
 		player2 = null;
 		this.speed = 30;
-		this.health = 1000;
+		this.health = 10;
 	}
 
 	public void tick() {
