@@ -184,4 +184,3 @@ public class HillaryBoss extends GameObject {
 		return new Rectangle((int) this.x, (int) this.y, 200, 180);
 	}
 }
-

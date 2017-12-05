@@ -253,9 +253,17 @@ public class Menu {
 			g.setColor(Color.green);
 			g.drawString("Give The Player An Extra Life", 240, 660);
 			
+			g.setFont(font2);
+			g.setColor(Color.red);
+			g.drawString("Hillary Emails-", 120, 700);
+			
+			g.setFont(font2);
+			g.setColor(Color.green);
+			g.drawString("Slow down the speed of the Hillary Snakes in the Hillary Boss", 300, 700);
+			
 			g.setColor(Color.white);
-			g.drawRect(850, 700, 200, 64);
-			g.drawString("Back", 918, 742);
+			g.drawRect(850, 800, 200, 64);
+			g.drawString("Back", 918, 842);
 		}
 
 	}

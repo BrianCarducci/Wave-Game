@@ -1,33 +1,23 @@
-Known Bugs:
+Below will be the known bugs that are still within the game.
 
-- Space bar currently advances the level (used for developers to test levels).
+In general:
+There is still a lot of code and accessories that are not used and should be deleted.
+(Ex: upgrade abilities, regen, unneeded image folders)
 
-- "Freeze Time" ability is not consistent. The first time the ability is used, the game is frozen the longest. Each subsequent freeze is shorter in duration, but they are all supposed
-to be of the same length.
+In Waves Mode:
+Boss 2 (Jimmy Kimmel) does not always stay on screen.
+The NRA logo pick up does not have a sound associated with it.
+The levels do not consistently load when the game is restarted through the menu.
 
-- Levels show 2-11, then boss, etc... as opposed to 1-10, then boss, then 11-20, then boss again.
+In Coop Mode:
+Pickups affect both players, not just the one that hits it.
+Levels do not restart after someone wins or loses and the players go back to the menu screen to play again.
 
-- There is no proper end game, as the last boss lasts indefinitely.
+In Attack Mode:
+If the player is moving with WSAD and is using a laptop mouse, they will not be able to move and aim their shot at the same time. If the player is using
+WSAD to move and a mobile mouse to shoot, or the arrow keys to move, the issue is not present. 
 
-- Pressing enter when the user does not have an ability that uses enter throws an error.
-
-- Freezing the screen when EnemyBurst is on the screen freezes just the burst, not the flashing warnings.
-
-- Enemies do not get cleared until after a level is beat. While the level is still going on, enemies that appear gone actually exist, they are just off the screen.
-
-
-Other Improvements:
-
-- Multiple places where Images are stored in the classpath... there only needs to be one directory of Images.
-
-- Code is often reused in places, which indicates that functions should be used instead.
-
-- There are plenty of variables that are never used, yet are initialized.
-
-- The logic for the level spawning is a bit "hackish" and can definitely be refined.
-
-- Graphics2D work is minimal and can be improved.
-
-- There is only one game mode, but the game supports up to four!
-
-- "Pickups" have not yet been implemented, which are small Images that appear randomly that give the user a temporary health increase, temporary speed boost, etc...
+In Defense Mode:
+The algorithm for the enemies following the player or the server needs to be improved.  Even when the enemy is closer to the server it will have a tendency to move with the
+key inputs of the player (same direction).
+This game mode also does not have a formal way to win.

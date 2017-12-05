@@ -123,5 +123,4 @@ public void shoot() {
 	public Rectangle getBounds() {
 		return new Rectangle((int) this.x, (int) this.y, 16, 16);
 	}
-
 }
