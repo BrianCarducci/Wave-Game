@@ -137,6 +137,8 @@ public class KeyInput extends KeyAdapter {
 					if (key == KeyEvent.VK_ENTER || key == KeyEvent.VK_R) {
 
 						if (attackHUD.getAmmo() <= 0 && attackHUD.getMag() > 0) {
+							Thread thread = new Thread(new Sound(), "reload");
+							thread.start();
 							attackHUD.setMag(attackHUD.getMag() - 30);
 							attackHUD.setAmmo(30);
 						}

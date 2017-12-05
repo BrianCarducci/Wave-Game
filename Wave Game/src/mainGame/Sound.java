@@ -74,6 +74,7 @@ public class Sound implements Runnable {
 		}
 
 		// Increases volume of all sound files except background music
+		// More parameters can be added to this
 		if (Thread.currentThread().getName() != "music") {
 			FloatControl gainControl = (FloatControl) clip
 					.getControl(FloatControl.Type.MASTER_GAIN);
