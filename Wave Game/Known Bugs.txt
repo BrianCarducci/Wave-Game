@@ -3,6 +3,7 @@ Below will be the known bugs that are still within the game.
 In general:
 - There is still a lot of code and accessories that are not used and should be deleted. (Ex: upgrade abilities, regen, unneeded image folders)
 - The death sound only plays in Waves mode, not all four game modes.
+- The game over screen's font is inconsistent for different game modes.
 
 In Waves Mode:
 - Boss 2 (Jimmy Kimmel) does not always stay on screen.
