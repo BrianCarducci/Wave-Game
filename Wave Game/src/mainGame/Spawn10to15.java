@@ -5,6 +5,13 @@ import java.util.Random;
 
 import mainGame.Game.STATE;
 
+/**
+ * 
+ * @author Eric Kinney
+ * New Class to have levels 10 to 15 spawn and then the Hillary Boss.
+ * Added on 11/27/17
+ *
+ */
 
 public class Spawn10to15 {
 	private Handler handler;

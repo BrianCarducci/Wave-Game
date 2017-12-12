@@ -293,7 +293,7 @@ public class Spawn1to5 {
 								handler.removeObject(tempObject);
 								handler.pickups.clear();
 								hud.setBoss(false);
-								LEVEL_SET++;
+								LEVEL_SET++; //public static int that determines what set of levels to load next
 								//game.gameState = STATE.Upgrade;
 								Player.playerSpeed = 10;
 							}

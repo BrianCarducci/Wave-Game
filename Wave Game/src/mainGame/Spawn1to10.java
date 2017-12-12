@@ -1,4 +1,7 @@
-/*
+/*   THIS CLASS WAS REMOVED ON 11/28/17 AND WAS REPLACED WITH SPAWN1TO5 AND SPAWN5TO10.
+ * 	 
+ *
+ *
 package mainGame;
 
 import java.awt.Image;
