@@ -31,7 +31,7 @@ public class Spawn10to15 {
 	private int tempCounter = 0;
 	private int timer = 0;
 	
-	public Spawn10to15(Handler handler, HUD hud, CoopHud hud2, Spawn5to10 spawner2, Game game) {
+	public Spawn10to15(Handler handler, HUD hud, CoopHud hud2, Spawn5to10 spawner, Game game) {
 		this.handler = handler;
 		this.hud = hud;
 		this.hud2 = hud2;
@@ -65,7 +65,7 @@ public class Spawn10to15 {
 		if (levelNumber <= 0) {
 			levelTimer--;
 			if (tempCounter < 1) {// display intro game message ONE time
-				handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200, "Last Section . . . Good Luck",
+				handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200, "Even tougher now...",
 						ID.Levels1to5Text));
 				tempCounter++;
 			}
@@ -104,7 +104,7 @@ public class Spawn10to15 {
 			
 			if (spawnTimer == 0) {// time to spawn another enemy
 				handler.addObject(
-				new EnemyFBI(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -4, -11, ID.EnemyFBI, handler));// add them to the handler, which handles all game objects
+				new EnemyFBI(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -4, -10, ID.EnemyFBI, handler));// add them to the handler, which handles all game objects
 
 				spawnTimer = 100;// reset the spawn timer
 			}
@@ -139,17 +139,17 @@ public class Spawn10to15 {
 				}
 				if (spawnTimer == 30) {
 					handler.addObject(
-							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 2, ID.EnemySweep, handler));
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, 2, ID.EnemySweep, handler));
 				} else if (spawnTimer == 20) {
 					handler.addObject(
-							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, -2, ID.EnemySweep, handler));
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, -2, ID.EnemySweep, handler));
 					
 				} else if (spawnTimer == 10) {
 					handler.addObject(
-							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 4, ID.EnemySweep, handler));
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, 4, ID.EnemySweep, handler));
 				} else if (spawnTimer == 0) {
 					handler.addObject(
-							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, -4, ID.EnemySweep, handler));
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, -4, ID.EnemySweep, handler));
 					spawnTimer = 80;
 				}
 
@@ -182,7 +182,7 @@ public class Spawn10to15 {
 					}
 				}
 				if (spawnTimer == 0) {
-					handler.addObject(new EnemyDash(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -9, ID.EnemySmart, handler));
+					handler.addObject(new EnemyDash(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -7, ID.EnemySmart, handler));
 					spawnTimer = 100;
 				}
 				if (levelTimer == 0) {
@@ -244,6 +244,7 @@ public class Spawn10to15 {
 				if (tempCounter < 1) {
 					levelTimer = 1400;
 					tempCounter++;
+					handler.addPickup(new NRABonusLife(ID.NRABonusLife, handler));
 				}
 				if (game.gameState == STATE.Coop) {
 					if (voteTimer == 0) {
@@ -273,41 +274,39 @@ public class Spawn10to15 {
 			}
 		
 			else if (levelNumber == 101) {
-				
-				
-				levelTimer--;
-				if (tempCounter < 1) {
-					levelTimer = 2000;
+			timer--;
+			levelTimer--;
+			if (tempCounter < 1) {
+				levelTimer = 2500;
 				tempCounter++;
-
-					if (hud.health <= 60) {
-						handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
-					} else {
-						handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
-					}
-
-					handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT - 200, ID.BossEye, handler, 1));
-					handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT - 200, ID.BossEye, handler, 2));
-					handler.addObject(new BossEye(50, Game.HEIGHT - 200, ID.BossEye, handler, 3));
-					handler.addObject(new BossEye(Game.WIDTH - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
-					handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
-					handler.addObject(new BossEye(50, Game.HEIGHT / 2 - 120, ID.BossEye, handler, 6));
-					handler.addObject(new BossEye(Game.WIDTH - 150, 50, ID.BossEye, handler, 7));
-					handler.addObject(new BossEye(Game.WIDTH / 2 - 50, 50, ID.BossEye, handler, 8));
-					handler.addObject(new BossEye(50, 50, ID.BossEye, handler, 9));
-					hud.setBossLevel("Boss Three");
-					hud.setBoss(true);
+		
+				if (hud.health <= 60) {
+					handler.addPickup(new PutinHealth(ID.PutinHealth, handler));
+				} else {
+					handler.addPickup(new TwitterSpeed(ID.TwitterSpeed, handler));
 				}
-
-				if (levelTimer == 0) {
-					GameObject tempObject = handler.object.get(1);
-					if (tempObject.getId() == ID.BossEye) {
-						handler.pickups.clear();
-						handler.removeObject(tempObject);
-						levelTimer += 200;
-					}
-				}
+		
 			}
+		
+			if (timer <= 0) {
+		
+				handler.addObject(new HillaryBoss(-250, 250, hud.getHillaryX(), hud.getHillaryY(), 250, side[r.nextInt(4)], ID.HillaryBoss, handler));
+				handler.addPickup(new HillaryEmail(ID.HillaryEmail, handler));
+				timer = 30;
+		
+			}
+			hud.setBossLevel("Boss Three");
+			hud.setBoss(true);
+		
+			if (levelTimer== 0) {
+				handler.clearEnemies();
+				handler.pickups.clear();
+					hud.setBoss(false);
+					Spawn1to5.LEVEL_SET++;
+					Player.playerSpeed = 10;
+
+			}
+		}
 	}
 	public void skipLevel() {
 		if (levelsRemaining == 1) {
