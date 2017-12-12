@@ -1,23 +1,26 @@
 Below will be the known bugs that are still within the game.
 
 In general:
-There is still a lot of code and accessories that are not used and should be deleted.
-(Ex: upgrade abilities, regen, unneeded image folders)
+- There is still a lot of code and accessories that are not used and should be deleted. (Ex: upgrade abilities, regen, unneeded image folders)
+- The death sound only plays in Waves mode, not all four game modes.
 
 In Waves Mode:
-Boss 2 (Jimmy Kimmel) does not always stay on screen.
-The NRA logo pick up does not have a sound associated with it.
-The levels do not consistently load when the game is restarted through the menu.
+- Boss 2 (Jimmy Kimmel) does not always stay on screen.
+- The NRA logo pick up does not have a sound associated with it.
+- The levels do not consistently load when the game is restarted through the menu.
+
 
 In Coop Mode:
-Pickups affect both players, not just the one that hits it.
-Levels do not restart after someone wins or loses and the players go back to the menu screen to play again.
+- Pickups affect both players, not just the one that hits it.
+- Levels do not restart after someone wins or loses and the players go back to the menu screen to play again.
 
 In Attack Mode:
-If the player is moving with WSAD and is using a laptop mouse, they will not be able to move and aim their shot at the same time. If the player is using
+- On some laptops, if the player is moving with WSAD and is using a laptop mouse, they will not be able to move and aim their shot at the same time. 
+This has to do with a laptop's preset settings that prevent use of the same side of the keyboard at the same time.  
+It can be turned off through your laptop settings and the issue will be removed. If the player is using
 WSAD to move and a mobile mouse to shoot, or the arrow keys to move, the issue is not present. 
 
 In Defense Mode:
-The algorithm for the enemies following the player or the server needs to be improved.  Even when the enemy is closer to the server it will have a tendency to move with the
+- The algorithm for the enemies following the player or the server needs to be improved.  Even when the enemy is closer to the server it will have a tendency to move with the
 key inputs of the player (same direction).
-This game mode also does not have a formal way to win.
+- This game mode also does not have a formal way to win.
