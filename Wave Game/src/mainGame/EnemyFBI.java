@@ -5,7 +5,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 /**
- * A new type of enemy added into the game (cycle 3)
+ * A new type of enemy added into the game (cycle 3). Combines both enemySmart and enemeyShooter to create an
+ * 		enemy that will both track down and shoot at the player.
  * 
  * @author Eric Kinney 11/6/17
  *
@@ -14,27 +15,30 @@ import java.awt.Rectangle;
 public class EnemyFBI extends GameObject {
 
 	private Handler handler;
-	private GameObject player, player2;
-	private int speed;
-	private int timer;
+	private GameObject player, player2, server; 
+	private int speed; //speed for the tracking part of the enemy 
+	private int timer; 
 	private int sizeX;
 	private int sizeY;
-	private double bulletVelX;
+	private double bulletVelX; 
 	private double bulletVelY;
-	private int bulletSpeed;
+	private int bulletSpeed; //speed at which bullets are fired
 
 	public EnemyFBI(double x, double y, int speed, int bulletSpeed, ID id, Handler handler) {
+	
+		
 		super(x, y, id);
-		this.handler = handler;
+		this.handler = handler; 
 		this.speed = speed;
 		this.velX = 0;
 		this.velY = 0;
 		this.bulletSpeed = bulletSpeed;
 		this.timer = 0;
-		player = null;
+		player  = null;
 		player2 = null;
+		server  = null;
 		
-		for (int i = 0; i < handler.object.size(); i++) {
+		for (int i = 0; i < handler.object.size(); i++) { //adding both ID's for the players for CO-OP
 			if (handler.object.get(i).getId() == ID.Player)
 				player = handler.object.get(i);
 			if (handler.object.get(i).getId() == ID.Player2)
@@ -87,7 +91,23 @@ public class EnemyFBI extends GameObject {
 			velY = ((this.speed / distance2) * diffy2);// numerator affects speed of enemy
 		} 
 		
+		if(server != null) {
+		double diffx3 = this.x - server.getX() - 16;
+		double diffy3 = this.y - server.getY() - 16;
+		double distance3 = Math.sqrt(((this.x - server.getX()) * (this.x - server.getX())) + 
+				((this.y - server.getY()) * (this.y - server.getY())));
+		// Conditional to pull the enemy to different players
+		if (distance2 < distance3) {
+			velX = ((this.speed / distance2) * diffx2); // numerator affects speed of enemy
+			velY = ((this.speed / distance2) * diffy2);// numerator affects speed of enemy
+		} else {
+			velX = ((this.speed / distance3) * diffx3); // numerator affects speed of enemy
+			velY = ((this.speed / distance3) * diffy3);// numerator affects speed of enemy
+		} 
+		
 		}
+		}
+		
 		if(player2 == null) {
 		velX = ((this.speed / distance) * diffX); // numerator affects speed of enemy
 		velY = ((this.speed / distance) * diffY);// numerator affects speed of enemy
@@ -100,7 +120,7 @@ public class EnemyFBI extends GameObject {
 
 	}
 	
-public void shoot() {
+public void shoot() { //gets the nearest player and shoots the bullet at that player/
 		
 		double diffX = this.x - player.getX() - 16;
 		double diffY = this.y - player.getY() - 16;
@@ -143,5 +163,4 @@ public void shoot() {
 	public Rectangle getBounds() {
 		return new Rectangle((int) this.x, (int) this.y, 16, 16);
 	}
-
 }

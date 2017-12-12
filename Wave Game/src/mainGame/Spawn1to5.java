@@ -1,3 +1,4 @@
+
 package mainGame;
 
 import java.util.ArrayList;
@@ -175,7 +176,6 @@ public class Spawn1to5 {
 				if (tempCounter < 1) {
 					levelTimer = 1500;
 					tempCounter++;
-					handler.addPickup(new NRABonusLife(ID.NRABonusLife, handler));
 				}
 				if (game.gameState == STATE.Coop) {
 					if (voteTimer == 0) {
@@ -294,7 +294,7 @@ public class Spawn1to5 {
 								handler.removeObject(tempObject);
 								handler.pickups.clear();
 								hud.setBoss(false);
-								LEVEL_SET++;
+								LEVEL_SET++; //public static int that determines what set of levels to load next
 								//game.gameState = STATE.Upgrade;
 								Player.playerSpeed = 10;
 							}
@@ -329,4 +329,5 @@ public class Spawn1to5 {
 		index = r.nextInt(levelsRemaining);
 
 	}
+
 }

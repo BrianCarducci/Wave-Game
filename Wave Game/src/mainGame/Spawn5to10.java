@@ -5,6 +5,13 @@ import java.util.Random;
 
 import mainGame.Game.STATE;
 
+/**
+ * 
+ * @author Eric Kinney
+ * New Class added to create levels 5 to 10 and the Hillary boss. 
+ * Added on 11/27/17
+ * 
+ */
 
 public class Spawn5to10 {
 	private Handler handler;
@@ -322,6 +329,6 @@ public class Spawn5to10 {
 		levelTimer = 150;
 		levelsRemaining = 10;
 		index = r.nextInt(levelsRemaining);
-
 	}
 }
+
