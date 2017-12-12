@@ -247,6 +247,8 @@ public class Spawn1to5 {
 				if (tempCounter < 1) {
 					levelTimer = 1400;
 					tempCounter++;
+					
+					handler.addPickup(new NFLSpeed(ID.NFLSpeed, handler));
 				}
 				if (game.gameState == STATE.Coop) {
 					if (voteTimer == 0) {
