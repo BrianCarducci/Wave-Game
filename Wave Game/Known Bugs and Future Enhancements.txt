@@ -1,15 +1,15 @@
-Below will be the known bugs that are still within the game.
+Below will be the known bugs that are still within the game and suggested enhancements to be implemented.
 
 In general:
 - There is still a lot of code and accessories that are not used and should be deleted. (Ex: upgrade abilities, regen, unneeded image folders)
 - The death sound only plays in Waves mode, not all four game modes.
 - The game over screen's font is inconsistent for different game modes.
+- A lot of code is reused, therefore functions should be implemented instead
 
 In Waves Mode:
 - Boss 2 (Jimmy Kimmel) does not always stay on screen.
 - The NRA logo pick up does not have a sound associated with it.
 - The levels do not consistently load when the game is restarted through the menu.
-
 
 In Coop Mode:
 - Pickups affect both players, not just the one that hits it.
@@ -25,3 +25,12 @@ In Defense Mode:
 - The algorithm for the enemies following the player or the server needs to be improved.  Even when the enemy is closer to the server it will have a tendency to move with the
 key inputs of the player (same direction).
 - This game mode also does not have a formal way to win.
+
+Room for Future Improvement (Enhancements)
+- Continue to update the theme or change it to something of your liking
+- Add new sounds, specifically for pickups without sound
+- Leaderboards feature
+- Pause game feature
+- Continue to build Attack mode
+
+P.S. if you press the spacebar during levels it will skip the level (except the bosses).  This is strictly for development purposes however easter eggs are always fun. Bosses can be skipped for development purposes by decreasing their set health or level timer.
